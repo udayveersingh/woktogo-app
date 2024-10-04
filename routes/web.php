@@ -9,3 +9,6 @@ Route::get('/register', function () {  return view('register'); });
 Route::get('/register2', function () {  return view('registerStep2'); });
 Route::get('/register3', function () {  return view('registerStep3'); });
 Route::get('/register4', function () {  return view('registerStep4'); });
+Route::get('/my-account', function () {  return view('myAccount'); });
+Route::get('/my-deals', function () {  return view('myDeals'); });
+Route::get('/deal-info', function () {  return view('dealInfo'); });
