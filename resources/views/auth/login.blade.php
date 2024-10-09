@@ -59,6 +59,13 @@
     </div>
     @endsession
 
+    @session('success')
+    <div class="alert alert-success" role="alert">
+        {{ $value }}
+    </div>
+    @endsession
+
+
     <form action="{{route('login.post')}}" method="POST">
         @csrf
         <div class="flex flex-col gap-2 mb-4">
