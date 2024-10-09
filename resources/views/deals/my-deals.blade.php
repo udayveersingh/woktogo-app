@@ -8,14 +8,30 @@
 </div>
 
 <div class="px-5 py-12 max-w-[500px] mx-auto">
+    @session('success')
+    <div class="alert alert-success" role="alert">
+        {{ $value }}
+    </div>
+    @endsession
 
     <a href="{{ url()->previous() }}" class="rounded-full bg-red w-8 h-8 border-none inline-flex justify-center items-center mb-10">
-    <svg width="24" height="24" fill="#fff" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">  <g data-name="Layer 2">  <g data-name="arrow-ios-back">  <rect width="24" height="24" transform="rotate(90 12 12)" opacity="0"></rect>  <path d="M13.83 19a1 1 0 0 1-.78-.37l-4.83-6a1 1 0 0 1 0-1.27l5-6a1 1 0 0 1 1.54 1.28L10.29 12l4.32 5.36a1 1 0 0 1-.78 1.64z"></path></g></g></svg>
+        <svg width="24" height="24" fill="#fff" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <g data-name="Layer 2">
+                <g data-name="arrow-ios-back">
+                    <rect width="24" height="24" transform="rotate(90 12 12)" opacity="0"></rect>
+                    <path d="M13.83 19a1 1 0 0 1-.78-.37l-4.83-6a1 1 0 0 1 0-1.27l5-6a1 1 0 0 1 1.54 1.28L10.29 12l4.32 5.36a1 1 0 0 1-.78 1.64z"></path>
+                </g>
+            </g>
+        </svg>
     </a>
 
     <div class="flex flex-col rounded-xl overflow-hidden text-center relative bg-white mb-8 py-8 px-3">
         <button class="absolute right-4 top-4">
-        <svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="2 2 20 20"> <g id="Warning / Info"> <path id="Vector" d="M12 11V16M12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21ZM12.0498 8V8.1L11.9502 8.1002V8H12.0498Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g> </svg>
+            <svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="2 2 20 20">
+                <g id="Warning / Info">
+                    <path id="Vector" d="M12 11V16M12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21ZM12.0498 8V8.1L11.9502 8.1002V8H12.0498Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                </g>
+            </svg>
         </button>
 
         <img src="{{ asset('images/barcode.png') }}" alt="deal" class="max-w-20 mx-auto" />
@@ -41,10 +57,10 @@
                 </div>
             </div>
             <div class="card-back hidden absolute top-0 left-0 right-0 bottom-0 bg-white items-center justify-center gap-2 flex-col">
-            <img src="{{ asset('images/barcode.png') }}" alt="deal" class="max-w-40 mx-auto mt-2" />
-            <button class="bg-secondary text-white text-xl font-bold p-2 w-full inline-block rounded-md mt-4 max-w-[200px] hideDealScanner">Annuleer</button>
+                <img src="{{ asset('images/barcode.png') }}" alt="deal" class="max-w-40 mx-auto mt-2" />
+                <button class="bg-secondary text-white text-xl font-bold p-2 w-full inline-block rounded-md mt-4 max-w-[200px] hideDealScanner">Annuleer</button>
             </div>
-            
+
         </div><!--/Deal card -->
 
         <div class="flex flex-col rounded-xl text-center overflow-hidden group relative dealCardWrapper">
@@ -59,14 +75,14 @@
                 </div>
             </div>
             <div class="card-back hidden absolute top-0 left-0 right-0 bottom-0 bg-white items-center justify-center gap-2 flex-col">
-            <img src="{{ asset('images/barcode.png') }}" alt="deal" class="max-w-40 mx-auto mt-2" />
-            <button class="bg-secondary text-white text-xl font-bold p-2 w-full inline-block rounded-md mt-4 max-w-[200px] hideDealScanner">Annuleer</button>
+                <img src="{{ asset('images/barcode.png') }}" alt="deal" class="max-w-40 mx-auto mt-2" />
+                <button class="bg-secondary text-white text-xl font-bold p-2 w-full inline-block rounded-md mt-4 max-w-[200px] hideDealScanner">Annuleer</button>
             </div>
-            
+
         </div><!--/Deal card -->
 
         <div class="flex flex-col rounded-xl text-center overflow-hidden group relative dealCardWrapper {{  'grayscale after:bg-[#D6D6D6] after:absolute after:left-0 after:right-0 after:top-0 after:bottom-0 after:opacity-50 after:z-10' }}">
-        
+
             <div class="card-front bg-secondary">
                 <div class="p-4">
                     <img src="{{ asset('images/deal.webp') }}" alt="deal" class="max-w-20 mx-auto" />
@@ -78,10 +94,10 @@
                 </div>
             </div>
             <div class="card-back hidden absolute top-0 left-0 right-0 bottom-0 bg-white items-center justify-center gap-2 flex-col">
-            <img src="{{ asset('images/barcode.png') }}" alt="deal" class="max-w-40 mx-auto mt-2" />
-            <button class="bg-secondary text-white text-xl font-bold p-2 w-full inline-block rounded-md mt-4 max-w-[200px] hideDealScanner">Annuleer</button>
+                <img src="{{ asset('images/barcode.png') }}" alt="deal" class="max-w-40 mx-auto mt-2" />
+                <button class="bg-secondary text-white text-xl font-bold p-2 w-full inline-block rounded-md mt-4 max-w-[200px] hideDealScanner">Annuleer</button>
             </div>
-            
+
         </div><!--/Deal card -->
 
     </div>

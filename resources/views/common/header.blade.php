@@ -4,7 +4,9 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Woktogo</title>
+
         @vite('resources/css/app.css')
+
     </head>
     <body class="font-sans antialiased dark:bg-black dark:text-white/50 flex flex-col h-full">
     <div class="bg-secondary py-4 h-[63px] px-5 flex justify-between z-10">
