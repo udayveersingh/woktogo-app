@@ -54,13 +54,13 @@
     <hr class="my-8" />
 
     @session('error')
-    <div class="alert alert-danger" role="alert">
+    <div class="bg-[#b91f25]/[0.5] rounded-xl border border-red p-1 text-white text-sm text-center my-1" role="alert">
         {{ $value }}
     </div>
     @endsession
 
     @session('success')
-    <div class="alert alert-success" role="alert">
+    <div class="bg-[#196450]/[0.5] rounded-xl border border-secondary p-1 text-white text-sm text-center my-1" role="alert">
         {{ $value }}
     </div>
     @endsession

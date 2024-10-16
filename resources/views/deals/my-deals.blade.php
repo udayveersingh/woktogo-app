@@ -9,7 +9,7 @@
 
 <div class="px-5 py-12 max-w-[500px] mx-auto">
     @session('success')
-    <div class="alert alert-success" role="alert">
+    <div class="bg-[#196450]/[0.5] rounded-xl border border-secondary p-1 text-white text-sm text-center my-1" role="alert">
         {{ $value }}
     </div>
     @endsession
