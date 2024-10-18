@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DealsController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 
 // Route::get('/', function () {  return view('auth.login'); });
 // Route::get('/login', function () {  return view('loginStep2'); });
@@ -27,7 +30,23 @@ Route::post('/register/step3', [AuthController::class, 'postStep2'])->name('regi
 Route::get('/register/step3', [AuthController::class, 'showStep3'])->name('register.step3.show');
 Route::post('/register/step4', [AuthController::class, 'postStep3'])->name('register.step4');
 Route::get('/register/step4', [AuthController::class, 'showStep4'])->name('register.step4.show');
+Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
 
+// Route to show the reset password form
+Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+
+// Route to handle the password reset
+Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
+
+Route::middleware(['admin'])->group(function () {
+    Route::get('/dashboard',[AdminController::class,'dashboard'])->name('dashboard');
+    Route::get('/show-users',[AdminController::class,'show_users'])->name('show-user');
+    Route::get('/users/{id}/edit', [AdminController::class, 'edit'])->name('users.edit');
+    Route::put('/users/{id}', [AdminController::class, 'update'])->name('users.update');
+    Route::delete('/users/{id}', [AdminController::class, 'destroy'])->name('users.destroy');
+
+});
 
 Route::get('/my-deals',[DealsController::class, 'dealView'])->name('my-deals');
 Route::get('/deal-info',[DealsController::class,'dealInfo'])->name('deal-info');

@@ -96,9 +96,10 @@
     </form>
 
     <div class="text-center mt-7">
-        <a href="#" class="underline">Wachtwoord vergeten?</a>
+        <a href="{{ route('password.request') }}" class="underline">Wachtwoord vergeten?</a>
         <div class="mt-8">Geen account? <a class="underline text-white" href="/register">Maak een account aan</a></div>
     </div>
+    
 
 </div>
 

@@ -10,7 +10,11 @@ class DealsController extends Controller
     public function dealView()
     {
         if (Auth::check()) {
-            return view('deals.my-deals');
+            if(Auth::user()->role == "admin"){
+                return view('admin.dashboard');
+            }else{
+                return view('deals.my-deals');
+            }
         } else {
             return redirect("login");
         }
