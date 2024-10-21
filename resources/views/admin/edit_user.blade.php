@@ -12,24 +12,25 @@
        </div>
     @endif
 
-    <form action="{{ route('users.update', $user->id) }}" method="POST">
+    <form action="{{ route('users.update', $user->id) }}" method="POST" class="bg-white p-6 rounded-lg shadow-md">
         @csrf
         @method('PUT')
 
         <div class="mb-4">
             <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
-            <input type="text" name="name" id="name" value="{{ old('name', $user->name) }}" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm" required>
+            <input type="text" name="name" id="name" value="{{ old('name', $user->name) }}" class="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
         </div>
 
         <div class="mb-4">
             <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-            <input type="email" name="email" id="email" value="{{ old('email', $user->email) }}" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm" required>
+            <input type="email" name="email" id="email" value="{{ old('email', $user->email) }}" class="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
         </div>
 
-        <div class="mb-4">
+        <div class="mb-4"> {{$user->role}}
             <label for="role" class="block text-sm font-medium text-gray-700">Role</label>
-            <select name="role" id="role" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm" required>
-                <option value="normal" {{ $user->role == 'normal' ? 'selected' : '' }}>Normal</option>
+            <select name="role" id="role" class="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                <option value="user" {{ $user->role == 'user' ? 'selected' : '' }}>User</option>
+                <option value="sub_admin" {{ $user->role == 'sub_admin' ? 'selected' : '' }}>Sub Admin</option>
                 <option value="admin" {{ $user->role == 'admin' ? 'selected' : '' }}>Admin</option>
             </select>
         </div>

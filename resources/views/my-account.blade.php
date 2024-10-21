@@ -22,10 +22,10 @@
 
     <div class="bg-white rounded-xl shadow-[2px_0_46px_0] shadow-[#00000029] p-8 flex flex-col gap-7">
         <div class="w-20 h-20 rounded-full bg-gray-200 overflow-hidden">
-            <img class="w-full object-cover h-full" src="{{ asset('images/user.png') }}" alt="user" />
+            <img class="w-full object-cover h-full" src="{{ Storage::url(auth()->user()->thumbnail) }}" alt="user" />
         </div>
-        <a href="#" class="text-black text-lg">Bewerk profiel</a>
-        <a href="#" class="text-black text-lg">Verander wachtwoord</a>
+        <a href="{{ route('profile.edit') }}" class="text-black text-lg">Bewerk profiel</a>
+        <a href="{{ route('password.change') }}" class="text-black text-lg">Verander wachtwoord</a>
         <a href="#" class="text-black text-lg">Help</a>
         <a href="{{ route('logout') }}" class="text-red text-lg"   onclick="event.preventDefault();
                                  document.getElementById('logout-form').submit();">Log uit</a>

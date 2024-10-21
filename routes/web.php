@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DealsController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\ProfileController;
 
 // Route::get('/', function () {  return view('auth.login'); });
 // Route::get('/login', function () {  return view('loginStep2'); });
@@ -46,10 +47,25 @@ Route::middleware(['admin'])->group(function () {
     Route::put('/users/{id}', [AdminController::class, 'update'])->name('users.update');
     Route::delete('/users/{id}', [AdminController::class, 'destroy'])->name('users.destroy');
 
+    Route::get('/deals', [DealsController::class, 'index'])->name('admin.deals.index');
+    Route::get('/deals/create', [DealsController::class, 'create'])->name('admin.deals.create');
+    Route::post('/deals/store', [DealsController::class, 'store'])->name('admin.deals.store');
+    Route::get('/deals/{id}/edit', [DealsController::class, 'edit'])->name('admin.deals.edit');
+    Route::put('/deals/{id}', [DealsController::class, 'update'])->name('admin.deals.update');
+    Route::delete('/deals/{id}', [DealsController::class, 'destroy'])->name('admin.deals.destroy');
+
 });
+
+Route::get('/owner-page',[DealsController::class, 'owner_page'])->name('owner_page');
+
 
 Route::get('/my-deals',[DealsController::class, 'dealView'])->name('my-deals');
 Route::get('/deal-info',[DealsController::class,'dealInfo'])->name('deal-info');
 Route::get('/my-account',[DealsController::class,'myAccount'])->name('my-account');
+
+Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+Route::get('/change-password', [ProfileController::class, 'showChangePasswordForm'])->name('password.change');
+Route::post('/change-password', [ProfileController::class, 'changePassword'])->name('password.update');
 
 
