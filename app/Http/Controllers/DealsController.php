@@ -13,6 +13,8 @@ class DealsController extends Controller
         if (Auth::check()) {
             if(Auth::user()->role == "admin"){
                 return view('admin.dashboard');
+            }else if(Auth::user()->role == "sub_admin"){
+                return redirect()->route('owner_page');
             }else{
                 return view('deals.my-deals');
             }
@@ -108,5 +110,9 @@ class DealsController extends Controller
         $deal->delete();
 
         return redirect()->route('admin.deals.index')->with('success', 'Deal deleted successfully.');
+    }
+
+    public function owner_page(Request $request){
+        return view('owner_page');
     }
 }
