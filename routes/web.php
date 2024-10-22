@@ -7,6 +7,7 @@ use App\Http\Controllers\DealsController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\OwnerController;
 
 // Route::get('/', function () {  return view('auth.login'); });
 // Route::get('/login', function () {  return view('loginStep2'); });
@@ -56,7 +57,8 @@ Route::middleware(['admin'])->group(function () {
 
 });
 
-Route::get('/owner-page',[DealsController::class, 'owner_page'])->name('owner_page');
+Route::get('/owner-page',[OwnerController::class, 'owner_page'])->name('owner_page');
+Route::get('/owner-scan-one',[OwnerController::class, 'owner_scan_one'])->name('owner_scan_one');
 
 
 Route::get('/my-deals',[DealsController::class, 'dealView'])->name('my-deals');

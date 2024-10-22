@@ -111,8 +111,5 @@ class DealsController extends Controller
 
         return redirect()->route('admin.deals.index')->with('success', 'Deal deleted successfully.');
     }
-
-    public function owner_page(Request $request){
-        return view('owner_page');
-    }
+   
 }
