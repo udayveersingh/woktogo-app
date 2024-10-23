@@ -23,8 +23,8 @@ use App\Http\Controllers\OwnerController;
 
 Route::get('/', [AuthController::class, 'index'])->name('login');
 Route::get('/login', [AuthController::class, 'index'])->name('login');
-Route::post('/logout',[AuthController::class, 'logout'])->name('logout');
-Route::post('post-login', [AuthController::class, 'postLogin'])->name('login.post'); 
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::post('post-login', [AuthController::class, 'postLogin'])->name('login.post');
 Route::get('/register', [AuthController::class, 'registration'])->name('register');
 Route::post('/register/step2', [AuthController::class, 'postStep1'])->name('register.step2');
 Route::get('/register/step2', [AuthController::class, 'showStep2'])->name('register.step2.show');
@@ -42,8 +42,8 @@ Route::get('password/reset/{token}', [ResetPasswordController::class, 'showReset
 Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
 
 Route::middleware(['admin'])->group(function () {
-    Route::get('/dashboard',[AdminController::class,'dashboard'])->name('dashboard');
-    Route::get('/show-users',[AdminController::class,'show_users'])->name('show-user');
+    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+    Route::get('/show-users', [AdminController::class, 'show_users'])->name('show-user');
     Route::get('/users/{id}/edit', [AdminController::class, 'edit'])->name('users.edit');
     Route::put('/users/{id}', [AdminController::class, 'update'])->name('users.update');
     Route::delete('/users/{id}', [AdminController::class, 'destroy'])->name('users.destroy');
@@ -54,20 +54,18 @@ Route::middleware(['admin'])->group(function () {
     Route::get('/deals/{id}/edit', [DealsController::class, 'edit'])->name('admin.deals.edit');
     Route::put('/deals/{id}', [DealsController::class, 'update'])->name('admin.deals.update');
     Route::delete('/deals/{id}', [DealsController::class, 'destroy'])->name('admin.deals.destroy');
-
 });
 
-Route::get('/owner-page',[OwnerController::class, 'owner_page'])->name('owner_page');
-Route::get('/owner-scan-one',[OwnerController::class, 'owner_scan_one'])->name('owner_scan_one');
+Route::get('/owner-page', [OwnerController::class, 'owner_page'])->name('owner_page');
+Route::get('/owner-scan-one', [OwnerController::class, 'owner_scan_one'])->name('owner_scan_one');
+Route::get('/owner-scan-two', [OwnerController::class, 'owner_scan_two'])->name('owner_scan_two');
 
 
-Route::get('/my-deals',[DealsController::class, 'dealView'])->name('my-deals');
-Route::get('/deal-info',[DealsController::class,'dealInfo'])->name('deal-info');
-Route::get('/my-account',[DealsController::class,'myAccount'])->name('my-account');
+Route::get('/my-deals', [DealsController::class, 'dealView'])->name('my-deals');
+Route::get('/deal-info', [DealsController::class, 'dealInfo'])->name('deal-info');
+Route::get('/my-account', [DealsController::class, 'myAccount'])->name('my-account');
 
 Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
 Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
 Route::get('/change-password', [ProfileController::class, 'showChangePasswordForm'])->name('password.change');
 Route::post('/change-password', [ProfileController::class, 'changePassword'])->name('password.update');
-
-
