@@ -45,60 +45,26 @@
     </div><!--/ Information Card -->
 
     <div class="deal_list flex flex-col gap-7">
-        <div class="flex flex-col rounded-xl text-center overflow-hidden group relative dealCardWrapper">
-            <div class="card-front bg-secondary">
-                <div class="p-4">
-                    <img src="{{ asset('images/deal.webp') }}" alt="deal" class="max-w-20 mx-auto" />
-                </div>
-                <div class="bg-white p-4">
-                    <h2 class="font-bold text-2xl mb-1">10% korting op menu</h2>
-                    <p class="text-sm">Geldig tot 31 november 2024</p>
-                    <button class="bg-secondary text-white text-xl font-bold p-2 w-full inline-block rounded-md mt-4 max-w-[200px] showDealScanner">Claim deal</button>
-                </div>
-            </div>
-            <div class="card-back hidden absolute top-0 left-0 right-0 bottom-0 bg-white items-center justify-center gap-2 flex-col">
-                <img src="{{ asset('images/barcode.png') }}" alt="deal" class="max-w-40 mx-auto mt-2" />
-                <button class="bg-secondary text-white text-xl font-bold p-2 w-full inline-block rounded-md mt-4 max-w-[200px] hideDealScanner">Annuleer</button>
-            </div>
 
-        </div><!--/Deal card -->
-
-        <div class="flex flex-col rounded-xl text-center overflow-hidden group relative dealCardWrapper">
-            <div class="card-front bg-secondary">
-                <div class="p-4">
-                    <img src="{{ asset('images/deal.webp') }}" alt="deal" class="max-w-20 mx-auto" />
+        @foreach ($all_deals as $item)
+            <div class="flex flex-col rounded-xl text-center overflow-hidden group relative dealCardWrapper">
+                <div class="card-front bg-secondary">
+                    <div class="p-4">
+                        <img src="{{ asset($item->image) }}" alt="deal" class="max-w-20 mx-auto" />
+                    </div>
+                    <div class="bg-white p-4">
+                        <h2 class="font-bold text-2xl mb-1">{{ $item->title }}</h2>
+                        <p class="text-sm">{{ $item->description }}</p>
+                        <button class="bg-secondary text-white text-xl font-bold p-2 w-full inline-block rounded-md mt-4 max-w-[200px] showDealScanner">Claim deal</button>
+                    </div>
                 </div>
-                <div class="bg-white p-4">
-                    <h2 class="font-bold text-2xl mb-1">2 voor de prijs van 1</h2>
-                    <p class="text-sm">Geldig tot 31 december 2024</p>
-                    <button class="bg-secondary text-white text-xl font-bold p-2 w-full inline-block rounded-md mt-4 max-w-[200px] showDealScanner">Claim deal</button>
+                <div class="card-back hidden absolute top-0 left-0 right-0 bottom-0 bg-white items-center justify-center gap-2 flex-col">
+                    <img src="{{ asset('images/barcode.png') }}" alt="deal" class="max-w-40 mx-auto mt-2" />
+                    <button class="bg-secondary text-white text-xl font-bold p-2 w-full inline-block rounded-md mt-4 max-w-[200px] hideDealScanner">Annuleer</button>
                 </div>
-            </div>
-            <div class="card-back hidden absolute top-0 left-0 right-0 bottom-0 bg-white items-center justify-center gap-2 flex-col">
-                <img src="{{ asset('images/barcode.png') }}" alt="deal" class="max-w-40 mx-auto mt-2" />
-                <button class="bg-secondary text-white text-xl font-bold p-2 w-full inline-block rounded-md mt-4 max-w-[200px] hideDealScanner">Annuleer</button>
-            </div>
 
-        </div><!--/Deal card -->
-
-        <div class="flex flex-col rounded-xl text-center overflow-hidden group relative dealCardWrapper {{  'grayscale after:bg-[#D6D6D6] after:absolute after:left-0 after:right-0 after:top-0 after:bottom-0 after:opacity-50 after:z-10' }}">
-
-            <div class="card-front bg-secondary">
-                <div class="p-4">
-                    <img src="{{ asset('images/deal.webp') }}" alt="deal" class="max-w-20 mx-auto" />
-                </div>
-                <div class="bg-white p-4">
-                    <h2 class="font-bold text-2xl mb-1">10% korting op menu</h2>
-                    <p class="text-sm">Geldig tot 31 november 2024</p>
-                    <button class="bg-secondary text-white text-xl font-bold p-2 w-full inline-block rounded-md mt-4 max-w-[200px] showDealScanner">Claimed</button>
-                </div>
-            </div>
-            <div class="card-back hidden absolute top-0 left-0 right-0 bottom-0 bg-white items-center justify-center gap-2 flex-col">
-                <img src="{{ asset('images/barcode.png') }}" alt="deal" class="max-w-40 mx-auto mt-2" />
-                <button class="bg-secondary text-white text-xl font-bold p-2 w-full inline-block rounded-md mt-4 max-w-[200px] hideDealScanner">Annuleer</button>
-            </div>
-
-        </div><!--/Deal card -->
+            </div><!--/Deal card -->
+        @endforeach
 
     </div>
 

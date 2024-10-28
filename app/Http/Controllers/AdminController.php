@@ -2,15 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Response;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
     public function dashboard()
     {
         // Return the admin dashboard view
-        return view('admin.dashboard');
+        // return view('admin.dashboard');
+        if (Auth::check()) {
+            // Redirect based on role
+            return view('admin.dashboard');
+        }
+
+        return view('auth.login');
     }
 
     public function show_users()
@@ -62,6 +71,18 @@ class AdminController extends Controller
 
         // Redirect back to the users list with a success message
         return redirect()->route('show-user')->with('success', 'User deleted successfully!');
+    }
+
+    public function view($id){
+        $user = User::find($id);
+        $responses = DB::table('responses')
+        ->join('questions', 'responses.question_id', '=', 'questions.id')
+        ->join('options', 'responses.option_id', '=', 'options.id')
+        ->where('responses.user_id', $user->id)
+        ->select('questions.question_text as question_text', 'options.option_text as answer_text')
+        ->get();
+
+        return view('admin.view', compact('user', 'responses'));
     }
     
 }

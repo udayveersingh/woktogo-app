@@ -29,22 +29,18 @@
             <textarea class="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" id="description" name="description" rows="4" required>{{ $deal->description }}</textarea>
         </div>
         <div class="mb-4">
-            <label for="price" class="block text-gray-700 font-medium mb-2">Price</label>
-            <input type="number" step="0.01" class="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" id="price" name="price" value="{{ $deal->price }}" required>
-        </div>
-        <div class="mb-4">
             <label for="image" class="block text-gray-700 font-medium mb-2">Deal Image</label>
             <input type="file" class="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" id="image" name="image" accept="image/*">
             @if ($deal->image)
                 <div class="mt-2">
-                    <img src="{{ Storage::url($deal->image) }}" alt="Current Deal Image" class="w-32 h-32 object-cover rounded-md">
+                    <img src="{{ asset($deal->image) }}" alt="Current Deal Image" class="w-32 h-32 object-cover rounded-md">
                 </div>
             @endif
         </div>
-        <div class="mb-4"> {{$deal->deadline}}
+        <div class="mb-4"> 
             {{-- {{ $deal->deadline ? $deal->deadline->format('Y-m-d') : '' }} --}}
             <label for="deadline" class="block text-gray-700 font-medium mb-2">Deadline</label>
-            <input type="date" class="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" id="deadline" name="deadline" value="">
+            <input type="date" class="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" id="deadline" name="deadline" value="{{$deal->deadline}}">
         </div>
         <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300">Update Deal</button>
     </form>

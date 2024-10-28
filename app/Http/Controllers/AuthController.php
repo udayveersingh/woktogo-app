@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Response;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
@@ -17,11 +19,23 @@ class AuthController extends Controller
      */
     public function index()
     {
-        if(!(Auth::check())){
-        return view('auth.login');
-        }else{
-            return redirect()->route('my-deals');
+        // return view('auth.login');
+        // if(!(Auth::check())){
+        //     return view('auth.login');
+        // }else{
+        //     return redirect()->route('my-deals');
+        // }
+
+        if (Auth::check()) {
+            // Redirect based on role
+            return match (Auth::user()->role) {
+                'admin' => redirect()->route('dashboard'),
+                'sub_admin' => redirect()->route('owner_page'),
+                default => redirect('/my-deals'), // Default for other roles
+            };
         }
+
+        return view('auth.login');
     }  
 
 
@@ -35,8 +49,13 @@ class AuthController extends Controller
    
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
-            return redirect()->intended('/my-deals')
-                        ->withSuccess('You have Successfully loggedin.');
+            return match (Auth::user()->role) {
+                'admin' => redirect()->route('dashboard'),
+                'sub_admin' => redirect()->route('owner_page'),
+                default => redirect('/my-deals'), // Default for other roles
+            };
+            // return redirect()->intended('/my-deals')
+            //             ->withSuccess('You have Successfully loggedin.');
         }
   
         return redirect("login")->withError('Oppes! You have entered invalid credentials');
@@ -82,11 +101,35 @@ class AuthController extends Controller
 
     public function showStep3()
     {
-        return view('auth.register-step3');
+        $questions = DB::table('questions')
+        ->leftJoin('options', 'options.question_id', '=', 'questions.id')
+        ->select('questions.id as question_id', 'questions.question_text as question_text', 'options.id as option_id', 'options.option_text as option_text')
+        ->get();
+
+        // dd($formattedQuestions);
+
+        $formattedQuestions = $questions->groupBy('question_id')->map(function ($questionGroup) {
+            return [
+                'question_text' => $questionGroup->first()->question_text,
+                'question_id' => $questionGroup->first()->question_id,
+                'options' => $questionGroup->map(function ($item) {
+                    return [
+                        'option_id' => $item->option_id,
+                        'option_text' => $item->option_text,
+                    ];
+                })->toArray()
+            ];
+        });
+
+        // dd($formattedQuestions);
+        
+        return view('auth.register-step3', compact('formattedQuestions'));
     }
 
     public function postStep3(Request $request)
     {
+
+        // dd($request->all());
         $request->validate([
             'name' => 'required|string|max:255',
             'date_of_birth' => 'required',
@@ -96,6 +139,12 @@ class AuthController extends Controller
         $request->session()->put('registration.name', $request->input('name'));
         $request->session()->put('registration.date_of_birth', $request->input('date_of_birth'));
         $request->session()->put('registration.phone',$request->input('phone'));
+
+        $request->session()->put('registration.responses', $request->input('responses'));
+
+        $allSessionVariables = Session::all();
+
+        // dd($allSessionVariables);
 
         return redirect()->route('register.step4.show');
     }
@@ -112,7 +161,18 @@ class AuthController extends Controller
         $user->password = Hash::make($regisData['password']);
         $user->date_of_birth = $regisData['date_of_birth'];
         $user->phone = $regisData['phone'];
+        // $user->role = 'admin';
         $user->save();
+
+          // Save responses in the responses table
+        foreach ($regisData['responses'] as $questionId => $answer) {
+            DB::table('responses')->insert([
+                'user_id' => $user->id,
+                'question_id' => $questionId,
+                'option_id' => $answer,
+                'created_at' => now(),
+            ]);
+        }
 
         // Clear the session after successful registration
         $request->session()->flush();

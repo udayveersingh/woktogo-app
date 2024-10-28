@@ -12,7 +12,7 @@
 
 <body class="font-sans antialiased dark:bg-black dark:text-white/50 flex flex-col h-full">
     <div class="bg-secondary py-4 h-[63px] px-5 flex justify-between z-10">
-        <a class="relative" href="/"><img class="h-[55px]" src="{{ asset('images/logo.webp') }}" alt="" /></a>
+        <a class="relative" href="/public"><img class="h-[55px]" src="{{ asset('images/logo.webp') }}" alt="" /></a>
 
         @auth
         <!-- Logout Button -->
