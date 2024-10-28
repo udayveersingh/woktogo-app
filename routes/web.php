@@ -60,8 +60,6 @@ Route::get('/owner-page', [OwnerController::class, 'owner_page'])->name('owner_p
 Route::get('/owner-scan-one', [OwnerController::class, 'owner_scan_one'])->name('owner_scan_one');
 Route::get('/owner-scan-two', [OwnerController::class, 'owner_scan_two'])->name('owner_scan_two');
 
-Route::get('forget-password', [ForgotPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
-
 
 Route::get('/my-deals', [DealsController::class, 'dealView'])->name('my-deals');
 Route::get('/deal-info', [DealsController::class, 'dealInfo'])->name('deal-info');
