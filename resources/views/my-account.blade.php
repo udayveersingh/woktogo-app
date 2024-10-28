@@ -7,9 +7,9 @@
     <h1 class="text-2xl relative">Mijn account aanpassen</h1>
 </div>
 
-<div class="px-5 py-12 max-w-[500px] mx-auto">
+<div class="px-5 py-4 max-w-[370px] mx-auto">
 
-    <a href="{{ url()->previous() }}" class="rounded-full bg-red w-8 h-8 border-none inline-flex justify-center items-center mb-20">
+    <a href="{{ url()->previous() }}" class="rounded-full bg-red w-8 h-8 border-none inline-flex justify-center items-center mb-6">
         <svg width="24" height="24" fill="#fff" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <g data-name="Layer 2">
                 <g data-name="arrow-ios-back">
@@ -20,17 +20,29 @@
         </svg>
     </a>
 
-    <div class="bg-white rounded-xl shadow-[2px_0_46px_0] shadow-[#00000029] p-8 flex flex-col gap-7">
+    <div class="bg-white rounded-xl shadow-[2px_0_46px_0] shadow-[#00000029] px-8 pt-10 pb-6 flex flex-col">
         <div class="w-20 h-20 rounded-full bg-gray-200 overflow-hidden">
             <img class="w-full object-cover h-full" src="{{ Storage::url(auth()->user()->thumbnail) }}" alt="user" />
         </div>
-        <a href="{{ route('profile.edit') }}" class="text-black text-lg">Bewerk profiel</a>
-        <a href="{{ route('password.change') }}" class="text-black text-lg">Verander wachtwoord</a>
-        <a href="#" class="text-black text-lg">Help</a>
-        <a href="{{ route('logout') }}" class="text-red text-lg"   onclick="event.preventDefault();
+        <div class="flex justify-between mt-5">
+            <a href="{{ route('profile.edit') }}" class="text-black text-lg font-semibold">Bewerk profiel</a>
+            <button class="font-bold text-xl"> > </button>
+        </div>
+
+        <div class="flex justify-between">
+            <a href="{{ route('password.change') }}" class="text-black text-lg font-semibold">Verander wachtwoord</a>
+            <button class="font-bold text-xl"> > </button>
+        </div>
+
+        <div class="flex justify-between">
+            <a href="#" class="text-black text-lg font-semibold">Help</a>
+            <button class="font-bold text-xl"> > </button>
+        </div>
+
+        <a href="{{ route('logout') }}" class="text-white text-lg text-center w-full bg-red py-2 px-4 mt-36 rounded-md" onclick="event.preventDefault();
                                  document.getElementById('logout-form').submit();">Log uit</a>
         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-        @csrf
+            @csrf
         </form>
     </div>
 
