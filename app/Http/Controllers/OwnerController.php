@@ -13,11 +13,13 @@ class OwnerController extends Controller
         // return view('owner_page');
         if (Auth::check()) {
             // Redirect based on role
-            return match (Auth::user()->role) {
-                'admin' => redirect()->route('dashboard'),
-                'sub_admin' => redirect()->route('owner_page'),
-                default => redirect('/my-deals'), // Default for other roles
-            };
+            // return match (Auth::user()->role) {
+            //     'admin' => redirect()->route('dashboard'),
+            //     'sub_admin' =>view('owner_page'),
+            //     default => redirect('/my-deals'), // Default for other roles
+            // };
+
+            return view('owner_page');
         }
 
         return view('auth.login');
@@ -30,8 +32,8 @@ class OwnerController extends Controller
 
     public function owner_scan_two(Request $request)
     {
-        // $user_qr = QrCode::format('png')->size(400)->generate(Auth::user()->name);
-        $user_qr = QrCode::format('png')->size(400)->generate("Ravi");
+        $user_qr = QrCode::format('png')->size(400)->generate(Auth::user()->name);
+        // $user_qr = QrCode::format('png')->size(400)->generate("Ravi");
         $test = "test";
         return view('owner_scan_two', compact('user_qr', 'test'));
     }

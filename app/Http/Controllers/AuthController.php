@@ -8,11 +8,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class AuthController extends Controller
 {
-   /**
+    /**
      * Write code on Method
      *
      * @return response()
@@ -36,7 +39,7 @@ class AuthController extends Controller
         }
 
         return view('auth.login');
-    }  
+    }
 
 
     public function postLogin(Request $request)
@@ -46,7 +49,7 @@ class AuthController extends Controller
             'email' => 'required',
             'password' => 'required',
         ]);
-   
+
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
             return match (Auth::user()->role) {
@@ -57,11 +60,11 @@ class AuthController extends Controller
             // return redirect()->intended('/my-deals')
             //             ->withSuccess('You have Successfully loggedin.');
         }
-  
+
         return redirect("login")->withError('Oppes! You have entered invalid credentials');
     }
 
-   
+
     public function registration()
     {
         return view('auth.register');
@@ -102,9 +105,9 @@ class AuthController extends Controller
     public function showStep3()
     {
         $questions = DB::table('questions')
-        ->leftJoin('options', 'options.question_id', '=', 'questions.id')
-        ->select('questions.id as question_id', 'questions.question_text as question_text', 'options.id as option_id', 'options.option_text as option_text')
-        ->get();
+            ->leftJoin('options', 'options.question_id', '=', 'questions.id')
+            ->select('questions.id as question_id', 'questions.question_text as question_text', 'options.id as option_id', 'options.option_text as option_text')
+            ->get();
 
         // dd($formattedQuestions);
 
@@ -122,7 +125,7 @@ class AuthController extends Controller
         });
 
         // dd($formattedQuestions);
-        
+
         return view('auth.register-step3', compact('formattedQuestions'));
     }
 
@@ -138,7 +141,7 @@ class AuthController extends Controller
 
         $request->session()->put('registration.name', $request->input('name'));
         $request->session()->put('registration.date_of_birth', $request->input('date_of_birth'));
-        $request->session()->put('registration.phone',$request->input('phone'));
+        $request->session()->put('registration.phone', $request->input('phone'));
 
         $request->session()->put('registration.responses', $request->input('responses'));
 
@@ -155,16 +158,38 @@ class AuthController extends Controller
         // Optionally retrieve all data for display
         $data = $request->session()->all();
         $regisData = $data['registration'];
+        // Generate the unique identifier in the desired format
+        $uniqueId = uniqid();
+        
+        $formattedId = 'CF ' . strtoupper(substr($uniqueId, 0, 3)) . ' ' . str_pad(rand(0, 999), 3, '0', STR_PAD_LEFT);
+        // Generate the QR code
+        $qrCodeImage = QrCode::format('png')->size(400)->generate($formattedId);
+        
+        // Check if the QR code image is generated
+        if (empty($qrCodeImage)) {
+            Log::error('QR code image is empty');
+            return redirect()->back()->withErrors('Failed to generate QR code.');
+        }
+
+        // Ensure the directory exists
+        if (!Storage::exists('qrcodes')) {
+            Storage::makeDirectory('qrcodes');
+        }
+
+        // Save the QR code image to storage
+        $fileName = 'qrcodes/' . $formattedId . '.png';
+        Storage::put($fileName, $qrCodeImage);
         $user = new User();
         $user->name =  $regisData['name'];
         $user->email =  $regisData['email'];
         $user->password = Hash::make($regisData['password']);
         $user->date_of_birth = $regisData['date_of_birth'];
         $user->phone = $regisData['phone'];
-        // $user->role = 'admin';
+        $user->code_number = $formattedId;
+        $user->qr_code_path = $fileName;
         $user->save();
 
-          // Save responses in the responses table
+        // Save responses in the responses table
         foreach ($regisData['responses'] as $questionId => $answer) {
             DB::table('responses')->insert([
                 'user_id' => $user->id,
@@ -204,5 +229,4 @@ class AuthController extends Controller
         Auth::logout();
         return Redirect('login');
     }
-
 }
