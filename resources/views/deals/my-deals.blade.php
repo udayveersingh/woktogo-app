@@ -7,7 +7,7 @@
     <h1 class="text-2xl relative">Mijn deals</h1>
 </div>
 
-<div class="px-5 py-12 max-w-[500px] mx-auto">
+<div class="px-5 py-6 max-w-[370px] mx-auto">
     @session('success')
     <div class="bg-[#196450]/[0.5] rounded-xl border border-secondary p-1 text-white text-sm text-center my-1" role="alert">
         {{ $value }}
@@ -34,36 +34,36 @@
             </svg>
         </button>
 
-        <img src="{{ asset('images/barcode.png') }}" alt="deal" class="max-w-20 mx-auto" />
-        <div class="text-lg font-bold mt-2">CF 045 699</div>
-        <div class="text-base mb-12 mt-4">Scan om punten te sparen</div>
-        <div class="text-base font-bold">Aantal punten tot een gratis maaltijd</div>
-        <div class="bg-[#cecece] h-2 relative mt-2">
+        <img src="{{ asset('images/barcode.png') }}" alt="deal" class="pt-4 max-w-36 mx-auto" />
+        <div class="text-lg font-bold mt-2 text-gray-700">CF 045 699</div>
+        <div class="text-base mb-6 mt-1 text-gray-800">Scan om punten te sparen</div>
+        <div class="text-sm font-bold">Aantal punten tot een gratis maaltijd</div>
+        <div class="bg-[#cecece] h-2 relative mt-2 mx-4">
             <div class="absolute left-0 top-0 bottom-0 w-[60%] bg-secondary"></div>
         </div>
-        <div class="text-sm">40 van de 200 punten</div>
+        <div class="text-sm pb-4">40 van de 200 punten</div>
     </div><!--/ Information Card -->
 
     <div class="deal_list flex flex-col gap-7">
 
         @foreach ($all_deals as $item)
-            <div class="flex flex-col rounded-xl text-center overflow-hidden group relative dealCardWrapper">
-                <div class="card-front bg-secondary">
-                    <div class="p-4">
-                        <img src="{{ asset($item->image) }}" alt="deal" class="max-w-20 mx-auto" />
-                    </div>
-                    <div class="bg-white p-4">
-                        <h2 class="font-bold text-2xl mb-1">{{ $item->title }}</h2>
-                        <p class="text-sm">{{ $item->description }}</p>
-                        <button class="bg-secondary text-white text-xl font-bold p-2 w-full inline-block rounded-md mt-4 max-w-[200px] showDealScanner">Claim deal</button>
-                    </div>
+        <div class="flex flex-col rounded-xl text-center overflow-hidden group relative dealCardWrapper">
+            <div class="card-front bg-secondary">
+                <div class="p-4">
+                    <img src="{{ asset($item->image) }}" alt="deal" class="max-w-20 mx-auto" />
                 </div>
-                <div class="card-back hidden absolute top-0 left-0 right-0 bottom-0 bg-white items-center justify-center gap-2 flex-col">
-                    <img src="{{ asset('images/barcode.png') }}" alt="deal" class="max-w-40 mx-auto mt-2" />
-                    <button class="bg-secondary text-white text-xl font-bold p-2 w-full inline-block rounded-md mt-4 max-w-[200px] hideDealScanner">Annuleer</button>
+                <div class="bg-white p-4">
+                    <h2 class="font-bold text-2xl mb-1">{{ $item->title }}</h2>
+                    <p class="text-sm">{{ $item->description }}</p>
+                    <button class="bg-secondary text-white text-lg font-bold p-2 w-full inline-block rounded-md mt-4 max-w-[200px] showDealScanner">Claim deal</button>
                 </div>
+            </div>
+            <div class="card-back hidden absolute top-0 left-0 right-0 bottom-0 bg-white items-center justify-center gap-2 flex-col">
+                <img src="{{ asset('images/barcode.png') }}" alt="deal" class="max-w-40 mx-auto mt-2" />
+                <button class="bg-secondary text-white text-xl font-bold p-2 w-full inline-block rounded-md mt-4 max-w-[200px] hideDealScanner">Annuleer</button>
+            </div>
 
-            </div><!--/Deal card -->
+        </div><!--/Deal card -->
         @endforeach
 
     </div>
