@@ -8,6 +8,7 @@ use App\Services\UserPointsService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class DealsController extends Controller
 {
@@ -16,6 +17,7 @@ class DealsController extends Controller
         if (Auth::check()) {
             $data['user'] = Auth::user();
             $data['all_deals'] =  Deal::all();
+            $data['user_qr'] = QrCode::format('png')->size(400)->generate(Auth::user()->code_number);
             return view('deals.my-deals',$data);
         } else {
             return redirect("login");

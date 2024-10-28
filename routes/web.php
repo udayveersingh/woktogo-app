@@ -10,6 +10,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\UserPointsController;
 use App\Models\UserPoint;
+use Illuminate\Support\Facades\File;
 
 // Route::get('/', function () {  return view('auth.login'); });
 // Route::get('/login', function () {  return view('loginStep2'); });
@@ -79,6 +80,13 @@ Route::middleware(['auth','role:user'])->group(function () {
     Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
     Route::get('/change-password', [ProfileController::class, 'showChangePasswordForm'])->name('password.change');
     Route::post('/change-password', [ProfileController::class, 'changePassword'])->name('password.update');
+    // Route::get('/image/{filename}', function ($filename) {
+    //     $path = storage_path('app/private/' . $filename);
+    //     if (!File::exists($path)) {
+    //         abort(404);
+    //     }
+    //     return response()->file($path);
+    // });
 });
 
 
