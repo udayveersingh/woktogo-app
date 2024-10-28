@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DealsController;
+use App\Http\Controllers\ForgotPasswordController;
 
 // Route::get('/', function () {  return view('auth.login'); });
 // Route::get('/login', function () {  return view('loginStep2'); });
@@ -27,6 +28,8 @@ Route::post('/register/step3', [AuthController::class, 'postStep2'])->name('regi
 Route::get('/register/step3', [AuthController::class, 'showStep3'])->name('register.step3.show');
 Route::post('/register/step4', [AuthController::class, 'postStep3'])->name('register.step4');
 Route::get('/register/step4', [AuthController::class, 'showStep4'])->name('register.step4.show');
+
+Route::get('forget-password', [ForgotPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
 
 
 Route::get('/my-deals',[DealsController::class, 'dealView'])->name('my-deals');
