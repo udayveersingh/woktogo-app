@@ -1,14 +1,12 @@
 @extends('common.index')
 
 @section('content')
-<div class="flex flex-col items-center justify-center min-h-full bg-yellow-500 transition-all duration-300" id="overlay-container">
-    <div class="text-center mb-4">
-        <p class="text-lg md:text-xl">Welcome to the Scanner Page!</p>
-        <p class="text-lg md:text-xl">Please enter your details below:</p>
+<div class="flex flex-col items-center pt-40 min-h-full bg-yellow-500 transition-all duration-300" id="overlay-container">
+    <div class="text-left w-3/4 max-w-sm mb-4">
+        <p class="text-lg font-semibold md:text-xl">Lukt scannen niet?</p>
+        <p class="text-lg font-semibold md:text-xl">Voer de cijfercode in.</p>
     </div>
-    <input type="text" placeholder="Enter your details"
-        class="z-50 border border-gray-300 rounded-lg p-3 w-3/4 sm:w-2/3 md:w-1/2 lg:w-1/3 max-w-md text-center focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent uppercase"
-        onfocus="addOverlay()" onblur="removeOverlay()" />
+    <input type="text" class="z-50 border border-gray-300 rounded-xl p-3 w-3/4 max-w-sm text-center focus:outline-none focus:border-transparent uppercase caret-red" onfocus="addOverlay()" onblur="removeOverlay()" />
     <button onclick="window.location=`{{url('owner-scan-two')}}`" class="py-2 px-4 mt-4 text-lg text-white bg-secondary rounded-md">Next</button>
 </div>
 
