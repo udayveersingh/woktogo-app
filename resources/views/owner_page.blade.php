@@ -17,8 +17,8 @@
             <div class="flex items-center justify-between rounded-lg px-4 py-2">
                 <div class="bg-secondary text-white text-base flex font-bold items-center justify-center rounded-lg py-12 px-8 min-w-36">Drinken</div> <!-- Reduced from text-lg to text-base -->
                 <div class="flex flex-col items-center space-y-4">
-                    <img src="{{ asset('svgicons/PlusIconGreen.svg')}}" onclick="increment('Drink')" alt="Add" class="w-[54px] h-[54px]">
-                    <img src="{{ asset('svgicons/MinusIconRed.svg') }}" onclick="decrement('Drink')" alt="Subtract" class="w-[53px] h-[53px]">
+                    <img src="{{ asset('svgicons/PlusIconGreen.svg')}}" onclick="increment('Drink')" alt="Add" class="w-[53px] h-[53px]">
+                    <img src="{{ asset('svgicons/MinusIconRed.svg') }}" onclick="decrement('Drink')" alt="Subtract" class="w-[54px] h-[54px]">
                 </div>
                 <span id="count-display-Drink" class="text-black bg-white rounded-lg font-bold text-xl py-11 px-4">0</span> <!-- Reduced from text-2xl to text-xl -->
             </div>
@@ -27,8 +27,8 @@
             <div class="flex items-center justify-between rounded-lg px-4 py-2">
                 <div class="bg-secondary text-white text-base flex font-bold items-center justify-center rounded-lg py-12 px-8 min-w-36">Maaltijd</div> <!-- Reduced from text-lg to text-base -->
                 <div class="flex flex-col items-center space-y-4">
-                    <img src="{{ asset('svgicons/PlusIconGreen.svg') }}" onclick="increment('Meal')" alt="Add" class="w-[54px] h-[54px]">
-                    <img src="{{ asset('svgicons/MinusIconRed.svg') }}" onclick="decrement('Meal')" alt="Subtract" class="w-[53px] h-[53px]">
+                    <img src="{{ asset('svgicons/PlusIconGreen.svg') }}" onclick="increment('Meal')" alt="Add" class="w-[53px] h-[53px]">
+                    <img src="{{ asset('svgicons/MinusIconRed.svg') }}" onclick="decrement('Meal')" alt="Subtract" class="w-[54px] h-[54px]">
                 </div>
                 <span id="count-display-Meal" class="text-black bg-white rounded-lg font-bold text-xl py-11 px-4">0</span> <!-- Reduced from text-2xl to text-xl -->
             </div>
@@ -37,8 +37,8 @@
             <div class="flex items-center justify-between rounded-lg px-4 py-2">
                 <div class="bg-secondary text-white text-base font-bold flex items-center justify-center rounded-lg py-12 px-8 min-w-36">Snack</div> <!-- Reduced from text-lg to text-base -->
                 <div class="flex flex-col items-center space-y-4">
-                    <img src="{{ asset('svgicons/PlusIconGreen.svg') }}" onclick="increment('Snack')" alt="Add" class="w-[54px] h-[54px]">
-                    <img src="{{ asset('svgicons/MinusIconRed.svg') }}" onclick="decrement('Snack')" alt="Subtract" class="w-[53px] h-[53px]">
+                    <img src="{{ asset('svgicons/PlusIconGreen.svg') }}" onclick="increment('Snack')" alt="Add" class="w-[53px] h-[53px]">
+                    <img src="{{ asset('svgicons/MinusIconRed.svg') }}" onclick="decrement('Snack')" alt="Subtract" class="w-[54px] h-[54px]">
                 </div>
                 <span id="count-display-Snack" class="text-black bg-white rounded-lg font-bold text-xl py-11 px-4">0</span> <!-- Reduced from text-2xl to text-xl -->
             </div>

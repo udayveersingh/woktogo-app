@@ -33,8 +33,8 @@
                 </g>
             </svg>
         </button>
-        <img src="{{ asset('images/barcode.png') }}" alt="deal" class="max-w-20 mx-auto" />
-        <div class="text-lg font-bold mt-2">{{$user->code_number}}</div>
+        <img src="{{ asset('storage/app/private/qrcodes/CF671f691a61631.png') }}" alt="deal" class="max-w-20 mx-auto" />
+        <div class="text-lg font-bold mt-2">CF 045 699</div>
         <div class="text-base mb-12 mt-4">Scan om punten te sparen</div>
         <div class="text-base font-bold">Aantal punten tot een gratis maaltijd</div>
         <div class="bg-[#cecece] h-2 relative mt-2">
