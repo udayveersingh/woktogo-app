@@ -13,11 +13,12 @@ class OwnerController extends Controller
         // return view('owner_page');
         if (Auth::check()) {
             // Redirect based on role
-            return match (Auth::user()->role) {
-                'admin' => redirect()->route('dashboard'),
-                'sub_admin' => redirect()->route('owner_page'),
-                default => redirect('/my-deals'), // Default for other roles
-            };
+            // return match (Auth::user()->role) {
+            //     'admin' => redirect()->route('dashboard'),
+            //     'sub_admin' => redirect()->route('owner_page'),
+            //     default => redirect('/my-deals'), // Default for other roles
+            // };
+            return view('owner_page');
         }
 
         return view('auth.login');
