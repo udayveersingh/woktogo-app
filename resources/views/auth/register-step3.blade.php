@@ -62,45 +62,24 @@
             </p>
         </div>
 
-        <div class="flex flex-col gap-1 mb-4">
-            <label class="text-base font-bold text-[#3C3C3C] mb-2">1. Hoe vaak eet je Wok To Go?</label>
-            <label class="flex gap-2"><input type="radio" name="signupQOne"/> Elke week</label>
-            <label class="flex gap-2"><input type="radio" name="signupQOne"/> 1 keer per maand</label>
-            <label class="flex gap-2"><input type="radio" name="signupQOne"/> 2 keer per maand</label>
-        </div>
-
-        <div class="flex flex-col gap-1 mb-4">
-            <label class="text-base font-bold text-[#3C3C3C] mb-2">2. Welke deals zijn gewenst?</label>
-            <label class="flex gap-2"><input type="radio" name="signupQTwo"/> Korting op hoofdgerechten</label>
-            <label class="flex gap-2"><input type="radio" name="signupQTwo"/> Gratis drankjes</label>
-            <label class="flex gap-2"><input type="radio" name="signupQTwo"/> Combo aanbiedingen</label>
-            <label class="flex gap-2"><input type="radio" name="signupQTwo"/> Seizoensgebonden specials</label>
-        </div>
-
-        <div class="flex flex-col gap-1 mb-4">
-            <label class="text-base font-bold text-[#3C3C3C] mb-2">3. Favoriet gerecht</label>
-            <label class="flex gap-2"><input type="radio" name="signupQThree"/> Kip</label>
-            <label class="flex gap-2"><input type="radio" name="signupQThree"/> Rund</label>
-            <label class="flex gap-2"><input type="radio" name="signupQThree"/> Vis</label>
-            <label class="flex gap-2"><input type="radio" name="signupQThree"/> Vega</label>
-        </div>
-
-        <div class="flex flex-col gap-1 mb-4">
-            <label class="text-base font-bold text-[#3C3C3C] mb-2">4. Met wie eet je?</label>
-            <label class="flex gap-2"><input type="radio" name="signupQFour"/> Alleen</label>
-            <label class="flex gap-2"><input type="radio" name="signupQFour"/> Vrienden</label>
-            <label class="flex gap-2"><input type="radio" name="signupQFour"/> Collega’s</label>
-            <label class="flex gap-2"><input type="radio" name="signupQFour"/> Familie</label>
-        </div>
-
-        <div class="flex flex-col gap-1 mb-4">
-            <label class="text-base font-bold text-[#3C3C3C] mb-2">5. Van waar kom je?</label>
-            <label class="flex gap-2"><input type="radio" name="signupQFive"/> Binnenstad</label>
-            <label class="flex gap-2"><input type="radio" name="signupQFive"/> Buitenwijken</label>
-            <label class="flex gap-2"><input type="radio" name="signupQFive"/> Buiten Rotterdam</label>
-        </div>
-        
-       
+        @php
+            $i = 1;
+        @endphp
+        @foreach ($formattedQuestions as $key=>$question)
+            <div class="flex flex-col gap-1 mb-4">
+                <label class="text-base font-bold text-[#3C3C3C] mb-2">
+                {{$i++}}. {{ $question['question_text'] }}
+                </label>
+                
+                @foreach ($question['options'] as $option)
+                    <label class="flex gap-2">
+                        <input type="radio" name="responses[{{ $question['question_id'] }}]" value="{{ $option['option_id'] }}" />
+                        {{ $option['option_text'] }}
+                    </label>
+                @endforeach
+            </div>
+        @endforeach
+    
         <button class="bg-red rounded-xl px-5 py-3 text-xl font-bold w-full text-white">Volgende</button>
 
     </form>

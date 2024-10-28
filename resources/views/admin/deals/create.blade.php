@@ -5,7 +5,7 @@
 @section('content')
 <div class="container">
     <h1 class="text-2xl font-bold">Create New Deal</h1>
-    <form action="{{ route('admin.deals.store') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('admin.deals.store') }}" method="POST" enctype="multipart/form-data" class="bg-white p-6 rounded-lg shadow-md">
         @csrf
         <div class="mb-4">
             <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
@@ -14,10 +14,6 @@
         <div class="mb-4">
             <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
             <textarea name="description" id="description" required class="mt-1 block w-full p-2 border rounded" placeholder="Deal Description"></textarea>
-        </div>
-        <div class="mb-4">
-            <label for="price" class="block text-sm font-medium text-gray-700">Price</label>
-            <input type="number" name="price" id="price" required step="0.01" class="mt-1 block w-full p-2 border rounded" placeholder="Deal Price">
         </div>
         <div class="mb-4">
             <label for="image" class="block text-sm font-medium text-gray-700">Upload Image</label>

@@ -13,7 +13,6 @@
                 <th class="py-2 px-4 border-b">Image</th>
                 <th class="py-2 px-4 border-b">Title</th>
                 <th class="py-2 px-4 border-b">Description</th>
-                <th class="py-2 px-4 border-b">Price</th>
                 <th class="py-2 px-4 border-b">Deadline</th>
                 <th class="py-2 px-4 border-b">Actions</th>
             </tr>
@@ -23,14 +22,13 @@
             <tr class="border-b hover:bg-gray-50">
                 <td class="py-2 px-4">
                     @if($deal->image)
-                        <img src="{{ asset('storage/' . $deal->image) }}" alt="Deal Image" class="w-16 h-16 object-cover">
+                        <img src="{{ asset($deal->image) }}" alt="Deal Image" class="w-16 h-16 object-cover">
                     @else
                         No Image
                     @endif
                 </td>
                 <td class="py-2 px-4">{{ $deal->title }}</td>
                 <td class="py-2 px-4">{{ $deal->description }}</td>
-                <td class="py-2 px-4">{{ number_format($deal->price, 2) }} USD</td>
                 <td class="py-2 px-4">{{ $deal->deadline ? \Carbon\Carbon::parse($deal->deadline)->format('M d, Y') : 'No Deadline' }}</td>
                 <td class="py-2 px-4">
                     <a href="{{ route('admin.deals.edit', $deal->id) }}" class="text-yellow-500 hover:underline">Edit</a>
