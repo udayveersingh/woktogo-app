@@ -11,6 +11,7 @@ export default {
         primary: '#F5C024',
         secondary: '#196450',
         'red': '#B91F25',
+        'greenheader': '#1A7B5D',
       },
     },
   },
