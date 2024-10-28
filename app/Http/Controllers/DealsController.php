@@ -14,8 +14,9 @@ class DealsController extends Controller
     public function dealView()
     {
         if (Auth::check()) {
-            $all_deals =  Deal::all();
-            return view('deals.my-deals',['all_deals'=>$all_deals]);
+            $data['user'] = Auth::user();
+            $data['all_deals'] =  Deal::all();
+            return view('deals.my-deals',$data);
         } else {
             return redirect("login");
         }
