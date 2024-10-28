@@ -11,6 +11,21 @@
     <body class="font-sans antialiased dark:bg-black dark:text-white/50 flex flex-col h-full">
     <div class="bg-secondary py-4 h-[63px] px-5 flex justify-between z-10">
         <a class="relative" href="/"><img class="h-[55px]" src="{{ asset('images/logo.webp') }}" alt="" /></a>
+
+        @auth
+        <!-- Logout Button -->
+        <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+            @csrf
+            <button type="submit" class="bg-red-600 text-white font-semibold py-2 px-4 rounded hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500">
+                Logout
+            </button>
+        </form>
+        @else
+            <p class="text-gray-600">You are not logged in.</p>
+        @endauth
+        
+
+        
         <div class="cursor-pointer">        
             <svg fill="#000000" height="28" width="28" id="Layer_1" data-name="Layer 1"
                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
