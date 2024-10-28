@@ -3,21 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Deal;
+use App\Models\UserPoint;
+use App\Services\UserPointsService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class DealsController extends Controller
 {
     public function dealView()
     {
         if (Auth::check()) {
-            if(Auth::user()->role == "admin"){
-                return view('admin.dashboard');
-            }else if(Auth::user()->role == "sub_admin"){
-                return redirect()->route('owner_page');
-            }else{
-                return view('deals.my-deals');
-            }
+            $all_deals =  Deal::all();
+            return view('deals.my-deals',['all_deals'=>$all_deals]);
         } else {
             return redirect("login");
         }
@@ -46,6 +44,7 @@ class DealsController extends Controller
     public function index()
     {
         $deals = Deal::all();
+        // dd($deals);
         return view('admin.deals.index', compact('deals'));
     }
 
@@ -59,10 +58,27 @@ class DealsController extends Controller
         $request->validate([
             'title' => 'required',
             'description' => 'required',
-            'price' => 'required|numeric',
         ]);
 
-        Deal::create($request->all());
+        $data = $request->all();
+        $data['price'] = $request->input('price', 0); // Set price to 0 if not provided
+
+        
+
+          // Handle image upload
+        if ($request->hasFile('image')) {
+            // Create a unique name for the image
+            $imageName = time() . '_' . $request->file('image')->getClientOriginalName();
+    
+            // Move the uploaded file to the public/deals_img directory
+            $request->file('image')->move(public_path('deals_img'), $imageName);
+    
+            // Store the image path in the database
+            $data['image'] = 'deals_img/' . $imageName; // Save the new image path
+        }
+
+        // Create the deal with the updated data
+        Deal::create($data);
         return redirect()->route('admin.deals.index')->with('success', 'Deal created successfully.');
     }
 
@@ -79,24 +95,30 @@ class DealsController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'price' => 'required|numeric',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            // 'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'nullable',
             // Add more validation rules as needed
         ]);
     
         $deal->title = $request->title;
         $deal->description = $request->description;
-        $deal->price = $request->price;
         $deal->deadline = $request->deadline; 
     
         // Handle image upload
         if ($request->hasFile('image')) {
-            // Optionally delete the old image from storage
-            if ($deal->image) {
-                Storage::disk('public')->delete($deal->image);
+            // Optionally delete the old image from public/deals_img
+            if ($deal->image && file_exists(public_path($deal->image))) {
+                unlink(public_path($deal->image));
             }
-            $imagePath = $request->file('image')->store('deals', 'public');
-            $deal->image = $imagePath; // Store the new image path
+    
+            // Create a unique name for the image
+            $imageName = time() . '_' . $request->file('image')->getClientOriginalName();
+    
+            // Move the uploaded file to the public/deals_img directory
+            $request->file('image')->move(public_path('deals_img'), $imageName);
+    
+            // Store the image path in the database
+            $deal->image = 'deals_img/' . $imageName; // Save the new image path
         }
     
         $deal->save();
@@ -111,5 +133,23 @@ class DealsController extends Controller
 
         return redirect()->route('admin.deals.index')->with('success', 'Deal deleted successfully.');
     }
+
+    public function storeUserAction(Request $request)
+    {
+        // Assuming the actions are passed as an array
+        $userActions = $request->input('actions'); // e.g. ['meal_and_drink', 'drink']
+
+        $pointsService = new UserPointsService();
+        $points = $pointsService->addPoints($userActions);
+
+        // Save points to the user's points record
+        $user = Auth::user(); // Get the authenticated user
+        $userPoints = UserPoint::firstOrNew(['user_id' => $user->id]);
+        $userPoints->points += $points;
+        $userPoints->save();
+
+        return response()->json(['points' => $userPoints->points]);
+    }
+
    
 }

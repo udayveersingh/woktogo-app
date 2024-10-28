@@ -14,8 +14,13 @@ class AdminMiddleware
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next, ...$roles): Response
     {
-        return $next($request);
+        // dd(Auth::user()->role, $roles);
+        if (Auth::check() && in_array(Auth::user()->role, $roles)) {
+            return $next($request);
+        }
+
+        abort(403, 'Unauthorized access');
     }
 }
