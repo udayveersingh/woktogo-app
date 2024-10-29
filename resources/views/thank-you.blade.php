@@ -1,6 +1,11 @@
 @extends('common.index')
 
 @section('content')
+@session('success')
+<div class="bg-[#196450]/[0.5] rounded-xl border border-secondary p-1 text-white text-sm text-center my-1" role="alert">
+    {{ $value }}
+</div>
+@endsession
 <div class="mx-auto px-4 py-8 max-w-sm mt-20">
     <div class="flex justify-center">
         <div class="w-full max-w-md">
