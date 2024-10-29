@@ -1,7 +1,7 @@
 @extends('common.index')
 
 @section('content')
-<div class="flex flex-col items-center pt-40 min-h-full bg-yellow-500 transition-all duration-300" id="overlay-container">
+<div class="flex flex-col items-center pt-40 min-h-full mx-auto bg-yellow-500 transition-all duration-300" id="overlay-container">
     <div class="text-left w-3/4 max-w-sm mb-4">
         <p class="text-lg font-semibold md:text-xl">Lukt scannen niet?</p>
         <p class="text-lg font-semibold md:text-xl">Voer de cijfercode in.</p>

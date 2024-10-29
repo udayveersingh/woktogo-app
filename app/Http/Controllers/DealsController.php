@@ -15,7 +15,7 @@ class DealsController extends Controller
     {
         if (Auth::check()) {
             $all_deals =  Deal::all();
-            return view('deals.my-deals',['all_deals'=>$all_deals]);
+            return view('deals.my-deals', ['all_deals' => $all_deals]);
         } else {
             return redirect("login");
         }
@@ -63,16 +63,16 @@ class DealsController extends Controller
         $data = $request->all();
         $data['price'] = $request->input('price', 0); // Set price to 0 if not provided
 
-        
 
-          // Handle image upload
+
+        // Handle image upload
         if ($request->hasFile('image')) {
             // Create a unique name for the image
             $imageName = time() . '_' . $request->file('image')->getClientOriginalName();
-    
+
             // Move the uploaded file to the public/deals_img directory
             $request->file('image')->move(public_path('deals_img'), $imageName);
-    
+
             // Store the image path in the database
             $data['image'] = 'deals_img/' . $imageName; // Save the new image path
         }
@@ -91,7 +91,7 @@ class DealsController extends Controller
     public function update(Request $request, $id)
     {
         $deal = Deal::findOrFail($id);
-    
+
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
@@ -99,30 +99,30 @@ class DealsController extends Controller
             'image' => 'nullable',
             // Add more validation rules as needed
         ]);
-    
+
         $deal->title = $request->title;
         $deal->description = $request->description;
-        $deal->deadline = $request->deadline; 
-    
+        $deal->deadline = $request->deadline;
+
         // Handle image upload
         if ($request->hasFile('image')) {
             // Optionally delete the old image from public/deals_img
             if ($deal->image && file_exists(public_path($deal->image))) {
                 unlink(public_path($deal->image));
             }
-    
+
             // Create a unique name for the image
             $imageName = time() . '_' . $request->file('image')->getClientOriginalName();
-    
+
             // Move the uploaded file to the public/deals_img directory
             $request->file('image')->move(public_path('deals_img'), $imageName);
-    
+
             // Store the image path in the database
             $deal->image = 'deals_img/' . $imageName; // Save the new image path
         }
-    
+
         $deal->save();
-    
+
         return redirect()->route('admin.deals.index')->with('success', 'Deal updated successfully.');
     }
 
@@ -151,5 +151,8 @@ class DealsController extends Controller
         return response()->json(['points' => $userPoints->points]);
     }
 
-   
+    public function viewOtp()
+    {
+        return view('auth.view-otp');
+    }
 }

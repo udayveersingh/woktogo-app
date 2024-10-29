@@ -37,4 +37,16 @@ class OwnerController extends Controller
         $test = "test";
         return view('owner_scan_two', compact('user_qr', 'test'));
     }
+
+    public function scan(Request $request)
+    {
+        $data = $request->input('data');
+        // Process the QR code data as needed   
+        return response()->json(['message' => 'QR code scanned successfully!', 'data' => $data]);
+    }
+
+    public function viewOtp(Request $request)
+    {
+        return view('view-otp');
+    }
 }

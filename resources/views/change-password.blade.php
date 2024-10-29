@@ -1,7 +1,7 @@
 @extends('common.index')
 
 @section('content')
-<div class="max-w-md mt-24 mx-4 md:mx-auto p-4 md:p-6 bg-white shadow-lg rounded-md">
+<div class="max-w-sm mt-24 mx-4 md:mx-auto p-4 md:p-6 bg-white shadow-lg rounded-md">
     <h1 class="text-2xl font-semibold pb-6">Change Password</h1>
 
     @if(session('success'))
