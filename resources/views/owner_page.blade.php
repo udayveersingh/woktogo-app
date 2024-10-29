@@ -46,13 +46,17 @@
     </div>
 
     <!-- Footer -->
-    <div class="max-w-[23rem] py-4 px-6 w-full">
-        <div class="flex justify-between text-gray-800 bg-white text-lg py-2.5 px-7 rounded-xl mb-4"> <!-- Reduced from text-xl to text-lg -->
-            <span>Totale punten </span>
-            <span id="total-points" class="font-semibold">0</span>
+    <form action="{{route('owner-scan-one')}}" method="POST">
+        @csrf
+        <div class="max-w-[23rem] py-4 px-6 w-full">
+            <div class="flex justify-between text-gray-800 bg-white text-lg py-2.5 px-7 rounded-xl mb-4"> <!-- Reduced from text-xl to text-lg -->
+                <span>Totale punten </span>
+                <span id="total-points" class="font-semibold">0</span>
+                <input type="hidden" value="" name="total_points" id="totalPoints">
+            </div>
+            <button onclick="window.location=`{{ url('owner-scan-one') }}`" class="w-full bg-secondary text-lg text-white py-8 rounded-xl mt-4 font-bold">Begin met scannen</button> <!-- Reduced from text-xl to text-lg -->
         </div>
-        <button onclick="window.location=`{{ url('owner-scan-one') }}`" class="w-full bg-secondary text-lg text-white py-8 rounded-xl mt-4 font-bold">Begin met scannen</button> <!-- Reduced from text-xl to text-lg -->
-    </div>
+    </form>
 
     <!-- Links -->
     <div class="flex flex-col space-y-2 px-4 my-4 text-center">
