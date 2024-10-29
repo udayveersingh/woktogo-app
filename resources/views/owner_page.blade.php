@@ -50,7 +50,7 @@
     <!-- Footer -->
     <form action="{{route('owner-scan-one')}}" method="POST" class="w-full">
         @csrf
-        <div class="max-w-[370px] mx-auto py-4 px-6">
+        <div class="max-w-[365px] mx-auto py-4 px-6">
             <div class="flex justify-between text-gray-800 bg-white text-lg py-2.5 px-7 rounded-xl mb-4"> <!-- Reduced from text-xl to text-lg -->
                 <span>Totale punten </span>
                 <span id="total-points" class="font-semibold">0</span>
