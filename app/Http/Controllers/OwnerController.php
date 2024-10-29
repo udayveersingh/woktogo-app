@@ -67,10 +67,11 @@ class OwnerController extends Controller
 
     public function owner_scan_two(Request $request)
     {
-        $user_qr = QrCode::format('png')->size(400)->generate(Auth::user()->name);
-        // $user_qr = QrCode::format('png')->size(400)->generate("Ravi");
-        $test = "test";
-        return view('owner_scan_two', compact('user_qr', 'test'));
+        // $user_qr = QrCode::format('png')->size(400)->generate(Auth::user()->name);
+        // // $user_qr = QrCode::format('png')->size(400)->generate("Ravi");
+        // $test = "test";
+        // return view('owner_scan_two', compact('user_qr', 'test'));
+        return view('thank-you');
     }
 
     public function viewOtp(Request $request)
