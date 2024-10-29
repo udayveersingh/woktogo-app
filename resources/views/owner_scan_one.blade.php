@@ -34,6 +34,7 @@
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const html5QrcodeScanner = new Html5Qrcode("reader");
+
         html5QrcodeScanner.start({
                 facingMode: "environment"
             }, // Use the back camera
@@ -43,30 +44,29 @@
             },
             (decodedText, decodedResult) => {
                 console.log(`Code matched = ${decodedText}`, decodedResult);
+
+                // Fetch request inside the callback to ensure decodedText is defined
+                fetch('/scan-qr', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                        },
+                        body: JSON.stringify({
+                            data: decodedText
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data);
+                    })
+                    .catch(error => console.error('Error:', error));
             },
             (errorMessage) => {
-                console.error(errorMessage); // Log any scanning errors
+                console.error(`QR Code parse error: ${errorMessage}`);
             }
         ).catch(err => {
             console.error(`Unable to start scanning: ${err}`);
         });
-
     });
-
-
-    fetch('/scan-qr', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-            },
-            body: JSON.stringify({
-                data: decodedText
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-        })
-        .catch(error => console.error('Error:', error));
 </script>

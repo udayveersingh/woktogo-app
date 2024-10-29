@@ -153,4 +153,9 @@ class DealsController extends Controller
 
         return response()->json(['points' => $userPoints->points]);
     }
+
+    public function viewOtp(Request $request)
+    {
+        return view('view-otp');
+    }
 }

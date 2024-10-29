@@ -48,9 +48,9 @@
     </div>
 
     <!-- Footer -->
-    <form action="{{route('owner-scan-one')}}" method="POST">
+    <form action="{{route('owner-scan-one')}}" method="POST" class="w-full">
         @csrf
-        <div class="max-w-[23rem] py-4 px-6 w-full">
+        <div class="max-w-[350px] mx-auto py-4 px-6">
             <div class="flex justify-between text-gray-800 bg-white text-lg py-2.5 px-7 rounded-xl mb-4"> <!-- Reduced from text-xl to text-lg -->
                 <span>Totale punten </span>
                 <span id="total-points" class="font-semibold">0</span>
