@@ -33,12 +33,12 @@
                 </g>
             </svg>
         </button>
-
-        <img src="{{ asset('images/barcode.png') }}" alt="deal" class="pt-4 max-w-36 mx-auto" />
-        <div class="text-lg font-bold mt-2 text-gray-700">CF 045 699</div>
-        <div class="text-base mb-6 mt-1 text-gray-800">Scan om punten te sparen</div>
-        <div class="text-sm font-bold">Aantal punten tot een gratis maaltijd</div>
-        <div class="bg-[#cecece] h-2 relative mt-2 mx-4">
+        <img src="data:image/png;base64,{!! base64_encode($user_qr)!!}" alt="deal" class="max-w-20 mx-auto" />
+        <!-- <img src="{{ url('storage/app/private/qrcodes/'.$user->qr_code_path) }}" alt="deal" class="max-w-20 mx-auto" /> -->
+        <div class="text-lg font-bold mt-2">{{$user->code_number}}</div>
+        <div class="text-base mb-12 mt-4">Scan om punten te sparen</div>
+        <div class="text-base font-bold">Aantal punten tot een gratis maaltijd</div>
+        <div class="bg-[#cecece] h-2 relative mt-2">
             <div class="absolute left-0 top-0 bottom-0 w-[60%] bg-secondary"></div>
         </div>
         <div class="text-sm pb-4">40 van de 200 punten</div>

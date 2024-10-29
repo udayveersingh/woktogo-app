@@ -6,6 +6,8 @@ function updateTotal() {
 
     const totalPoints = drinkCount + mealCount + snackCount;
     document.getElementById('total-points').innerText = `${totalPoints}`;
+    document.getElementById('totalPoints').value = totalPoints; // Use vanilla JS to set value
+    console.log(totalPoints);
 }
 
 
@@ -59,3 +61,5 @@ function exitNav() {
     document.getElementById("sideBar").style.width = "0";
     document.getElementById("sideNav").style.width = "0";
 }
+
+

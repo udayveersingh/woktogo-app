@@ -10,6 +10,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\UserPointsController;
 use App\Models\UserPoint;
+use Illuminate\Support\Facades\File;
 
 // Route::get('/', function () {  return view('auth.login'); });
 // Route::get('/login', function () {  return view('loginStep2'); });
@@ -70,6 +71,11 @@ Route::middleware(['auth', 'role:sub_admin'])->group(function () {
     Route::get('/owner-scan-two', [OwnerController::class, 'owner_scan_two'])->name('owner_scan_two');
     Route::get('/view-otp', [OwnerController::class, 'viewOtp'])->name('view-otp');
     Route::post('/scan-qr', [OwnerController::class, 'scan'])->name('scan-qr');
+    Route::post('/owner-scan-one', [OwnerController::class, 'postOwnerPage'])->name('owner-scan-one');
+    Route::get('/owner-scan-one', [OwnerController::class, 'owner_scan_one'])->name('owner_scan_one_view');
+
+    Route::post('/owner-scan-two', [OwnerController::class, 'ownerScanPost'])->name('owner_scan_two');
+    Route::get('/owner-scan-two', [OwnerController::class, 'owner_scan_two'])->name('owner_scan_two_view');
 });
 
 Route::middleware(['auth', 'role:user'])->group(function () {
@@ -81,4 +87,11 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
     Route::get('/change-password', [ProfileController::class, 'showChangePasswordForm'])->name('password.change');
     Route::post('/change-password', [ProfileController::class, 'changePassword'])->name('password.update');
+    // Route::get('/image/{filename}', function ($filename) {
+    //     $path = storage_path('app/private/' . $filename);
+    //     if (!File::exists($path)) {
+    //         abort(404);
+    //     }
+    //     return response()->file($path);
+    // });
 });
