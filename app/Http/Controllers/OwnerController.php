@@ -57,12 +57,16 @@ class OwnerController extends Controller
         $total_points =  $user_assign_points['total_points'];
         $user_code = $user_assign_points['user_code'];
         $user = User::where('code_number', '=', $user_code)->first();
-        $user_points = new UserPoint();
-        $user_points->user_id =  $user->id;
-        $user_points->points = $total_points;
-        $user_points->save();
-        // Clear the session after successful registration
-        return redirect()->route('owner_scan_two_view')->withSuccess('Thankyou.');
+        if (!empty($user)) {
+            $user_points = new UserPoint();
+            $user_points->user_id =  $user->id;
+            $user_points->points = $total_points;
+            $user_points->save();
+            // Clear the session after successful registration
+            return redirect()->route('owner_scan_two_view')->withSuccess('Thankyou.');
+        } else {
+            return redirect()->route('owner_scan_one_view')->withError('Oppes! You have entered invalid user code');
+        }
     }
 
     public function owner_scan_two(Request $request)
