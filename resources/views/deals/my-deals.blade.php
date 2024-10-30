@@ -41,7 +41,7 @@
         <div class="bg-[#cecece] h-2 relative mt-2">
             <div class="absolute left-0 top-0 bottom-0 w-[60%] bg-secondary"></div>
         </div>
-        <div class="text-sm pb-4">40 van de 200 punten</div>
+        <div class="text-sm pb-4">{{!empty($user_points) ? $user_points:0}} van de 200 punten</div>
     </div><!--/ Information Card -->
 
     <div class="deal_list flex flex-col gap-7">
