@@ -63,7 +63,7 @@ class OwnerController extends Controller
             $user_points->points = $total_points;
             $user_points->save();
             // Clear the session after successful registration
-            return redirect()->route('owner_scan_two_view')->withSuccess('Thankyou.');
+            return redirect()->route('owner_scan_two_view')->withSuccess('You have user points has been assigned successfully.');
         } else {
             return redirect()->route('owner_scan_one_view')->withError('Oppes! You have entered invalid user code');
         }

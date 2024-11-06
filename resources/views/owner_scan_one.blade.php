@@ -2,6 +2,17 @@
 
 @section('content')
 <div id="reader" width="600px"></div>
+@session('error')
+<div class="bg-[#b91f25]/[0.5] rounded-xl border border-red p-1 text-white text-sm text-center my-1" role="alert">
+    {{ $value }}
+</div>
+@endsession
+
+@session('success')
+<div class="bg-[#196450]/[0.5] rounded-xl border border-secondary p-1 text-white text-sm text-center my-1" role="alert">
+    {{ $value }}
+</div>
+@endsession
 <form action="{{route('owner_scan_two')}}" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="flex flex-col items-center pt-40 min-h-full bg-yellow-500 transition-all duration-300" id="overlay-container">
