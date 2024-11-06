@@ -3,17 +3,17 @@
 @section('content')
 <div class="max-w-xs bg-transparent mx-auto px-5 py-10 mt-28">
     <div class="text-center mb-8">
-        <p class="text-xl text-black font-bold text-gray-500">Voer Pincode In.</p>
+        <p class="text-xl text-black font-bold">Voer Pincode In.</p>
     </div>
 
     <form id="otp-form">
         <div class="flex items-center justify-center gap-3 mb-6">
             @for ($i = 0; $i
             < 4; $i++)
-                <input onfocus="addOverlay()" onblur="removeOverlay()"
+                <input id="otp-container" onfocus="addOverlay()" onblur="removeOverlay()"
                 type="text"
                 maxlength="1"
-                class="w-14 h-16 text-center text-2xl focus:z-20 font-bold text-gray-900 bg-gray-100 border border-gray-200 rounded-md focus:bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 outline-none" />
+                class="w-14 h-16 text-center text-2xl font-bold text-gray-900 bg-gray-100 border border-gray-200 rounded-md focus:bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 outline-none" />
             @endfor
         </div>
         <button type="submit" class="w-full bg-indigo-500 hover:bg-indigo-600 text-white font-medium py-2.5 rounded-lg transition duration-150">
@@ -39,6 +39,13 @@
         /* Ensure overlay is above other content */
     }
 
+    .overlay-off {
+        z-index: 0;
+    }
+
+    #otp-container {
+        z-index: 20;
+    }
 </style>
 
 <script>

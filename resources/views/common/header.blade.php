@@ -11,7 +11,7 @@
 </head>
 
 <body class="font-sans antialiased dark:bg-black dark:text-white/50 flex flex-col h-full">
-    <div class="bg-secondary py-4 h-[63px] px-5 flex justify-between z-10">
+    <div class="bg-secondary py-4 h-[63px] px-5 flex justify-between z-50">
         <a class="relative" href="/public"><img class="h-[55px]" src="{{ asset('images/logo.webp') }}" alt="" /></a>
 
         @auth
@@ -43,7 +43,7 @@
                 <!--background overlay element, it will close navbar when clicked-->
                 <div onclick="exitNav()" id="sideBar" class="fixed top-0 right-0 bg-transparent w-0 h-full overflow-x-hidden duration-500 z-10">
                     <!--navigation menu box-->
-                    <div id="sideNav" onclick="event.stopPropagation()" class="fixed top-0 right-0 bg-greenheader z-50 overflow-x-hidden duration-500 font-bold flex justify-center items-start h-full w-0 pt-24">
+                    <div id="sideNav" onclick="event.stopPropagation()" class="fixed top-0 right-0 bg-greenheader overflow-x-hidden duration-500 font-bold flex justify-center items-start h-full w-0 pt-24">
                         <!--exit icon, it will close navbar when clicked-->
                         <a href="javascript:void(0)" onclick="exitNav()" class="text-3xl absolute top-0 right-0 mr-3 mt-2">&times;</a>
                         <ul class="text-md sm:text-xl text-center text-nowrap space-y-5">

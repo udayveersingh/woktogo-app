@@ -43,6 +43,12 @@ function removeOverlay() {
     if (overlay) {
         overlay.remove();
     }
+
+    // Remove z-index from the otp-container
+    const otpContainer = document.querySelector('#otp-container');
+    if (otpContainer) {
+        otpContainer.style.zIndex = ''; // Remove the z-index by setting it to an empty string
+    }
 }
 
 /*To open navigation menu, set the width to 60% of the background overlay*/
