@@ -1,7 +1,6 @@
 @extends('common.index')
 
 @section('content')
-<div id="reader" width="600px"></div>
 @session('error')
 <div class="bg-[#b91f25]/[0.5] rounded-xl border border-red p-1 text-white text-sm text-center my-1" role="alert">
     {{ $value }}
@@ -24,7 +23,7 @@
         <button class="py-2 px-4 mt-4 text-lg text-white bg-secondary rounded-md">Next</button>
     </div>
 </form>
-
+<div id="reader" width="300px"></div>
 <style>
     .overlay {
         position: fixed;

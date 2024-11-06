@@ -33,7 +33,7 @@
                 </g>
             </svg>
         </button>
-        <img src="data:image/png;base64,{!! base64_encode($user_qr)!!}" alt="deal" class="max-w-20 mx-auto" />
+        <img src="data:image/png;base64,{!! base64_encode($user_qr)!!}" alt="deal" class="max-w-50 mx-auto" />
         <!-- <img src="{{ url('storage/app/private/qrcodes/'.$user->qr_code_path) }}" alt="deal" class="max-w-20 mx-auto" /> -->
         <div class="text-lg font-bold mt-2">{{$user->code_number}}</div>
         <div class="text-base mb-12 mt-4">Scan om punten te sparen</div>
