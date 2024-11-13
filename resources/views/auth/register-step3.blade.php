@@ -17,7 +17,7 @@
         @csrf
         <div class="flex flex-col gap-2 mb-4">
             <label class="text-sm text-[#3C3C3C]">Naam</label>
-            <input type="text" placeholder="Dit is jouw profielnaam" name="name" class="bg-white rounded-xl px-5 py-4 text-sm"  />
+            <input type="text" placeholder="Dit is jouw profielnaam" name="name" class="bg-white rounded-xl px-5 py-4 text-sm" value="{{ old('name') }}" />
             @error('name')
             <span class="invalid-feedback text-danger" role="alert">
                 {{ $message }}
@@ -28,7 +28,7 @@
         <div class="flex flex-col gap-2 mb-4">
             <label class="text-sm text-[#3C3C3C]">Geboortedatum</label>
             <div class="flex gap-2">
-            <input type="date" name="date_of_birth" placeholder="21" class="w-full bg-white rounded-xl px-5 py-4 text-sm"  />
+            <input type="date" name="date_of_birth" placeholder="21" class="w-full bg-white rounded-xl px-5 py-4 text-sm" value="{{ old('date_of_birth') }}"  />
                 <!-- <input type="text" placeholder="21" class="w-full bg-white rounded-xl px-5 py-4 text-sm"  />
                 <input type="text" placeholder="Juni" class="w-full bg-white rounded-xl px-5 py-4 text-sm"  />
                 <input type="text" placeholder="1999" class="w-full bg-white rounded-xl px-5 py-4 text-sm"  /> -->
@@ -47,7 +47,7 @@
 
         <div class="flex flex-col gap-2 mb-4">
             <label class="text-sm text-[#3C3C3C]">Telefoonnummer</label>
-            <input type="text" placeholder="Telefoonnummer" name="phone" class="bg-white rounded-xl px-5 py-4 text-sm"  />
+            <input type="number" placeholder="Telefoonnummer" name="phone" class="bg-white rounded-xl px-5 py-4 text-sm" value="{{old('phone')}}"  />
             @error('phone')
             <span class="invalid-feedback text-danger" role="alert">
                 {{ $message }}

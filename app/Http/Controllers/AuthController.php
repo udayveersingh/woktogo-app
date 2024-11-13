@@ -73,7 +73,7 @@ class AuthController extends Controller
     public function postStep1(Request $request)
     {
         $request->validate([
-            'email' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
             // other validations...
         ]);
 
@@ -132,11 +132,10 @@ class AuthController extends Controller
     public function postStep3(Request $request)
     {
 
-        // dd($request->all());
         $request->validate([
             'name' => 'required|string|max:255',
             'date_of_birth' => 'required',
-            'phone' => 'required'
+            'phone' => 'required|max:15',
         ]);
 
         $request->session()->put('registration.name', $request->input('name'));
@@ -154,17 +153,17 @@ class AuthController extends Controller
 
     public function showStep4(Request $request)
     {
-
         // Optionally retrieve all data for display
         $data = $request->session()->all();
         $regisData = $data['registration'];
+
         // Generate the unique identifier in the desired format
         $uniqueId = uniqid();
-        
+
         $formattedId = 'CF ' . strtoupper(substr($uniqueId, 0, 3)) . ' ' . str_pad(rand(0, 999), 3, '0', STR_PAD_LEFT);
         // Generate the QR code
         $qrCodeImage = QrCode::format('png')->size(400)->generate($formattedId);
-        
+
         // Check if the QR code image is generated
         if (empty($qrCodeImage)) {
             Log::error('QR code image is empty');
@@ -189,14 +188,16 @@ class AuthController extends Controller
         $user->qr_code_path = $fileName;
         $user->save();
 
-        // Save responses in the responses table
-        foreach ($regisData['responses'] as $questionId => $answer) {
-            DB::table('responses')->insert([
-                'user_id' => $user->id,
-                'question_id' => $questionId,
-                'option_id' => $answer,
-                'created_at' => now(),
-            ]);
+        if (!empty($regisData['responses']) && count($regisData['responses']) > 0) {
+            // Save responses in the responses table
+            foreach ($regisData['responses'] as $questionId => $answer) {
+                DB::table('responses')->insert([
+                    'user_id' => $user->id,
+                    'question_id' => $questionId,
+                    'option_id' => $answer,
+                    'created_at' => now(),
+                ]);
+            }
         }
 
         // Clear the session after successful registration

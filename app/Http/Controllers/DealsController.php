@@ -18,7 +18,9 @@ class DealsController extends Controller
             $data['user'] = Auth::user();
             $data['user_points'] = UserPoint::where('user_id','=',Auth::user()->id)->sum('points');
             $data['all_deals'] =  Deal::all();
-            $data['user_qr'] = QrCode::format('png')->size(400)->generate(Auth::user()->code_number);
+            if(!empty(Auth::user()->code_number)){
+                $data['user_qr'] = QrCode::format('png')->size(400)->generate(Auth::user()->code_number);
+            }
             return view('deals.my-deals', $data);
         } else {
             return redirect("login");
