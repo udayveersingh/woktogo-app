@@ -8,21 +8,21 @@
 </div>
 
 <div class="px-5 py-12 max-w-[500px] mx-auto">
-    
 
-   
+
+
 
     <form action="{{route('register.step2')}}" method="post">
         @csrf
         <div class="flex flex-col gap-2 mb-4 mt-8">
-            <label class="text-sm text-[#3C3C3C]">E-mail</label>
-            <input type="email" autocomplete="off" placeholder="naam@domein.com" name="email" class="bg-white rounded-xl px-5 py-4 text-sm"  />
+            <label class="text-sm text-[#3C3C3C]">E-mail<span style="color: red; font-weight: bold;">*</span></label>
+            <input type="email" autocomplete="off" placeholder="naam@domein.com" name="email" class="bg-white rounded-xl px-5 py-4 text-sm" />
             @error('email')
-            <span class="invalid-feedback text-danger" role="alert">
+            <span class="invalid-feedback text-danger" style role="alert">
                 {{ $message }}
             </span>
-            @enderror      
-        </div>  
+            @enderror
+        </div>
         <button class="bg-red rounded-xl px-5 py-4 text-xl font-bold w-full text-white">Volgende</button>
     </form>
 

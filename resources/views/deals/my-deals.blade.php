@@ -2,7 +2,7 @@
 
 @section('content')
 <style>
-   
+
 </style>
 <div class="bg-black text-white h-[135px] flex flex-col justify-center items-center relative">
     <img class="w-full object-cover h-full absolute opacity-30" src="{{ asset('images/banner.webp') }}" alt="banner" />
@@ -28,13 +28,13 @@
     </a> -->
 
     <div class="flex flex-col rounded-xl overflow-hidden text-center relative bg-white mb-8 px-3">
-        <button class="absolute right-4 top-4">
+        <a href="{{route('deal-info')}}" class="absolute right-4 top-4">
             <svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="2 2 20 20">
                 <g id="Warning / Info">
                     <path id="Vector" d="M12 11V16M12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21ZM12.0498 8V8.1L11.9502 8.1002V8H12.0498Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
                 </g>
             </svg>
-        </button>
+        </a>
 
         <!-- <img src="{{ url('storage/app/private/qrcodes/'.$user->qr_code_path) }}" alt="deal" class="max-w-20 mx-auto" /> -->
         <div class="text-lg font-bold">

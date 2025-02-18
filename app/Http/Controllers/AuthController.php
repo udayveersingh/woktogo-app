@@ -92,7 +92,14 @@ class AuthController extends Controller
     public function postStep2(Request $request)
     {
         $request->validate([
-            'password' => 'required|string|max:255',
+            'password' => [
+                'required',
+                'string',
+                'min:8', // Minimum length of 8 characters
+                'regex:/[A-Z]/', // At least one uppercase letter
+                'regex:/[@$!%*?&]/', // At least one special character
+                'max:255',
+            ],
 
         ]);
 
@@ -136,6 +143,7 @@ class AuthController extends Controller
             'name' => 'required|string|max:255',
             'date_of_birth' => 'required',
             'phone' => 'required|max:15',
+            'gender' => 'required'
         ]);
 
         $request->session()->put('registration.name', $request->input('name'));

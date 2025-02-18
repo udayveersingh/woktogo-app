@@ -7,7 +7,12 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Woktogo</title>
     @vite('resources/css/app.css')
-
+    <style>
+        .invalid-feedback {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
 </head>
 
 <body class="font-sans antialiased dark:bg-black dark:text-white/50 flex flex-col h-full">
@@ -16,12 +21,12 @@
 
         @auth
         <!-- Logout Button -->
-        <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+        <!-- <form action="{{ route('logout') }}" method="POST" style="display: inline;">
             @csrf
             <button type="submit" class="bg-red-600 text-white font-semibold py-2 px-4 rounded hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500">
                 Logout
             </button>
-        </form>
+        </form> -->
         @else
         <p class="text-gray-600">You are not logged in.</p>
         @endauth
@@ -51,6 +56,20 @@
                             <li class="px-2 md:px-2 py-4 border-b-2 border-t-2 border-l border-r border-white rounded-xl"><a href="/my-deals">Mijn deals</a></li>
                             <li class="px-2 md:px-2 py-4 border-b-2 border-t-2 border-l border-r border-white rounded-xl"><a href="/deal-info">Meer informatie</a></li>
                             <!-- <li class="px-2 py-4"><a href="#">Shop</a></li> -->
+
+                            @auth
+                            <li class="px-2 md:px-2 py-4 border-b-2 border-t-2 border-l border-r border-white rounded-xl">
+                            <!-- Logout Button -->
+                            <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+                                @csrf
+                                    <button type="submit" class="bg-red-600 text-white font-semibold py-2 px-4 rounded hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500">
+                                        Logout
+                                    </button>
+                                </form>
+                            </li>
+                                @else
+                            <p class="text-gray-600">You are not logged in.</p>
+                            @endauth
                         </ul>
                     </div>
                 </div>
