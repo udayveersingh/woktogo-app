@@ -1,7 +1,9 @@
 @extends('common.index')
 
 @section('content')
-
+<style>
+   
+</style>
 <div class="bg-black text-white h-[135px] flex flex-col justify-center items-center relative">
     <img class="w-full object-cover h-full absolute opacity-30" src="{{ asset('images/banner.webp') }}" alt="banner" />
     <h1 class="text-2xl relative">Mijn deals</h1>
@@ -14,7 +16,7 @@
     </div>
     @endsession
 
-    <a href="{{ url()->previous() }}" class="rounded-full bg-red w-8 h-8 border-none inline-flex justify-center items-center mb-10">
+    <!-- <a href="{{ url()->previous() }}" class="rounded-full bg-red w-8 h-8 border-none inline-flex justify-center items-center mb-10">
         <svg width="24" height="24" fill="#fff" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <g data-name="Layer 2">
                 <g data-name="arrow-ios-back">
@@ -23,9 +25,9 @@
                 </g>
             </g>
         </svg>
-    </a>
+    </a> -->
 
-    <div class="flex flex-col rounded-xl overflow-hidden text-center relative bg-white mb-8 py-8 px-3">
+    <div class="flex flex-col rounded-xl overflow-hidden text-center relative bg-white mb-8 px-3">
         <button class="absolute right-4 top-4">
             <svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="2 2 20 20">
                 <g id="Warning / Info">
@@ -33,17 +35,20 @@
                 </g>
             </svg>
         </button>
-        @if(!empty($user_qr))
-        <img src="data:image/png;base64,{!! base64_encode($user_qr)!!}" alt="deal" class="max-w-50 mx-auto" />
-        @endif
+
         <!-- <img src="{{ url('storage/app/private/qrcodes/'.$user->qr_code_path) }}" alt="deal" class="max-w-20 mx-auto" /> -->
-        <div class="text-lg font-bold mt-2">{{$user->code_number}}</div>
-        <div class="text-base mb-12 mt-4">Scan om punten te sparen</div>
-        <div class="text-base font-bold">Aantal punten tot een gratis maaltijd</div>
-        <div class="bg-[#cecece] h-2 relative mt-2">
-            <div class="absolute left-0 top-0 bottom-0 w-[60%] bg-secondary"></div>
+        <div class="text-lg font-bold">
+            @if(!empty($user_qr))
+            <img src="data:image/png;base64,{!! base64_encode($user_qr)!!}" alt="deal" class="max-w-50 mx-auto" />
+            @endif
+            {{$user->code_number}}
+
         </div>
-        <div class="text-sm pb-4">{{!empty($user_points) ? $user_points:0}} van de 200 punten</div>
+        <div class="text-base mb-12">Scan om punten te sparen
+            <button class="bg-red text-white text-lg font-bold p-2 w-full inline-block rounded-md mt-4 max-w-[200px]">Aantal punten: {{!empty($user_points) ? $user_points:0}}</button>
+        </div>
+        <div class="text-sm pb-4">
+        </div>
     </div><!--/ Information Card -->
 
     <div class="deal_list flex flex-col gap-7">
@@ -56,7 +61,9 @@
                 </div>
                 <div class="bg-white p-4">
                     <h2 class="font-bold text-2xl mb-1">{{ $item->title }}</h2>
-                    <p class="text-sm">{{ $item->description }}</p>
+                    @if(!empty($item->description))
+                    <p class="text-sm custom-text max-w-[200px] mx-auto px-3">{{ $item->description }}</p>
+                    @endif
                     <button class="bg-secondary text-white text-lg font-bold p-2 w-full inline-block rounded-md mt-4 max-w-[200px] showDealScanner">Claim deal</button>
                 </div>
             </div>

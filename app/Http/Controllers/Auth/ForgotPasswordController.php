@@ -32,7 +32,7 @@ class ForgotPasswordController extends Controller
         $response = Password::sendResetLink($request->only('email'));
 
         if ($response == Password::RESET_LINK_SENT) {
-            return back()->with('status', __('We have emailed your password reset link!'));
+            return back()->with('status', __('We hebben een wachtwoord reset link gestuured.'));
         } else {
             return back()->withErrors(['email' => __('We could not find a user with that email address.')]);
         }
