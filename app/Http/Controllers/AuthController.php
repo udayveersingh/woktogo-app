@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Response;
 use App\Models\User;
+use App\Models\UserPoint;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -195,6 +196,12 @@ class AuthController extends Controller
         $user->code_number = $formattedId;
         $user->qr_code_path = $fileName;
         $user->save();
+        if (!empty($user)) {
+            $user_points = new UserPoint();
+            $user_points->user_id = $user->id;
+            $user_points->points = 10;
+            $user_points->save();
+        }
 
         if (!empty($regisData['responses']) && count($regisData['responses']) > 0) {
             // Save responses in the responses table

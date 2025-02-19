@@ -23,6 +23,8 @@
                     <p class="text-xs text-gray-600 mb-3 mt-6">
                         {{ __('We appreciate your business and hope you enjoy your meal!') }}
                     </p>
+
+                    <button onclick="window.location=`{{ url('owner-page') }}`" class="w-full bg-secondary text-lg text-white rounded-xl mt-4">Back</button> <!-- Reduced from text-xl to text-lg -->
                     
                 </div>
             </div>
