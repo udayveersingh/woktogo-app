@@ -82,4 +82,10 @@ class OwnerController extends Controller
     {
         return view('view-otp');
     }
+
+
+    public function deal_scan_one()
+    {
+        return view('deal_scan_one');
+    }
 }

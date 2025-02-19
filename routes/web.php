@@ -68,6 +68,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 Route::middleware(['auth', 'role:sub_admin'])->group(function () {
     Route::get('/owner-page', [OwnerController::class, 'owner_page'])->name('owner_page');
     Route::get('/owner-scan-one', [OwnerController::class, 'owner_scan_one'])->name('owner_scan_one');
+    Route::get('/deal-scan-one',[OwnerController::class,'deal_scan_one'])->name('deal_scan_one');
     Route::get('/owner-scan-two', [OwnerController::class, 'owner_scan_two'])->name('owner_scan_two');
     Route::get('/view-otp', [OwnerController::class, 'viewOtp'])->name('view-otp');
     Route::post('/scan-qr', [OwnerController::class, 'scan'])->name('scan-qr');

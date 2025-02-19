@@ -7,6 +7,7 @@ use App\Models\UserPoint;
 use App\Services\UserPointsService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
@@ -16,9 +17,17 @@ class DealsController extends Controller
     {
         if (Auth::check()) {
             $data['user'] = Auth::user();
-            $data['user_points'] = UserPoint::where('user_id','=',Auth::user()->id)->sum('points');
-            $data['all_deals'] =  Deal::all();
-            if(!empty(Auth::user()->code_number)){
+            $data['user_points'] = UserPoint::where('user_id', '=', Auth::user()->id)->sum('points');
+            $data['all_deals'] =  Deal::latest()->get();
+            // Generate QR codes for each deal if applicable
+            foreach ($data['all_deals'] as $item) {
+                if (!empty($item->code_number)) {
+                    $item->qr_code = QrCode::format('png')->size(400)->generate($item->code_number);
+                } else {
+                    $item->qr_code = null;
+                }
+            }
+            if (!empty(Auth::user()->code_number)) {
                 $data['user_qr'] = QrCode::format('png')->size(400)->generate(Auth::user()->code_number);
             }
             return view('deals.my-deals', $data);
@@ -69,7 +78,30 @@ class DealsController extends Controller
         $data = $request->all();
         $data['price'] = $request->input('price', 0); // Set price to 0 if not provided
 
+        // Generate the unique identifier in the desired format
+        $uniqueId = uniqid();
 
+        $formattedId = 'DL ' . strtoupper(substr($uniqueId, 0, 3)) . ' ' . str_pad(rand(0, 999), 3, '0', STR_PAD_LEFT);
+        // Generate the QR code
+        $qrCodeImage = QrCode::format('png')->size(400)->generate($formattedId);
+
+        // Check if the QR code image is generated
+        if (empty($qrCodeImage)) {
+            Log::error('QR code image is empty');
+            return redirect()->back()->withErrors('Failed to generate QR code.');
+        }
+
+        // Ensure the directory exists
+        if (!Storage::exists('deals/qrcodes')) {
+            Storage::makeDirectory('deals/qrcodes');
+        }
+
+        // Save the QR code image to storage
+        $fileName = 'deals/qrcodes/' . $formattedId . '.png';
+        Storage::put($fileName, $qrCodeImage);
+
+        $data['code_number'] =  $formattedId;
+        $data['qr_code_path'] = $fileName;
 
         // Handle image upload
         if ($request->hasFile('image')) {

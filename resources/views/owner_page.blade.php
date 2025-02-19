@@ -1,4 +1,11 @@
 @extends('common.index')
+<style>
+.deal-scan-btn{
+    width:330px;
+    height:96px;
+    padding: 30px;
+}
+</style>
 
 @section('content')
 <div class="md:min-h-full bg-yellow-500 flex flex-col items-center justify-between py-4">
@@ -56,16 +63,21 @@
                 <span id="total-points" class="font-semibold">0</span>
                 <input type="hidden" value="" name="total_points" id="totalPoints">
             </div>
-            <button onclick="window.location=`{{ url('owner-scan-one') }}`" class="w-full bg-secondary text-lg text-white py-8 rounded-xl mt-4 font-bold">Begin met scannen</button> <!-- Reduced from text-xl to text-lg -->
+            <button onclick="window.location=`{{ url('owner-scan-one') }}`" class="w-full bg-secondary text-lg text-white py-8 rounded-xl mt-4 font-bold">Begin met scannen</button><br> <!-- Reduced from text-xl to text-lg -->
+            <hr>
         </div>
     </form>
+
+    <div class="flex flex-col space-y-2 px-4 my-4 text-center">
+        <a href="{{route('deal_scan_one') }}" class="deal-scan-btn bg-red rounded-xl px-5 text-xl font-bold text-white">Deal verzilveren</a> <!-- Reduced from text-xl to text-lg -->
+    </div>
 
     <!-- Links -->
     <div class="flex flex-col space-y-2 px-4 my-4 text-center">
         <a class="underline text-sm">Lukt scannen niet?</a> <!-- Increased from default size to text-sm -->
         <a class="underline text-sm">Voer de cijfercode in</a> <!-- Increased from default size to text-sm -->
     </div>
-    </form>
+    <!-- </form> -->
 </div>
 
 @endsection

@@ -52,13 +52,13 @@
                         <!--exit icon, it will close navbar when clicked-->
                         <a href="javascript:void(0)" onclick="exitNav()" class="text-3xl absolute top-0 right-0 mr-3 mt-2">&times;</a>
                         <ul class="text-md sm:text-xl text-center text-nowrap space-y-5">
-                            <li class="px-2 md:px-2 py-4 border-b-2 border-t-2 border-l border-r border-white rounded-xl"><a href="/my-account">Mijn account aanpassen</a></li>
-                            <li class="px-2 md:px-2 py-4 border-b-2 border-t-2 border-l border-r border-white rounded-xl"><a href="/my-deals">Mijn deals</a></li>
-                            <li class="px-2 md:px-2 py-4 border-b-2 border-t-2 border-l border-r border-white rounded-xl"><a href="/deal-info">Meer informatie</a></li>
+                            <li class="bg-primary px-2 md:px-2 py-4 border-b-2 border-t-2 border-l border-r border-white rounded-xl"><a href="/my-account" class="text-black text-lg font-semibold">Account aanpassen</a></li>
+                            <li class="bg-primary px-2 md:px-2 py-4 border-b-2 border-t-2 border-l border-r border-white rounded-xl"><a href="/my-deals" class="text-black text-lg font-semibold">Mijn deals</a></li>
+                            <li class="bg-primary px-2 md:px-2 py-4 border-b-2 border-t-2 border-l border-r border-white rounded-xl"><a href="/deal-info" class="text-black text-lg font-semibold">Meer informatie</a></li>
                             <!-- <li class="px-2 py-4"><a href="#">Shop</a></li> -->
 
                             @auth
-                            <li class="px-2 md:px-2 py-4 border-b-2 border-t-2 border-l border-r border-white rounded-xl">
+                            <li class="bg-red px-2 md:px-2 py-4 border-b-2 border-t-2 border-l border-r border-white rounded-xl">
                             <!-- Logout Button -->
                             <form action="{{ route('logout') }}" method="POST" style="display: inline;">
                                 @csrf

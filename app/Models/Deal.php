@@ -15,5 +15,7 @@ class Deal extends Model
         'deadline',  // Make sure this is included
         'image',
         'price',
+        'code_number',
+        'qr_code_path'
     ];
 }
