@@ -2,7 +2,31 @@
 
 @section('content')
 <style>
+    .bg-grey {
+        --tw-bg-opacity: 1;
+        background-color: rgb(128 128 128 / var(--tw-bg-opacity));
+        /* Standard grey */
+    }
 
+    .deal-image {
+        position: relative;
+        z-index: 1;
+    }
+
+    .claim-title {
+        position: relative;
+    }
+
+    .bg-grey-overlay {
+        position: absolute;
+        background: #000;
+        width: 100%;
+        height: 100%;
+        top: 0px;
+        /* position: relative; */
+        left: 0px;
+        background-color: rgba(255, 255, 255, 0.8);
+    }
 </style>
 <div class="bg-black text-white h-[135px] flex flex-col justify-center items-center relative">
     <img class="w-full object-cover h-full absolute opacity-30" src="{{ asset('images/banner.webp') }}" alt="banner" />
@@ -55,27 +79,48 @@
 
         @foreach ($all_deals as $item)
         <div class="flex flex-col rounded-xl text-center overflow-hidden group relative dealCardWrapper">
-            <div class="card-front bg-secondary">
+            @if(!empty($item->description) && $item->description == "100 punten" && $user_points < 100)
+                <div class="card-front bg-grey">
                 <div class="p-4">
-                    <img src="{{ asset($item->image) }}" alt="deal" class="max-w-20 mx-auto" />
+                    <img src="{{ asset($item->image) }}" alt="deal" class="max-w-20 mx-auto deal-image" />
                 </div>
                 <div class="bg-white p-4">
-                    <h2 class="font-bold text-2xl mb-1">{{ $item->title }}</h2>
-                    @if(!empty($item->description))
-                    <p class="text-sm custom-text max-w-[200px] mx-auto px-3">{{ $item->description }}</p>
-                    @endif
-                    <button class="bg-secondary text-white text-lg font-bold p-2 w-full inline-block rounded-md mt-4 max-w-[200px] showDealScanner">Claim deal</button>
+                    <div class="bg-grey-500 claim-title">
+                        <h2 class="font-bold text-2xl mb-1">{{ $item->title }}</h2>
+                        @if(!empty($item->description))
+                        <p class="text-sm custom-text max-w-[200px] mx-auto px-3">{{ $item->description }}</p>
+                        @endif
+                        <button class="bg-grey text-white text-lg font-bold p-2 w-full inline-block rounded-md mt-4 max-w-[200px]">Claimed</button>
+                    </div>
+                    <div class="bg-grey-overlay">
+                    </div>
                 </div>
+        </div>
+        @else
+        <div class="card-front bg-secondary">
+            <div class="p-4">
+                <img src="{{ asset($item->image) }}" alt="deal" class="max-w-20 mx-auto" />
             </div>
-            <div class="card-back hidden absolute top-0 left-0 right-0 bottom-0 bg-white items-center justify-center gap-2 flex-col">
-                <img src="{{ asset('images/barcode.png') }}" alt="deal" class="max-w-40 mx-auto mt-2" />
-                <button class="bg-secondary text-white text-xl font-bold p-2 w-full inline-block rounded-md mt-4 max-w-[200px] hideDealScanner">Annuleer</button>
+            <div class="bg-white p-4">
+                <h2 class="font-bold text-2xl mb-1">{{ $item->title }}</h2>
+                @if(!empty($item->description))
+                <p class="text-sm custom-text max-w-[200px] mx-auto px-3">{{ $item->description }}</p>
+                @endif
+                <button class="bg-secondary text-white text-lg font-bold p-2 w-full inline-block rounded-md mt-4 max-w-[200px] showDealScanner">Claim deal</button>
             </div>
+        </div>
+        <div class="card-back hidden absolute top-0 left-0 right-0 bottom-0 bg-white items-center justify-center gap-2 flex-col">
+            <img src="{{ asset('images/barcode.png') }}" alt="deal" class="max-w-40 mx-auto mt-2" />
+            <button class="bg-secondary text-white text-xl font-bold p-2 w-full inline-block rounded-md mt-4 max-w-[200px] hideDealScanner">Annuleer</button>
+        </div>
 
-        </div><!--/Deal card -->
-        @endforeach
 
-    </div>
+        @endif
+
+    </div><!--/Deal card -->
+    @endforeach
+
+</div>
 
 </div>
 
