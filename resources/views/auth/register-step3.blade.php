@@ -55,11 +55,6 @@
                 <option value="man">Man</option>
                 <option value="ik wil het niet zeggen">Ik wil het niet zeggen</option>
             </select>
-            @error('gender')
-            <span class="invalid-feedback text-danger" role="alert">
-                {{ $message }}
-            </span>
-            @enderror
         </div>
 
         <div class="flex flex-col gap-2 mb-4">

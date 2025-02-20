@@ -144,12 +144,12 @@ class AuthController extends Controller
             'name' => 'required|string|max:255',
             'date_of_birth' => 'required',
             'phone' => 'required|max:15',
-            'gender' => 'required'
         ]);
 
         $request->session()->put('registration.name', $request->input('name'));
         $request->session()->put('registration.date_of_birth', $request->input('date_of_birth'));
         $request->session()->put('registration.phone', $request->input('phone'));
+        $request->session()->put('registration.gender', $request->input('gender'));
 
         $request->session()->put('registration.responses', $request->input('responses'));
 
@@ -195,6 +195,7 @@ class AuthController extends Controller
         $user->phone = $regisData['phone'];
         $user->code_number = $formattedId;
         $user->qr_code_path = $fileName;
+        $user->gender = !empty($regisData['gender']) ? $regisData['gender']:''; 
         $user->save();
         if (!empty($user)) {
             $user_points = new UserPoint();
