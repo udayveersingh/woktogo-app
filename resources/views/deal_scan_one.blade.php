@@ -13,7 +13,7 @@
     {{ $value }}
 </div>
 @endsession
-<form action="{{route('owner_scan_two')}}" method="POST" enctype="multipart/form-data">
+<form action="{{route('owner_scan_deal')}}" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="flex flex-col items-center pt-40 min-h-full bg-yellow-500 transition-all duration-300" id="overlay-container">
         <div class="text-left w-3/4 max-w-sm mb-4">
@@ -21,6 +21,7 @@
             <p class="text-lg font-semibold md:text-xl">Voer de cijfercode in.</p>
         </div>
         <input type="text" class="z-50 border border-gray-300 rounded-xl p-3 w-3/4 max-w-sm text-center focus:outline-none focus:border-transparent uppercase caret-red" id="user-code" name="user_code" onfocus="addOverlay()" onblur="removeOverlay()" />
+        <input type="text" class="z-50 border border-gray-300 rounded-xl p-3 w-3/4 max-w-sm text-center focus:outline-none focus:border-transparent uppercase caret-red" id="deal-code" name="deal_code" />
         <button class="py-2 px-4 mt-4 text-lg text-white bg-secondary rounded-md">Next</button>
     </div>
 </form>
@@ -57,7 +58,7 @@
                 console.log(`Code matched = ${decodedText}`, decodedResult);
 
                 // Fetch request inside the callback to ensure decodedText is defined
-                fetch('/scan-qr', {
+                fetch('/deal-scan-qr', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',

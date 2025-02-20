@@ -19,16 +19,17 @@ class DealsController extends Controller
             $data['user'] = Auth::user();
             $data['user_points'] = UserPoint::where('user_id', '=', Auth::user()->id)->sum('points');
             $data['all_deals'] =  Deal::latest()->get();
+            if (!empty(Auth::user()->code_number)) {
+                $data['user_qr'] = QrCode::format('png')->size(400)->generate(Auth::user()->code_number);
+            }
             // Generate QR codes for each deal if applicable
             foreach ($data['all_deals'] as $item) {
                 if (!empty($item->code_number)) {
-                    $item->qr_code = QrCode::format('png')->size(400)->generate($item->code_number);
+                    $qrData =  $data['user']->code_number . '|' . $item->code_number;
+                    $item->qr_code = QrCode::format('png')->size(400)->generate($qrData);
                 } else {
                     $item->qr_code = null;
                 }
-            }
-            if (!empty(Auth::user()->code_number)) {
-                $data['user_qr'] = QrCode::format('png')->size(400)->generate(Auth::user()->code_number);
             }
             return view('deals.my-deals', $data);
         } else {

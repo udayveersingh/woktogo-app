@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Deal;
 use App\Models\User;
+use App\Models\UserDeal;
 use App\Models\UserPoint;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -49,6 +51,13 @@ class OwnerController extends Controller
         return response()->json(['message' => 'QR code scanned successfully!', 'data' => $data]);
     }
 
+    public function scanDeal(Request $request)
+    {
+        $data = $request->input('data');
+        // Process the QR code data as needed
+        return response()->json(['message' => 'QR code scanned successfully!', 'data' => $data]);
+    }
+
     public function ownerScanPost(Request $request)
     {
         $request->session()->put('user_points.user_code', $request->input('user_code'));
@@ -69,6 +78,7 @@ class OwnerController extends Controller
         }
     }
 
+
     public function owner_scan_two(Request $request)
     {
         // $user_qr = QrCode::format('png')->size(400)->generate(Auth::user()->name);
@@ -78,14 +88,33 @@ class OwnerController extends Controller
         return view('thank-you');
     }
 
-    public function viewOtp(Request $request)
-    {
-        return view('view-otp');
-    }
-
-
     public function deal_scan_one()
     {
         return view('deal_scan_one');
+    }
+
+
+    public function dealScanPost(Request $request)
+    {
+        $user = User::where('code_number',$request->user_code)->first();
+        $deal = Deal::where('code_number',$request->deal_code)->first();
+
+        $user_deals = new UserDeal();
+        $user_deals->user_id = $user->id;
+        $user_deals->deal_id = $deal->id;
+        $user_deals->status = 'in-active';
+        $user_deals->save();
+        return view('thank-you');
+    }
+
+    public function DealScanned()
+    {
+        return view('thank-you');
+    }
+
+
+    public function viewOtp(Request $request)
+    {
+        return view('view-otp');
     }
 }

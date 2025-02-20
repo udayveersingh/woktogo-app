@@ -72,11 +72,16 @@ Route::middleware(['auth', 'role:sub_admin'])->group(function () {
     Route::get('/owner-scan-two', [OwnerController::class, 'owner_scan_two'])->name('owner_scan_two');
     Route::get('/view-otp', [OwnerController::class, 'viewOtp'])->name('view-otp');
     Route::post('/scan-qr', [OwnerController::class, 'scan'])->name('scan-qr');
+    Route::post('/deal-scan-qr',[OwnerController::class,'scanDeal'])->name('deal-scan-qr');
     Route::post('/owner-scan-one', [OwnerController::class, 'postOwnerPage'])->name('owner-scan-one');
     Route::get('/owner-scan-one', [OwnerController::class, 'owner_scan_one'])->name('owner_scan_one_view');
 
     Route::post('/owner-scan-two', [OwnerController::class, 'ownerScanPost'])->name('owner_scan_two');
     Route::get('/owner-scan-two', [OwnerController::class, 'owner_scan_two'])->name('owner_scan_two_view');
+
+    //deals scan post
+    Route::post('/owner-scan-deal', [OwnerController::class, 'dealScanPost'])->name('owner_scan_deal');
+    Route::get('/owner-scan-deal', [OwnerController::class, 'DealScanned'])->name('owner_scan_deal_view');
 });
 
 Route::middleware(['auth', 'role:user'])->group(function () {
