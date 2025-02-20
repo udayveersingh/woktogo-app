@@ -20,7 +20,7 @@
             <p class="text-lg font-semibold md:text-xl">Lukt scannen niet?478</p>
             <p class="text-lg font-semibold md:text-xl">Voer de cijfercode in.</p>
         </div>
-        <input type="text" class="z-50 border border-gray-300 rounded-xl p-3 w-3/4 max-w-sm text-center focus:outline-none focus:border-transparent uppercase caret-red" id="user-code" name="user_code" onfocus="addOverlay()" onblur="removeOverlay()" />
+        <input type="hidden" class="z-50 border border-gray-300 rounded-xl p-3 w-3/4 max-w-sm text-center focus:outline-none focus:border-transparent uppercase caret-red" id="user-code" name="user_code" onfocus="addOverlay()" onblur="removeOverlay()" />
         <input type="text" class="z-50 border border-gray-300 rounded-xl p-3 w-3/4 max-w-sm text-center focus:outline-none focus:border-transparent uppercase caret-red" id="deal-code" name="deal_code" />
         <button class="py-2 px-4 mt-4 text-lg text-white bg-secondary rounded-md">Next</button>
     </div>

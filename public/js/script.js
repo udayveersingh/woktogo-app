@@ -13,9 +13,16 @@ function updateTotal() {
 
 // Increment Function
 function increment(type) {
+    console.log(type, "test type");
     const countDisplay = document.getElementById(`count-display-${type}`);
     let currentCount = parseInt(countDisplay.innerText);
-    currentCount += 1;
+    if (type == "Drink") {
+        currentCount += 2;
+    } else if (type == "Meal") {
+        currentCount += 8;
+    } else if (type == "Snack") {
+        currentCount += 1;
+    }
     countDisplay.innerText = currentCount;
 
     updateTotal();
