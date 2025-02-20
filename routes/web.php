@@ -43,6 +43,10 @@ Route::get('password/reset/{token}', [ResetPasswordController::class, 'showReset
 
 // Route to handle the password reset
 Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password-update');
+//support email
+// Route to show the support form
+Route::get('/support', [ResetPasswordController::class, 'showSupportForm'])->name('support');
+Route::Post('send-support-email',[ResetPasswordController::class, 'sendSupportEmail'])->name('send-support-email');
 
 
 Route::middleware(['auth', 'role:admin'])->group(function () {

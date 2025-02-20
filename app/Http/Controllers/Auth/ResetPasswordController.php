@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Validation\ValidationException;
 use App\Models\User;
+use App\Mail\SupportRequest;
+use Illuminate\Support\Facades\Mail;
 
 class ResetPasswordController extends Controller
 {
@@ -56,5 +58,31 @@ class ResetPasswordController extends Controller
         // auth()->login($user);
 
         return redirect()->route('login')->with('status', __('Your password has been reset! You can now log in.'));
+    }
+
+
+    public function showSupportForm()
+    {
+        return view('support');
+    }
+
+
+    public function sendSupportEmail(Request $request)
+    {
+        // Validate the input
+        $validated = $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|email',
+            'message' => 'required|string',
+        ]);
+
+        // Send the email
+        Mail::to('kern@brown-brown.nl')->send(new SupportRequest(
+            $validated['name'],
+            $validated['email'],
+            $validated['message']
+        ));
+
+        return back()->with('success', 'Your message has been sent!');
     }
 }

@@ -64,7 +64,7 @@
                 <input type="hidden" value="" name="total_points" id="totalPoints">
             </div>
             <button onclick="window.location=`{{ url('owner-scan-one') }}`" class="w-full bg-secondary text-lg text-white py-8 rounded-xl mt-4 font-bold">Begin met scannen</button><br> <!-- Reduced from text-xl to text-lg -->
-            <hr>
+            <hr style="margin-top: 50px;">
         </div>
     </form>
 

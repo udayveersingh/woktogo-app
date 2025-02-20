@@ -12,6 +12,24 @@
             color: red;
             font-weight: bold;
         }
+        .btn-group li a {
+    width: auto;
+    display: block;
+    margin: 0 auto;
+}
+.btn-group li button{ display: block;margin: 0 auto;margin-top: 25%;
+    width: 195px;
+    }
+.btn-group li:nth-child(4){    width: auto;
+    color: #000;}
+    .btn-group li {
+    width: 100%;
+    float: none;
+    margin: 0 auto;
+}
+.btn-group li:nth-child(3) {
+    margin-bottom: 30% ! important;
+}
     </style>
 </head>
 
@@ -28,11 +46,11 @@
             </button>
         </form> -->
         @else
-        <p class="text-gray-600">You are not logged in.</p>
+        <!-- <p class="text-gray-600">You are not logged in.</p> -->
         @endauth
 
 
-
+        @auth
         <div class="cursor-pointer text-white mt-4">
             <nav>
                 <!--Hamburger menu icon svg to trigger the slide-in menu when clicked-->
@@ -51,28 +69,32 @@
                     <div id="sideNav" onclick="event.stopPropagation()" class="fixed top-0 right-0 bg-greenheader overflow-x-hidden duration-500 font-bold flex justify-center items-start h-full w-0 pt-24">
                         <!--exit icon, it will close navbar when clicked-->
                         <a href="javascript:void(0)" onclick="exitNav()" class="text-3xl absolute top-0 right-0 mr-3 mt-2">&times;</a>
-                        <ul class="text-md sm:text-xl text-center text-nowrap space-y-5">
-                            <li class="bg-primary px-2 md:px-2 py-4 border-b-2 border-t-2 border-l border-r border-white rounded-xl"><a href="/my-account" class="text-black text-lg font-semibold">Account aanpassen</a></li>
-                            <li class="bg-primary px-2 md:px-2 py-4 border-b-2 border-t-2 border-l border-r border-white rounded-xl"><a href="/my-deals" class="text-black text-lg font-semibold">Mijn deals</a></li>
-                            <li class="bg-primary px-2 md:px-2 py-4 border-b-2 border-t-2 border-l border-r border-white rounded-xl"><a href="/deal-info" class="text-black text-lg font-semibold">Meer informatie</a></li>
+                        <ul class="text-md sm:text-xl text-center text-nowrap space-y-5 btn-group">
+                            <li><a href="/my-account" class="text-black text-lg font-semibold bg-primary px-5 py-4  rounded-xl d-block">Account aanpassen</a></li>
+                            <li><a href="/my-deals" class="text-black text-lg font-semibold bg-primary px-5 py-4  rounded-xl d-block">Mijn deals</a></li>
+                            <li><a href="/deal-info" class="text-black text-lg font-semibold bg-primary px-5 py-4  rounded-xl d-block">Meer informatie</a></li>
                             <!-- <li class="px-2 py-4"><a href="#">Shop</a></li> -->
+                            <li class="bg-primary px-5 py-4  rounded-xl">Problemen? <a href="
+                            {{route('support')}}" class="text-white text-lg font-semibold text-black text-lg font-semibold "><u>Sturr een e-mail</u></a></li>
 
                             @auth
-                            <li class="bg-red px-2 md:px-2 py-4 border-b-2 border-t-2 border-l border-r border-white rounded-xl">
+                            <li>
                             <!-- Logout Button -->
                             <form action="{{ route('logout') }}" method="POST" style="display: inline;">
                                 @csrf
-                                    <button type="submit" class="bg-red-600 text-white font-semibold py-2 px-4 rounded hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500">
+                                    <button type="submit" class="bg-red px-7 py-4  rounded-xl d-block rounded-xl">
                                         Logout
                                     </button>
                                 </form>
                             </li>
                                 @else
-                            <p class="text-gray-600">You are not logged in.</p>
+                            <!-- <p class="text-gray-600">You are not logged in.</p> -->
                             @endauth
                         </ul>
+                        
                     </div>
                 </div>
             </nav>
         </div>
+        @endauth
     </div>

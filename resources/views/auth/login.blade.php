@@ -1,6 +1,32 @@
 @extends('common.index')
 
 @section('content')
+<style>
+
+.text-line-box {
+    position: relative;
+    width: 100%;
+    float: left;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+.text-line-inner {
+    border-bottom: 1px solid #fff;
+   
+}
+.text-line-box h3 {
+   
+    width: 35px;
+    position: absolute;
+   margin: 0 auto;
+    z-index: 9;
+    color: #fff;
+    left: 0px;
+    right: 0px;
+    top:-13px;
+
+}
+</style>
 
 <div class="bg-black text-white h-[135px] flex flex-col justify-center items-center relative">
     <img class="w-full object-cover h-full absolute opacity-30" src="{{ asset('images/banner.webp') }}" alt="banner" />
@@ -54,7 +80,16 @@
 
     <div class="text-center mt-7">
         <a href="{{ route('password.request') }}" class="underline">Wachtwoord vergeten?</a>
+        <div class="text-line-box">
+        <h3 class="bg-primary">of</h3>
+            <div class="text-line-inner"> 
+             </div>
+        </div>
         <div class="mt-8">Geen account? <a class="underline text-white" href="/register">Maak een account aan</a></div>
+    </div>
+
+    <div class="text-center mt-7">
+        <div class="mt-8"><p>Problemen met inloggen? </p><a class="underline text-white" href="">Stuur een e-mail</a></div>
     </div>
     
 
