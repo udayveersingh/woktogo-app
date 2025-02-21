@@ -2,6 +2,11 @@
 
 @section('content')
 <div class="px-5 py-12 max-w-[500px] mx-auto">
+    @if(session('success'))
+    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
+        {{ session('success') }}
+    </div>
+    @endif
 
     <form action="{{ route('send-support-email') }}" method="POST">
         @csrf
@@ -16,7 +21,7 @@
         </div>
         <div class="flex flex-col gap-2 mb-4">
             <label class="text-sm text-[#3C3C3C]">Message:</label>
-            <textarea  id="message" name="message" autocomplete="off" class="bg-white rounded-xl px-5 py-4 text-sm"></textarea>
+            <textarea id="message" name="message" autocomplete="off" class="bg-white rounded-xl px-5 py-4 text-sm"></textarea>
         </div>
 
         <button class="bg-red rounded-xl px-5 py-4 text-xl font-bold w-full text-white" type="submit">Send Message</button>
