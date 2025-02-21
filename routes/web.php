@@ -82,7 +82,7 @@ Route::middleware(['auth', 'role:sub_admin'])->group(function () {
     Route::get('/owner-scan-one', [OwnerController::class, 'owner_scan_one'])->name('owner_scan_one_view');
 
     Route::post('/owner-scan-two', [OwnerController::class, 'ownerScanPost'])->name('owner_scan_two');
-    Route::get('/owner-scan-two', [OwnerController::class, 'owner_scan_two'])->name('owner_scan_two_view');
+    Route::get('/owner-scan-two/{id}', [OwnerController::class, 'owner_scan_two'])->name('owner_scan_two_view');
 
     //deals scan post
     Route::post('/owner-scan-deal', [OwnerController::class, 'dealScanPost'])->name('owner_scan_deal');

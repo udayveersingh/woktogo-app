@@ -72,20 +72,22 @@ class OwnerController extends Controller
             $user_points->points = $total_points;
             $user_points->save();
             // Clear the session after successful registration
-            return redirect()->route('owner_scan_two_view')->withSuccess('You have user points has been assigned successfully.');
+            return redirect()->route('owner_scan_two_view',$user_points->id)->withSuccess('You have user points has been assigned successfully.');
         } else {
             return redirect()->route('owner_scan_one_view')->withError('Oppes! You have entered invalid user code');
         }
     }
 
 
-    public function owner_scan_two(Request $request)
+    public function owner_scan_two($id)
     {
         // $user_qr = QrCode::format('png')->size(400)->generate(Auth::user()->name);
         // // $user_qr = QrCode::format('png')->size(400)->generate("Ravi");
         // $test = "test";
         // return view('owner_scan_two', compact('user_qr', 'test'));
-        return view('thank-you');
+        $user_points = UserPoint::find($id);
+        
+        return view('thank-you',compact('user_points'));
     }
 
     public function deal_scan_one()
