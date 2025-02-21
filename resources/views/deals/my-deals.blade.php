@@ -96,6 +96,24 @@
                     </div>
                 </div>
         </div>
+        @elseif(!empty($user_deals[$index]) && $user_deals[$index]->deal_id == $item->id)
+        <div class="card-front bg-grey">
+            <div class="p-4">
+                <img src="{{ asset($item->image) }}" alt="deal" class="max-w-20 mx-auto deal-image" />
+            </div>
+            <div class="bg-white p-4">
+                <div class="bg-grey-500 claim-title">
+                    <h2 class="font-bold text-2xl mb-1">{{ $item->title }}</h2>
+                    @if(!empty($item->description))
+                    <p class="text-sm custom-text max-w-[200px] mx-auto px-3">{{ $item->description }}</p>
+                    @endif
+                    <button class="bg-grey text-white text-lg font-bold p-2 w-full inline-block rounded-md mt-4 max-w-[200px]">Claimed</button>
+                </div>
+                <div class="bg-grey-overlay">
+                </div>
+            </div>
+        </div>
+
         @else
         <div class="card-front bg-secondary">
             <div class="p-4">

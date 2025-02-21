@@ -20,8 +20,9 @@
             <p class="text-lg font-semibold md:text-xl">Lukt scannen niet?478</p>
             <p class="text-lg font-semibold md:text-xl">Voer de cijfercode in.</p>
         </div>
-        <input type="hidden" class="z-50 border border-gray-300 rounded-xl p-3 w-3/4 max-w-sm text-center focus:outline-none focus:border-transparent uppercase caret-red" id="user-code" name="user_code" onfocus="addOverlay()" onblur="removeOverlay()" />
-        <input type="text" class="z-50 border border-gray-300 rounded-xl p-3 w-3/4 max-w-sm text-center focus:outline-none focus:border-transparent uppercase caret-red" id="deal-code" name="deal_code" />
+        <input type="text" class="z-50 border border-gray-300 rounded-xl p-3 w-3/4 max-w-sm text-center focus:outline-none focus:border-transparent uppercase caret-red" id="user-code" placeholder="enter user code.." name="user_code" onfocus="addOverlay()" onblur="removeOverlay()" />
+        <br><br>
+        <input type="text" class="z-50 border border-gray-300 rounded-xl p-3 w-3/4 max-w-sm text-center focus:outline-none focus:border-transparent uppercase caret-red" placeholder="enter deals code.." id="deal-code" name="deal_code" />
         <button class="py-2 px-4 mt-4 text-lg text-white bg-secondary rounded-md">Next</button>
         <div class="flex flex-col space-y-2 px-4 my-4 text-center">
             <a href="{{route('owner_page')}}" class="deal-scan-btn bg-red rounded-xl px-5 py-5 text-xl font-bold text-white">Stop met scannen</a> <!-- Reduced from text-xl to text-lg -->
@@ -73,8 +74,9 @@
                     })
                     .then(response => response.json())
                     .then(data => {
-                        document.getElementById('user-code').value = data.data;
-                        console.log(data);
+                        // Show the user data in the user-code input field
+                        document.getElementById('user-code').value = data.user;
+                        document.getElementById('deal-code').value = data.deal;
                     })
                     .catch(error => console.error('Error:', error));
             },

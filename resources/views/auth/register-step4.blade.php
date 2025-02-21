@@ -27,7 +27,12 @@
         </div>
 
         <div class="flex flex-col gap-2 mb-4">
-            <label class="flex gap-2"><input type="checkbox" name="agree_terms" value="1" /> Akkoord algemene voorwaarden</label>
+            <label class="flex gap-2"><input type="checkbox" name="agree_terms" value="1" /> Akkoord algemene voorwaarden<span style="color: red; font-weight: bold;">*</span></label>
+            @error('agree_terms')
+            <span class="invalid-feedback text-danger" role="alert">
+                {{ $message }}
+            </span>
+            @enderror
         </div>
 
         <button class="bg-red rounded-xl px-5 py-3 text-xl font-bold w-full text-white">Maak een account aan</button>

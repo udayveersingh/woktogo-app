@@ -32,7 +32,13 @@ function increment(type) {
 function decrement(type) {
     const countDisplay = document.getElementById(`count-display-${type}`);
     let currentCount = parseInt(countDisplay.innerText);
-    currentCount = Math.max(currentCount - 1, 0); // Ensure count does not go below zero
+    if (type == "Drink") {
+        currentCount = Math.max(currentCount - 2, 0); // Ensure count does not go below zero
+    } else if (type == "Meal") {
+        currentCount = Math.max(currentCount - 8, 0); // Ensure count does not go below zero
+    } else if (type == "Snack") {
+        currentCount = Math.max(currentCount - 1, 0);
+    }
     countDisplay.innerText = currentCount;
 
     updateTotal();

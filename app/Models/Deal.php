@@ -18,4 +18,10 @@ class Deal extends Model
         'code_number',
         'qr_code_path'
     ];
+
+    // Define the relationship with UserDeal model
+    public function userDeals()
+    {
+        return $this->hasMany(UserDeal::class, 'deal_id');
+    }
 }

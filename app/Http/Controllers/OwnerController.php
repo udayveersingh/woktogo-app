@@ -54,8 +54,20 @@ class OwnerController extends Controller
     public function scanDeal(Request $request)
     {
         $data = $request->input('data');
-        // Process the QR code data as needed
-        return response()->json(['message' => 'QR code scanned successfully!', 'data' => $data]);
+        // Split the data based on the space separator
+        $parts = explode(' ', $data);
+        // Further split the third part (which is "813|DL") into two parts
+        $dealPart = explode('|', $parts[2]);
+
+        // Assign the corresponding parts to $user and $deal
+        $user = $parts[0] . ' ' . $parts[1] . ' ' . $dealPart[0]; // "CF 67B 813"
+        $deal = $dealPart[1] . ' ' . $parts[3] . ' ' . $parts[4]; // "DL 67B 751"
+        // Return the result as a response
+        return response()->json([
+            'message' => 'QR code scanned successfully!',
+            'user' => $user,
+            'deal' => $deal
+        ]);
     }
 
     public function ownerScanPost(Request $request)
@@ -72,7 +84,7 @@ class OwnerController extends Controller
             $user_points->points = $total_points;
             $user_points->save();
             // Clear the session after successful registration
-            return redirect()->route('owner_scan_two_view',$user_points->id)->withSuccess('You have user points has been assigned successfully.');
+            return redirect()->route('owner_scan_two_view', $user_points->id)->withSuccess('You have user points has been assigned successfully.');
         } else {
             return redirect()->route('owner_scan_one_view')->withError('Oppes! You have entered invalid user code');
         }
@@ -86,8 +98,8 @@ class OwnerController extends Controller
         // $test = "test";
         // return view('owner_scan_two', compact('user_qr', 'test'));
         $user_points = UserPoint::find($id);
-        
-        return view('thank-you',compact('user_points'));
+
+        return view('thank-you', compact('user_points'));
     }
 
     public function deal_scan_one()
@@ -98,15 +110,18 @@ class OwnerController extends Controller
 
     public function dealScanPost(Request $request)
     {
-        $user = User::where('code_number',$request->user_code)->first();
-        $deal = Deal::where('code_number',$request->deal_code)->first();
-
-        $user_deals = new UserDeal();
-        $user_deals->user_id = $user->id;
-        $user_deals->deal_id = $deal->id;
-        $user_deals->status = 'in-active';
-        $user_deals->save();
-        return view('thank-you');
+        $user = User::where('code_number', $request->user_code)->first();
+        $deal = Deal::where('code_number', $request->deal_code)->first();
+        if (!empty($user) && !empty($deal)) {
+            $user_deals = new UserDeal();
+            $user_deals->user_id = $user->id;
+            $user_deals->deal_id = $deal->id;
+            $user_deals->status = 'in-active';
+            $user_deals->save();
+            return view('thank-you');
+        } else {
+            return back();
+        }
     }
 
     public function DealScanned()

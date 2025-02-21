@@ -169,7 +169,9 @@ class AuthController extends Controller
 
     public function postFinalStep(Request $request)
     {
-
+        $request->validate([
+            'agree_terms' => 'required',
+        ]);
         // $request->session()->put('registration.receive_news_and_deals', $request->input('receive_news_and_deals'));
         // $request->session()->put('registration.agree_terms', $request->input('agree_terms'));
          // Optionally retrieve all data for display

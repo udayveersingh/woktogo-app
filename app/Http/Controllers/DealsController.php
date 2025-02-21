@@ -7,6 +7,7 @@ use App\Models\UserPoint;
 use App\Services\UserPointsService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
@@ -17,8 +18,17 @@ class DealsController extends Controller
     {
         if (Auth::check()) {
             $data['user'] = Auth::user();
+
+            $data['user_deals'] = DB::table('user_deals')
+                ->join('deals', 'user_deals.deal_id', '=', 'deals.id') // Join user_deals and deals table
+                ->where('user_id', '=', Auth::user()->id)
+                ->select('user_deals.*') // Select columns you need
+                ->latest('user_deals.created_at') // Or you can specify the order column for latest
+                ->get();
             $data['user_points'] = UserPoint::where('user_id', '=', Auth::user()->id)->sum('points');
-            $data['all_deals'] =  Deal::latest()->get();
+            // $data['all_deals'] =  Deal::latest()->get();
+
+            $data['all_deals'] = Deal::latest()->get();
             if (!empty(Auth::user()->code_number)) {
                 $data['user_qr'] = QrCode::format('png')->size(400)->generate(Auth::user()->code_number);
             }
