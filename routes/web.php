@@ -35,6 +35,7 @@ Route::post('/register/step3', [AuthController::class, 'postStep2'])->name('regi
 Route::get('/register/step3', [AuthController::class, 'showStep3'])->name('register.step3.show');
 Route::post('/register/step4', [AuthController::class, 'postStep3'])->name('register.step4');
 Route::get('/register/step4', [AuthController::class, 'showStep4'])->name('register.step4.show');
+Route::post('/register/step5',[AuthController::class, 'postFinalStep'])->name('register.step5');
 Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
 Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
 

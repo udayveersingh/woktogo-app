@@ -162,7 +162,17 @@ class AuthController extends Controller
 
     public function showStep4(Request $request)
     {
-        // Optionally retrieve all data for display
+    
+        return view('auth.register-step4');
+    
+    }
+
+    public function postFinalStep(Request $request)
+    {
+
+        // $request->session()->put('registration.receive_news_and_deals', $request->input('receive_news_and_deals'));
+        // $request->session()->put('registration.agree_terms', $request->input('agree_terms'));
+         // Optionally retrieve all data for display
         $data = $request->session()->all();
         $regisData = $data['registration'];
 
@@ -196,6 +206,8 @@ class AuthController extends Controller
         $user->code_number = $formattedId;
         $user->qr_code_path = $fileName;
         $user->gender = !empty($regisData['gender']) ? $regisData['gender']:''; 
+        // $user->receive_news_and_deals = $regisData['receive_news_and_deals'] ?? false;
+        // $user->agree_terms = $regisData['agree_terms'] ?? false;
         $user->save();
         if (!empty($user)) {
             $user_points = new UserPoint();
@@ -220,24 +232,6 @@ class AuthController extends Controller
         $request->session()->flush();
         return redirect()->route('login')->withSuccess('You Register Successfully!'); // or wherever you want to redirect
     }
-
-    // public function postFinalStep(Request $request)
-    // {
-    //     $request->validate([
-    //         'field4' => 'required|string|max:255',
-    //         // other validations...
-    //     ]);
-
-    //     // Retrieve all data from the session
-    //     $data = $request->session()->all();
-    //     // Example: Create a new user or save data to the database
-    //     // User::create([...]);
-
-    //     // Clear the session after successful registration
-    //     $request->session()->flush();
-
-    //     return redirect()->route('home'); // or wherever you want to redirect
-    // }
 
 
     public function logout()
