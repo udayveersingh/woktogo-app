@@ -69,7 +69,7 @@ class DealsController extends Controller
 
     public function index()
     {
-        $deals = Deal::all();
+        $deals = Deal::latest()->get();
         // dd($deals);
         return view('admin.deals.index', compact('deals'));
     }
@@ -126,6 +126,8 @@ class DealsController extends Controller
             $data['image'] = 'deals_img/' . $imageName; // Save the new image path
         }
 
+        $data['points'] = !empty($request->points) ? $request->points:0; 
+
         // Create the deal with the updated data
         Deal::create($data);
         return redirect()->route('admin.deals.index')->with('success', 'Deal created successfully.');
@@ -152,6 +154,7 @@ class DealsController extends Controller
         $deal->title = $request->title;
         $deal->description = $request->description;
         $deal->deadline = $request->deadline;
+        $deal->points = !empty($request->points) ? $request->points:0;
 
         // Handle image upload
         if ($request->hasFile('image')) {

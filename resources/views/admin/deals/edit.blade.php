@@ -37,6 +37,10 @@
                 </div>
             @endif
         </div>
+        <div class="mb-4">
+            <label for="points" class="block text-gray-700 font-medium mb-2">Points</label>
+            <input type="text" class="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" id="points" name="points" value="{{ $deal->points }}" >
+        </div>
         <div class="mb-4"> 
             {{-- {{ $deal->deadline ? $deal->deadline->format('Y-m-d') : '' }} --}}
             <label for="deadline" class="block text-gray-700 font-medium mb-2">Deadline</label>

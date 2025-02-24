@@ -1,18 +1,31 @@
 @extends('admin.layouts.main')
 
 @section('title', 'Deal Management')
+<style>
+    .scrollable-cell {
+        max-height: 60px;
+        /* Set the height you want */
+        overflow-y: auto;
+        /* Enables vertical scrolling */
+        display: block;
+        /* Make the cell block-level to allow scrolling */
+        white-space: normal;
+        /* Allow wrapping content inside the cell */
+    }
+</style>
 
 @section('content') <!-- Start the content section -->
 <div class="container mx-auto p-6">
     <h1 class="text-2xl font-bold mb-4">Deals</h1>
     <a href="{{ route('admin.deals.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300">Create New Deal</a>
-    
+
     <table class="min-w-full mt-6 bg-white border border-gray-200">
         <thead>
             <tr class="bg-gray-100">
                 <th class="py-2 px-4 border-b">Image</th>
                 <th class="py-2 px-4 border-b">Title</th>
                 <th class="py-2 px-4 border-b">Description</th>
+                <th class="py-2 px-4 border-b">Points</th>
                 <th class="py-2 px-4 border-b">Deadline</th>
                 <th class="py-2 px-4 border-b">Actions</th>
             </tr>
@@ -22,13 +35,14 @@
             <tr class="border-b hover:bg-gray-50">
                 <td class="py-2 px-4">
                     @if($deal->image)
-                        <img src="{{ asset($deal->image) }}" alt="Deal Image" class="w-16 h-16 object-cover">
+                    <img src="{{ asset($deal->image) }}" alt="Deal Image" class="w-16 h-16 object-cover">
                     @else
-                        No Image
+                    No Image
                     @endif
                 </td>
                 <td class="py-2 px-4">{{ $deal->title }}</td>
-                <td class="py-2 px-4">{{ $deal->description }}</td>
+                <td class="py-2 px-4 scrollable-cell">{{ $deal->description }}</td>
+                <td class="py-2 px-4">{{ $deal->points }}</td>
                 <td class="py-2 px-4">{{ $deal->deadline ? \Carbon\Carbon::parse($deal->deadline)->format('M d, Y') : 'No Deadline' }}</td>
                 <td class="py-2 px-4">
                     <a href="{{ route('admin.deals.edit', $deal->id) }}" class="text-yellow-500 hover:underline">Edit</a>
