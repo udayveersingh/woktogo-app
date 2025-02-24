@@ -17,7 +17,7 @@
     @csrf
     <div class="flex flex-col items-center pt-40 min-h-full bg-yellow-500 transition-all duration-300" id="overlay-container">
         <div class="text-left w-3/4 max-w-sm mb-4">
-            <p class="text-lg font-semibold md:text-xl">Lukt scannen niet?478</p>
+            <p class="text-lg font-semibold md:text-xl">Lukt scannen niet?</p>
             <p class="text-lg font-semibold md:text-xl">Voer de cijfercode in.</p>
         </div>
         <input type="text" class="z-50 border border-gray-300 rounded-xl p-3 w-3/4 max-w-sm text-center focus:outline-none focus:border-transparent uppercase caret-red" id="user-code" name="user_code" onfocus="addOverlay()" onblur="removeOverlay()" />

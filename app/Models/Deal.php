@@ -16,7 +16,8 @@ class Deal extends Model
         'image',
         'price',
         'code_number',
-        'qr_code_path'
+        'qr_code_path',
+        'points'
     ];
 
     // Define the relationship with UserDeal model

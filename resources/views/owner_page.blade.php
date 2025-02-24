@@ -30,6 +30,7 @@
 
                 </div>
                 <span id="count-display-Drink" class="text-black bg-white rounded-lg font-bold text-xl py-11 px-4">0</span> <!-- Reduced from text-2xl to text-xl -->
+                <div id="drink" data-points="{{ $drinkPoint->points }}"></div>
             </div>
 
             <!-- Meal Counter -->
@@ -40,6 +41,7 @@
                     <img src="{{ asset('svgicons/MinusIconRed.svg') }}" onclick="decrement('Meal')" alt="Subtract" class="w-[54px] h-[54px]">
                 </div>
                 <span id="count-display-Meal" class="text-black bg-white rounded-lg font-bold text-xl py-11 px-4">0</span> <!-- Reduced from text-2xl to text-xl -->
+                <div id="meal" data-points="{{$mealPoint->points }}"></div>
             </div>
 
             <!-- Snack Counter -->
@@ -50,6 +52,7 @@
                     <img src="{{ asset('svgicons/MinusIconRed.svg') }}" onclick="decrement('Snack')" alt="Subtract" class="w-[54px] h-[54px]">
                 </div>
                 <span id="count-display-Snack" class="text-black bg-white rounded-lg font-bold text-xl py-11 px-4">0</span> <!-- Reduced from text-2xl to text-xl -->
+                <div id="snack" data-points="{{$Snack->points}}"></div>
             </div>
         </div>
     </div>

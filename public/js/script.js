@@ -1,8 +1,12 @@
+const drinkPoints = document.getElementById('drink').getAttribute('data-points');
+const mealPoints = document.getElementById('meal').getAttribute('data-points');
+const snackPoints = document.getElementById('snack').getAttribute('data-points');
+
 //Function to update total points
 function updateTotal() {
-    const drinkCount = parseInt(document.getElementById('count-display-Drink').innerText);
-    const mealCount = parseInt(document.getElementById('count-display-Meal').innerText);
-    const snackCount = parseInt(document.getElementById('count-display-Snack').innerText);
+    const drinkCount = parseInt(document.getElementById('count-display-Drink').innerText) * drinkPoints;
+    const mealCount = parseInt(document.getElementById('count-display-Meal').innerText) * mealPoints;
+    const snackCount = parseInt(document.getElementById('count-display-Snack').innerText) * snackPoints;
 
     const totalPoints = drinkCount + mealCount + snackCount;
     document.getElementById('total-points').innerText = `${totalPoints}`;
@@ -16,13 +20,15 @@ function increment(type) {
     console.log(type, "test type");
     const countDisplay = document.getElementById(`count-display-${type}`);
     let currentCount = parseInt(countDisplay.innerText);
-    if (type == "Drink") {
-        currentCount += 2;
-    } else if (type == "Meal") {
-        currentCount += 8;
-    } else if (type == "Snack") {
-        currentCount += 1;
-    }
+    // if (type == "Drink") {
+    //     currentCount += 1;
+    // } else if (type == "Meal") {
+    //     currentCount += 8;
+    // } else if (type == "Snack") {
+    //     currentCount += 1;
+    // }
+    currentCount += 1;
+
     countDisplay.innerText = currentCount;
 
     updateTotal();
@@ -32,13 +38,14 @@ function increment(type) {
 function decrement(type) {
     const countDisplay = document.getElementById(`count-display-${type}`);
     let currentCount = parseInt(countDisplay.innerText);
-    if (type == "Drink") {
-        currentCount = Math.max(currentCount - 2, 0); // Ensure count does not go below zero
-    } else if (type == "Meal") {
-        currentCount = Math.max(currentCount - 8, 0); // Ensure count does not go below zero
-    } else if (type == "Snack") {
-        currentCount = Math.max(currentCount - 1, 0);
-    }
+    // if (type == "Drink") {
+    //     currentCount = Math.max(currentCount - 2, 0); // Ensure count does not go below zero
+    // } else if (type == "Meal") {
+    //     currentCount = Math.max(currentCount - 8, 0); // Ensure count does not go below zero
+    // } else if (type == "Snack") {
+    //     currentCount = Math.max(currentCount - 1, 0);
+    // }
+    currentCount = Math.max(currentCount - 1, 0);
     countDisplay.innerText = currentCount;
 
     updateTotal();

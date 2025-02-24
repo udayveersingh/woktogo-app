@@ -131,6 +131,7 @@
             @if (!empty($item->qr_code))
             <img src="data:image/png;base64,{{ base64_encode($item->qr_code) }}" alt="deal" class="max-w-40 mx-auto mt-2" />
             @endif
+            {{!empty($item->code_number) ? $item->code_number:''}}
             <button class="bg-secondary text-white text-xl font-bold p-2 w-full inline-block rounded-md mt-4 max-w-[200px] hideDealScanner">Annuleer</button>
         </div>
 

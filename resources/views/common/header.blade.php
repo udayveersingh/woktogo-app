@@ -75,7 +75,7 @@
                             <li><a href="/deal-info" class="text-black text-lg font-semibold bg-primary px-5 py-4  rounded-xl d-block">Meer informatie</a></li>
                             <!-- <li class="px-2 py-4"><a href="#">Shop</a></li> -->
                             <li class="bg-primary px-5 py-4  rounded-xl">Problemen? <a href="
-                            {{route('support')}}" class="text-white text-lg font-semibold text-black text-lg font-semibold "><u>Sturr een e-mail</u></a></li>
+                            {{route('support')}}" class="text-white text-lg font-semibold text-black text-lg font-semibold "><u>Stuur een e-mail</u></a></li>
 
                             @auth
                             <li>

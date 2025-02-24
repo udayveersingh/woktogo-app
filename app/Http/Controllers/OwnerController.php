@@ -8,6 +8,7 @@ use App\Models\UserDeal;
 use App\Models\UserPoint;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class OwnerController extends Controller
@@ -23,7 +24,10 @@ class OwnerController extends Controller
             //     default => redirect('/my-deals'), // Default for other roles
             // };
 
-            return view('owner_page');
+            $data['drinkPoint'] = DB::table('points')->where('identifier', '=', 'drinks')->first();
+            $data['mealPoint'] = DB::table('points')->where('identifier', '=', 'meal_and_drink')->first();
+            $data['Snack'] = DB::table('points')->where('identifier', '=', 'meal_or_snack')->first();
+            return view('owner_page', $data);
         }
 
         return view('auth.login');
@@ -120,7 +124,7 @@ class OwnerController extends Controller
             $user_deals->save();
             return view('thank-you');
         } else {
-            return back();
+            return back()->with('error', 'User code and Deal code not found!');
         }
     }
 
