@@ -22,7 +22,6 @@
     <div class="max-w-4xl mx-auto my-8 px-4 py-6 bg-white shadow-lg rounded-lg border border-gray-200">
 
         <h1 class="text-3xl font-semibold text-center text-gray-800 mb-6">Contact Information</h1>
-
         <ul class="space-y-4">
             <li class="bg-indigo-100 px-4 py-4 border-b-2 border-t-2 border-gray-300 rounded-lg">
                 <p class="text-lg text-gray-700"><strong>Name:</strong> {{ $name }}</p>
@@ -31,7 +30,7 @@
                 <p class="text-lg text-gray-700"><strong>Email:</strong> {{ $email }}</p>
             </li>
             <li class="bg-indigo-100 px-4 py-4 border-b-2 border-gray-300 rounded-lg">
-                <p class="text-lg text-gray-700"><strong>Message:</strong> {{ $message->getTextBody() ? $message->getTextBody() : $message->getHtmlBody() }}</p>
+                <p class="text-lg text-gray-700"><strong>Message:</strong> {{ $user_message}}</p>
             </li>
         </ul>
 

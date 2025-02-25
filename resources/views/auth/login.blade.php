@@ -18,7 +18,7 @@
    
     width: 35px;
     position: absolute;
-   margin: 0 auto;
+    margin: 0 auto;
     z-index: 9;
     color: #fff;
     left: 0px;
@@ -74,7 +74,7 @@
             <label class="flex gap-2"><input type="checkbox" /> Onthoud mij</label>
         </div>
 
-        <button class="bg-red rounded-xl px-5 py-4 text-xl font-bold w-full text-white">Login</button>
+        <button type="submit" class="bg-red rounded-xl px-5 py-4 text-xl font-bold w-full text-white">Login</button>
 
     </form>
 

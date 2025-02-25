@@ -232,7 +232,7 @@ class AuthController extends Controller
 
         // Clear the session after successful registration
         $request->session()->flush();
-        return redirect()->route('login')->withSuccess('You Register Successfully!'); // or wherever you want to redirect
+        return redirect()->route('login')->withSuccess('You Registered Successfully!'); // or wherever you want to redirect
     }
 
 

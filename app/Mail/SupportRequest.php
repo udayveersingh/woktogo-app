@@ -31,8 +31,13 @@ class SupportRequest extends Mailable
     public function build()
     {
         return $this->subject('Support Request')
-            ->from($this->email, $this->name, $this->message)  // User's email and name
+            ->from($this->email, $this->name)  // Removed $message here
             ->to('kern@brown-brown.nl')  // Support email
-            ->view('emails.support-email-temp');  // View for the email body
+            ->view('emails.support-email-temp')  // View for the email body
+            ->with([
+                'name' => $this->name,
+                'email' => $this->email,
+                'user_message' => $this->message,  // Pass the message directly
+            ]);
     }
 }

@@ -12,24 +12,63 @@
             color: red;
             font-weight: bold;
         }
+
         .btn-group li a {
-    width: auto;
-    display: block;
-    margin: 0 auto;
-}
-.btn-group li button{ display: block;margin: 0 auto;margin-top: 25%;
-    width: 195px;
-    }
-.btn-group li:nth-child(4){    width: auto;
-    color: #000;}
-    .btn-group li {
-    width: 100%;
-    float: none;
-    margin: 0 auto;
-}
-.btn-group li:nth-child(3) {
-    margin-bottom: 30% ! important;
-}
+            width: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .btn-group li button {
+            display: block;
+            margin: 0 auto;
+            margin-top: 25%;
+            width: 195px;
+        }
+
+        .btn-group li:nth-child(4) {
+            width: auto;
+            color: #000;
+        }
+
+        .btn-group li {
+            width: 100%;
+            float: none;
+            margin: 0 auto;
+        }
+
+        .btn-group li:nth-child(3) {
+            margin-bottom: 30% ! important;
+        }
+
+        .custom-hr {
+            width: 375px;
+            margin-top: 40px;
+            margin-bottom: 15px;
+            border: none;
+            height: 1px;
+            background-color: #FFFFFF;
+            /* You can change this to any color you prefer */
+        }
+
+        /* For screens larger than 768px (desktops and tablets) */
+        @media (min-width: 768px) {
+            .custom-hr {
+                width: 375px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+
+        /* For screens smaller than 768px (mobile devices) */
+        @media (max-width: 767px) {
+            .custom-hr {
+                width: 76%;
+                /* This will make the line stretch more on smaller screens */
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
     </style>
 </head>
 
@@ -79,19 +118,19 @@
 
                             @auth
                             <li>
-                            <!-- Logout Button -->
-                            <form action="{{ route('logout') }}" method="POST" style="display: inline;">
-                                @csrf
+                                <!-- Logout Button -->
+                                <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+                                    @csrf
                                     <button type="submit" class="bg-red px-7 py-4  rounded-xl d-block rounded-xl">
                                         Logout
                                     </button>
                                 </form>
                             </li>
-                                @else
+                            @else
                             <!-- <p class="text-gray-600">You are not logged in.</p> -->
                             @endauth
                         </ul>
-                        
+
                     </div>
                 </div>
             </nav>

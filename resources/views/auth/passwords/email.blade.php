@@ -1,7 +1,16 @@
 @extends('common.index')
 
 @section('content')
+<style>
+    .login-btn {
+        display: table;
+        justify-content: center;
+        width: auto;
+        margin: 0 auto;
+        margin-top: 10px;
 
+    }
+</style>
 <div class="container mt-24 mx-auto p-4 md:p-8">
     <h1 class="text-3xl font-bold mb-6 text-center text-gray-800">Forgot Your Password?</h1>
 
@@ -19,6 +28,8 @@
             </button>
         </div>
     </form>
+
+    <a href="{{route('login')}}" class="text-white bg-red px-7 py-4 rounded-xl d-block rounded-xl login-btn">Login</a>
 
     @if(session('status'))
     <div class="mt-4 text-green-500 text-center">

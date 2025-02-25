@@ -15,18 +15,16 @@
 @endsession
 <form action="{{route('owner_scan_deal')}}" method="POST" enctype="multipart/form-data">
     @csrf
-    <div class="flex flex-col items-center pt-40 min-h-full bg-yellow-500 transition-all duration-300" id="overlay-container">
-        <div class="text-left w-3/4 max-w-sm mb-4">
-            <p class="text-lg font-semibold md:text-xl">Lukt scannen niet?478</p>
+    <div class="flex flex-col items-center mt-4 min-h-full bg-primary transition-all duration-300" id="overlay-container">
+        <input type="text" class="z-50 border border-gray-300 rounded-xl p-3 w-3/4 max-w-sm text-center focus:outline-none focus:border-transparent uppercase caret-red" id="user-code" placeholder="enter user code.." name="user_code" onfocus="addOverlay()" onblur="removeOverlay()" />
+        <div class="text-center w-3/4 max-w-sm mb-4">
+            <p class="text-lg font-semibold md:text-xl">Lukt scannen niet?</p>
             <p class="text-lg font-semibold md:text-xl">Voer de cijfercode in.</p>
         </div>
-        <input type="text" class="z-50 border border-gray-300 rounded-xl p-3 w-3/4 max-w-sm text-center focus:outline-none focus:border-transparent uppercase caret-red" id="user-code" placeholder="enter user code.." name="user_code" onfocus="addOverlay()" onblur="removeOverlay()" />
-        <br><br>
         <input type="text" class="z-50 border border-gray-300 rounded-xl p-3 w-3/4 max-w-sm text-center focus:outline-none focus:border-transparent uppercase caret-red" placeholder="enter deals code.." id="deal-code" name="deal_code" />
-        <button class="py-2 px-4 mt-4 text-lg text-white bg-secondary rounded-md">Next</button>
-        <div class="flex flex-col space-y-2 px-4 my-4 text-center">
-            <a href="{{route('owner_page')}}" class="deal-scan-btn bg-red rounded-xl px-5 py-5 text-xl font-bold text-white">Stop met scannen</a> <!-- Reduced from text-xl to text-lg -->
-        </div>
+        <button class="py-2 px-4 mt-6 text-lg text-white bg-secondary rounded-md w-3/4 max-w-sm" id="next-button">Next</button>
+        <hr class="custom-hr">
+        <a href="{{route('owner_page')}}" class="deal-scan-btn bg-red rounded-md px-4 py-12 text-lg font-bold text-white w-3/4 max-w-sm text-center block mt-4 mx-auto">Stop met scannen</a> <!-- Reduced from text-xl to text-lg -->
     </div>
 </form>
 
@@ -77,6 +75,14 @@
                         // Show the user data in the user-code input field
                         document.getElementById('user-code').value = data.user;
                         document.getElementById('deal-code').value = data.deal;
+
+                        // Scroll the page to the input field after QR code scanning
+                        const inputField = document.getElementById('next-button');
+                        inputField.scrollIntoView({
+                            behavior: 'smooth', // Smooth scroll animation
+                            block: 'start', // Align the input field at the center of the view
+                        });
+
                     })
                     .catch(error => console.error('Error:', error));
             },

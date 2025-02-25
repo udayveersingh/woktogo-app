@@ -26,6 +26,11 @@
         /* position: relative; */
         left: 0px;
         background-color: rgba(255, 255, 255, 0.8);
+
+    }
+
+    .max-width {
+        max-width: 8rem;
     }
 </style>
 <div class="bg-black text-white h-[135px] flex flex-col justify-center items-center relative">
@@ -51,6 +56,10 @@
         </svg>
     </a> -->
 
+    @php
+    $userPoints = !empty($user_points) ? $user_points - $user_deals_points:0;
+    @endphp
+
     <div class="flex flex-col rounded-xl overflow-hidden text-center relative bg-white mb-8 px-3">
         <a href="{{route('deal-info')}}" class="absolute right-4 top-4">
             <svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="2 2 20 20">
@@ -66,20 +75,21 @@
             <img src="data:image/png;base64,{!! base64_encode($user_qr)!!}" alt="deal" class="max-w-50 mx-auto" />
             @endif
             {{$user->code_number}}
-
         </div>
         <div class="text-base mb-12">Scan om punten te sparen
-            <button class="bg-red text-white text-lg font-bold p-2 w-full inline-block rounded-md mt-4 max-w-[200px]">Aantal punten: {{!empty($user_points) ? $user_points:0}}</button>
+            <button class="bg-red text-white text-lg font-bold p-2 w-full inline-block rounded-md mt-4 max-w-[200px]">Aantal punten: {{$userPoints}}</button>
         </div>
         <div class="text-sm pb-4">
         </div>
     </div><!--/ Information Card -->
 
     <div class="deal_list flex flex-col gap-7">
-
         @foreach ($all_deals as $index => $item)
         <div class="flex flex-col rounded-xl text-center overflow-hidden group relative dealCardWrapper">
-            @if(!empty($item->description) && $item->description == "100 punten" && $user_points < 100)
+            @php
+            $userDeal = $user_deals->firstWhere('deal_id', $item->id);
+            @endphp
+            @if(empty($userDeal) && (int)$item->points == 100 && $userPoints < 100)
                 <div class="card-front bg-grey">
                 <div class="p-4">
                     <img src="{{ asset($item->image) }}" alt="deal" class="max-w-20 mx-auto deal-image" />
@@ -87,16 +97,37 @@
                 <div class="bg-white p-4">
                     <div class="bg-grey-500 claim-title">
                         <h2 class="font-bold text-2xl mb-1">{{ $item->title }}</h2>
-                        @if(!empty($item->description))
+                        <!-- @if(!empty($item->description))
                         <p class="text-sm custom-text max-w-[200px] mx-auto px-3">{{ $item->description }}</p>
-                        @endif
-                        <button class="bg-grey text-white text-lg font-bold p-2 w-full inline-block rounded-md mt-4 max-w-[200px]">Claimed</button>
+                        @endif -->
+                        <button class="bg-grey text-white text-lg font-bold p-2 w-full inline-block rounded-md mt-4 max-w-[200px]">nog te claimen</button>
                     </div>
                     <div class="bg-grey-overlay">
                     </div>
                 </div>
         </div>
-        @elseif(!empty($user_deals[$index]) && $user_deals[$index]->deal_id == $item->id)
+        @elseif((int)$item->points == 100 && (int)$userPoints > 100)
+        <div class="card-front bg-secondary">
+            <div class="p-4">
+                <img src="{{ asset($item->image) }}" alt="deal" class="max-w-20 mx-auto" />
+            </div>
+            <div class="bg-white p-4">
+                <h2 class="font-bold text-2xl mb-1" style="color:red">{{ $item->title }}</h2>
+                <!-- @if(!empty($item->description))
+                <p class="text-sm custom-text max-w-[200px] mx-auto px-3">{{ $item->description }}</p>
+                @endif -->
+                <button class="bg-secondary text-white text-lg font-bold p-2 w-full inline-block rounded-md mt-4 max-w-[200px] showDealScanner">Claim deal</button>
+            </div>
+        </div>
+
+        <div class="card-back hidden absolute top-0 left-0 right-0 bottom-0 bg-white items-center justify-center flex-col">
+            @if (!empty($item->qr_code))
+            <img src="data:image/png;base64,{{ base64_encode($item->qr_code) }}" alt="deal" class="max-w-40 max-width-100 mx-auto mt-2 max-width" />
+            @endif
+            {{!empty($item->code_number) ? $item->code_number:''}}
+            <button class="bg-secondary text-white text-xl font-bold p-2 w-full inline-block rounded-md mt-4 max-w-[200px] hideDealScanner">Annuleer</button>
+        </div>
+        @elseif(!empty($userDeal) && $userDeal->deal_id == $item->id)
         <div class="card-front bg-grey">
             <div class="p-4">
                 <img src="{{ asset($item->image) }}" alt="deal" class="max-w-20 mx-auto deal-image" />
@@ -104,10 +135,10 @@
             <div class="bg-white p-4">
                 <div class="bg-grey-500 claim-title">
                     <h2 class="font-bold text-2xl mb-1">{{ $item->title }}</h2>
-                    @if(!empty($item->description))
-                    <p class="text-sm custom-text max-w-[200px] mx-auto px-3">{{ $item->description }}</p>
-                    @endif
-                    <button class="bg-grey text-white text-lg font-bold p-2 w-full inline-block rounded-md mt-4 max-w-[200px]">Claimed</button>
+                    <!-- @if(!empty($item->description))
+                        <p class="text-sm custom-text max-w-[200px] mx-auto px-3">{{ $item->description }}</p>
+                        @endif -->
+                    <button class="bg-grey text-white text-lg font-bold p-2 w-full inline-block rounded-md mt-4 max-w-[200px]">Geclaimd</button>
                 </div>
                 <div class="bg-grey-overlay">
                 </div>
@@ -127,7 +158,7 @@
                 <button class="bg-secondary text-white text-lg font-bold p-2 w-full inline-block rounded-md mt-4 max-w-[200px] showDealScanner">Claim deal</button>
             </div>
         </div>
-        <div class="card-back hidden absolute top-0 left-0 right-0 bottom-0 bg-white items-center justify-center gap-2 flex-col">
+        <div class="card-back hidden absolute top-0 left-0 right-0 bottom-0 bg-white items-center justify-center flex-col">
             @if (!empty($item->qr_code))
             <img src="data:image/png;base64,{{ base64_encode($item->qr_code) }}" alt="deal" class="max-w-40 mx-auto mt-2" />
             @endif

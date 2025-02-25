@@ -22,9 +22,15 @@ class DealsController extends Controller
             $data['user_deals'] = DB::table('user_deals')
                 ->join('deals', 'user_deals.deal_id', '=', 'deals.id') // Join user_deals and deals table
                 ->where('user_id', '=', Auth::user()->id)
-                ->select('user_deals.*') // Select columns you need
+                ->select('user_deals.*', 'deals.points') // Select columns you need
                 ->latest('user_deals.created_at') // Or you can specify the order column for latest
                 ->get();
+            $data['user_deals_points'] = DB::table('user_deals')
+                ->join('deals', 'user_deals.deal_id', '=', 'deals.id') // Join user_deals and deals table
+                ->where('user_id', '=', Auth::user()->id)
+                ->select('user_deals.*', 'deals.points') // Select columns you need
+                ->latest('user_deals.created_at') // Or you can specify the order column for latest
+                ->sum('deals.points');
             $data['user_points'] = UserPoint::where('user_id', '=', Auth::user()->id)->sum('points');
             // $data['all_deals'] =  Deal::latest()->get();
 
@@ -126,7 +132,7 @@ class DealsController extends Controller
             $data['image'] = 'deals_img/' . $imageName; // Save the new image path
         }
 
-        $data['points'] = !empty($request->points) ? $request->points:0; 
+        $data['points'] = !empty($request->points) ? $request->points : 0;
 
         // Create the deal with the updated data
         Deal::create($data);
@@ -154,7 +160,7 @@ class DealsController extends Controller
         $deal->title = $request->title;
         $deal->description = $request->description;
         $deal->deadline = $request->deadline;
-        $deal->points = !empty($request->points) ? $request->points:0;
+        $deal->points = !empty($request->points) ? $request->points : 0;
 
         // Handle image upload
         if ($request->hasFile('image')) {

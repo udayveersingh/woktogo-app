@@ -114,17 +114,30 @@ class OwnerController extends Controller
 
     public function dealScanPost(Request $request)
     {
-        $user = User::where('code_number', $request->user_code)->first();
-        $deal = Deal::where('code_number', $request->deal_code)->first();
-        if (!empty($user) && !empty($deal)) {
-            $user_deals = new UserDeal();
-            $user_deals->user_id = $user->id;
-            $user_deals->deal_id = $deal->id;
-            $user_deals->status = 'in-active';
-            $user_deals->save();
-            return view('thank-you');
+        if ($request->input('user_code') &&  $request->input('deal_code')) {
+            $user = User::where('code_number', $request->input('user_code'))->first();
+            $deal = Deal::where('code_number', $request->input('deal_code'))->first();
+
+            if (!empty($user) && !empty($deal)) {
+                $user_deal = UserDeal::where('user_id', '=', $user->id)
+                    ->where('deal_id', '=', $deal->id)
+                    ->first();
+
+                if (empty($user_deal)) {
+                    $user_deals = new UserDeal();
+                    $user_deals->user_id = $user->id;
+                    $user_deals->deal_id = $deal->id;
+                    $user_deals->status = 'in-active';
+                    $user_deals->save();
+
+                    // Redirect to a 'thank-you' page
+                    return redirect()->route('owner_scan_deal_view')->with('message', 'Deal has been registered successfully!');
+                }
+            } else {
+                return back()->with('error', 'User code and Deal code not found!');
+            }
         } else {
-            return back()->with('error', 'User code and Deal code not found!');
+            return back()->with('error', 'Please enter User code and Deal code');
         }
     }
 
