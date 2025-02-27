@@ -25,7 +25,7 @@ class AdminController extends Controller
     public function show_users()
     {
         // Retrieve all users from the database
-        $users = User::all(); // or User::get(); - both work
+        $users = User::where('role','!=','admin')->latest()->get(); // or User::get(); - both work
     
         // Pass the users variable to the view
         return view('admin.users', ['users' => $users]);
@@ -33,7 +33,7 @@ class AdminController extends Controller
 
     public function edit($id)
     {
-        $user = User::findOrFail($id); // Fetch the user by ID
+        $user = User::findOrFail(decrypt($id)); // Fetch the user by ID
         return view('admin.edit_user', compact('user')); // Pass the user to the edit view
     }
 
@@ -58,7 +58,7 @@ class AdminController extends Controller
         $user->save();
 
         // Redirect back with a success message
-        return redirect()->route('users.edit', $user->id)->with('success', 'User updated successfully!');
+        return redirect()->route('show-user')->with('success', 'User updated successfully!');
     }
 
     public function destroy($id)

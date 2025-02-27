@@ -26,12 +26,12 @@
             <input type="email" name="email" id="email" value="{{ old('email', $user->email) }}" class="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
         </div>
 
-        <div class="mb-4"> {{$user->role}}
+        <div class="mb-4">
             <label for="role" class="block text-sm font-medium text-gray-700">Role</label>
             <select name="role" id="role" class="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
                 <option value="user" {{ $user->role == 'user' ? 'selected' : '' }}>User</option>
                 <option value="sub_admin" {{ $user->role == 'sub_admin' ? 'selected' : '' }}>Sub Admin</option>
-                <option value="admin" {{ $user->role == 'admin' ? 'selected' : '' }}>Admin</option>
+                <!-- <option value="admin" {{ $user->role == 'admin' ? 'selected' : '' }}>Admin</option> -->
             </select>
         </div>
 

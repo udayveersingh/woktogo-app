@@ -1,7 +1,16 @@
 @extends('common.index')
 
 @section('content')
-<div id="reader" width="600px"></div>
+<style>
+    #reader {
+        width: 100%;
+        height: auto;
+        max-width: 500px;
+        /* Or set your desired maximum width */
+        margin: 0 auto;
+    }
+</style>
+<div id="reader"></div>
 @session('error')
 <div class="bg-[#b91f25]/[0.5] rounded-xl border border-red p-1 text-white text-sm text-center my-1" role="alert">
     {{ $value }}
