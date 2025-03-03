@@ -31,7 +31,7 @@
             <p class="text-lg font-semibold md:text-xl">Voer de cijfercode in.</p>
         </div>
         <input type="text" class="z-50 border border-gray-300 rounded-xl p-3 w-3/4 max-w-sm text-center focus:outline-none focus:border-transparent uppercase caret-red" placeholder="enter deals code.." id="deal-code" name="deal_code" />
-        <button class="py-2 px-4 mt-6 text-lg text-white bg-secondary rounded-md w-3/4 max-w-sm" id="next-button">Next</button>
+        <button class="py-12 px-4 mt-4 text-lg text-white bg-secondary rounded-md w-3/4 max-w-sm font-bold" id="next-button"> Volgende</button>
         <hr class="custom-hr">
         <a href="{{route('owner_page')}}" class="deal-scan-btn bg-red rounded-md px-4 py-12 text-lg font-bold text-white w-3/4 max-w-sm text-center block mt-4 mx-auto">Stop met scannen</a> <!-- Reduced from text-xl to text-lg -->
     </div>

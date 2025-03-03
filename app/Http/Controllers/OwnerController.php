@@ -37,10 +37,14 @@ class OwnerController extends Controller
 
     public function postOwnerPage(Request $request)
     {
-        // Store data in the session
-        $request->session()->put('user_points.total_points', $request->input('total_points'));
-
-        return redirect()->route('owner_scan_one_view');
+    //    if($request->input('total_points'))
+    //    {
+           // Store data in the session
+           $request->session()->put('user_points.total_points', $request->input('total_points'));
+           return redirect()->route('owner_scan_one_view');
+    //    }else{
+    //        return back()->with('error', 'Vul het bedrag in!');
+    //    }
     }
 
     public function owner_scan_one(Request $request)
@@ -79,7 +83,7 @@ class OwnerController extends Controller
         $request->session()->put('user_points.user_code', $request->input('user_code'));
         $data = $request->session()->all();
         $user_assign_points = $data['user_points'];
-        $total_points =  $user_assign_points['total_points'];
+        $total_points =  ceil($user_assign_points['total_points'] * 1);
         $user_code = $user_assign_points['user_code'];
         $user = User::where('code_number', '=', $user_code)->first();
         if (!empty($user)) {
@@ -137,7 +141,7 @@ class OwnerController extends Controller
                 return back()->with('error', 'User code and Deal code not found!');
             }
         } else {
-            return back()->with('error', 'Please enter User code and Deal code');
+            return back()->with('error', 'User code and Deal code not found!');
         }
     }
 

@@ -1,10 +1,10 @@
 @extends('common.index')
 <style>
-.deal-scan-btn{
-    width:330px;
-    height:96px;
-    padding: 30px;
-}
+    .deal-scan-btn {
+        width: 330px;
+        height: 96px;
+        padding: 30px;
+    }
 </style>
 
 @section('content')
@@ -12,60 +12,74 @@
     <!-- Header -->
 
     <!-- Content (Counters) -->
-    <div class="w-full h-auto px-4 sm:px-6 max-w-sm">
-        <div class="flex flex-col space-y-3">
+    <!-- <div class="w-full h-auto px-4 sm:px-6 max-w-sm">
+        <div class="flex flex-col space-y-3"> -->
 
-            <!-- Start Text -->
-            <div class="flex flex-col space-y-2 px-4 mt-8">
-                <h2 class="text-2xl font-bold">Voer aantallen in</h2> <!-- Reduced from text-3xl to text-2xl -->
-                <p class="text-xs"> Kies daarna op 'Begin met scannen'.<br> Of kies cijfercode invoeren als scannen niet lukt</p> <!-- Increased from text-xs to text-sm -->
-            </div>
-            <!-- Drink Counter -->
-            <div class="flex items-center justify-between rounded-lg px-4 py-2">
-                <div class="bg-secondary text-white text-base flex font-bold items-center justify-center rounded-lg py-12 px-8 min-w-36">Drinken</div> <!-- Reduced from text-lg to text-base -->
+    <!-- Start Text -->
+    <div class="flex flex-col space-y-2 px-4 mt-8">
+        <!-- Reduced from text-3xl to text-2xl -->
+        <h2 class="text-2xl font-bold"> Voer hier het bedrag in</h2>
+        <!-- Increased from text-xs to text-sm -->
+        <!-- <p class="text-xs"> Kies daarna op 'Begin met scannen'.<br> Of kies cijfercode invoeren als scannen niet lukt</p>  -->
+    </div>
+    <!-- Drink Counter -->
+    <!-- <div class="flex items-center justify-between rounded-lg px-4 py-2"> -->
+    <!-- Reduced from text-lg to text-base -->
+    <!--   <div class="bg-secondary text-white text-base flex font-bold items-center justify-center rounded-lg py-12 px-8 min-w-36">Drinken</div> 
                 <div class="flex flex-col items-center space-y-4">
 
                     <img src="{{ asset('svgicons/PlusIconGreen.svg')}}" onclick="increment('Drink')" alt="Add" class="w-[53px] h-[53px]">
                     <img src="{{ asset('svgicons/MinusIconRed.svg') }}" onclick="decrement('Drink')" alt="Subtract" class="w-[54px] h-[54px]">
 
                 </div>
-                <span id="count-display-Drink" class="text-black bg-white rounded-lg font-bold text-xl py-11 px-4">0</span> <!-- Reduced from text-2xl to text-xl -->
-                <div id="drink" data-points="{{ $drinkPoint->points }}"></div>
-            </div>
+                <span id="count-display-Drink" class="text-black bg-white rounded-lg font-bold text-xl py-11 px-4">0</span> -->
+    <!-- Reduced from text-2xl to text-xl -->
+    <!-- <div id="drink" data-points="{{ $drinkPoint->points }}"></div>
+            </div> -->
 
-            <!-- Meal Counter -->
-            <div class="flex items-center justify-between rounded-lg px-4 py-2">
-                <div class="bg-secondary text-white text-base flex font-bold items-center justify-center rounded-lg py-12 px-8 min-w-36">Maaltijd</div> <!-- Reduced from text-lg to text-base -->
+    <!-- Meal Counter -->
+    <!-- <div class="flex items-center justify-between rounded-lg px-4 py-2"> -->
+    <!-- Reduced from text-lg to text-base -->
+    <!-- <div class="bg-secondary text-white text-base flex font-bold items-center justify-center rounded-lg py-12 px-8 min-w-36">Maaltijd</div> 
                 <div class="flex flex-col items-center space-y-4">
                     <img src="{{ asset('svgicons/PlusIconGreen.svg') }}" onclick="increment('Meal')" alt="Add" class="w-[53px] h-[53px]">
                     <img src="{{ asset('svgicons/MinusIconRed.svg') }}" onclick="decrement('Meal')" alt="Subtract" class="w-[54px] h-[54px]">
-                </div>
-                <span id="count-display-Meal" class="text-black bg-white rounded-lg font-bold text-xl py-11 px-4">0</span> <!-- Reduced from text-2xl to text-xl -->
+                </div> -->
+    <!-- Reduced from text-2xl to text-xl -->
+    <!-- <span id="count-display-Meal" class="text-black bg-white rounded-lg font-bold text-xl py-11 px-4">0</span> 
                 <div id="meal" data-points="{{$mealPoint->points }}"></div>
-            </div>
+            </div> -->
 
-            <!-- Snack Counter -->
-            <div class="flex items-center justify-between rounded-lg px-4 py-2">
-                <div class="bg-secondary text-white text-base font-bold flex items-center justify-center rounded-lg py-12 px-8 min-w-36">Snack</div> <!-- Reduced from text-lg to text-base -->
+    <!-- Snack Counter -->
+    <!-- <div class="flex items-center justify-between rounded-lg px-4 py-2"> -->
+    <!-- Reduced from text-lg to text-base -->
+    <!-- <div class="bg-secondary text-white text-base font-bold flex items-center justify-center rounded-lg py-12 px-8 min-w-36">Snack</div> 
                 <div class="flex flex-col items-center space-y-4">
                     <img src="{{ asset('svgicons/PlusIconGreen.svg') }}" onclick="increment('Snack')" alt="Add" class="w-[53px] h-[53px]">
                     <img src="{{ asset('svgicons/MinusIconRed.svg') }}" onclick="decrement('Snack')" alt="Subtract" class="w-[54px] h-[54px]">
-                </div>
-                <span id="count-display-Snack" class="text-black bg-white rounded-lg font-bold text-xl py-11 px-4">0</span> <!-- Reduced from text-2xl to text-xl -->
+                </div> -->
+    <!-- Reduced from text-2xl to text-xl -->
+    <!-- <span id="count-display-Snack" class="text-black bg-white rounded-lg font-bold text-xl py-11 px-4">0</span>
                 <div id="snack" data-points="{{$Snack->points}}"></div>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <!-- Footer -->
     <form action="{{route('owner-scan-one')}}" method="POST" class="w-full">
         @csrf
         <div class="max-w-[365px] mx-auto py-4 px-6">
-            <div class="flex justify-between text-gray-800 bg-white text-lg py-2.5 px-7 rounded-xl mb-4"> <!-- Reduced from text-xl to text-lg -->
-                <span>Totale punten </span>
-                <span id="total-points" class="font-semibold">0</span>
-                <input type="hidden" value="" name="total_points" id="totalPoints">
+            <div class="text-gray-800 bg-white text-lg py-2.5 px-7 rounded-xl mb-4">
+                <!-- Reduced from text-xl to text-lg -->
+                <span>€</span>
+                <!-- <span id="total-points" class="font-semibold">0</span> -->
+                <input type="text" value="" class="z-50 border-gray-300 rounded-xl p-3 w-3/4 max-w-sm text-center focus:outline-none focus:border-transparent uppercase caret-red" name="total_points" id="totalPoints">
             </div>
+            @session('error')
+            <div class="bg-[#b91f25]/[0.5] rounded-xl border border-red p-1 text-white text-sm text-center my-1" role="alert">
+                {{ $value }}
+            </div>
+            @endsession
             <button onclick="window.location=`{{ url('owner-scan-one') }}`" class="w-full bg-secondary text-lg text-white py-8 rounded-xl mt-4 font-bold">Begin met scannen</button><br> <!-- Reduced from text-xl to text-lg -->
             <hr style="margin-top: 50px;">
         </div>
