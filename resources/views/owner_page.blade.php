@@ -2,8 +2,20 @@
 <style>
     .deal-scan-btn {
         width: 330px;
-        height: 96px;
-        padding: 30px;
+        height: 109px;
+        padding: 38px;
+    }
+
+    /* For Webkit-based browsers (Chrome, Safari, newer Edge) */
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* For Firefox */
+    input[type="number"] {
+        -moz-appearance: textfield;
     }
 </style>
 
@@ -69,18 +81,18 @@
     <form action="{{route('owner-scan-one')}}" method="POST" class="w-full">
         @csrf
         <div class="max-w-[365px] mx-auto py-4 px-6">
-            <div class="text-gray-800 bg-white text-lg py-2.5 px-7 rounded-xl mb-4">
+            <div class="text-gray-800 bg-white text-lg py-12 px-7 rounded-xl mb-4">
                 <!-- Reduced from text-xl to text-lg -->
-                <span>€</span>
+                <span class="text-lg font-bold">€</span>
                 <!-- <span id="total-points" class="font-semibold">0</span> -->
-                <input type="text" value="" class="z-50 border-gray-300 rounded-xl p-3 w-3/4 max-w-sm text-center focus:outline-none focus:border-transparent uppercase caret-red" name="total_points" id="totalPoints">
+                <input type="number" value="" class="z-50 border-gray-300 rounded-xl p-3 w-3/4 max-w-sm text-center focus:outline-none focus:border-transparent uppercase caret-red" name="total_points" id="totalPoints">
             </div>
             @session('error')
             <div class="bg-[#b91f25]/[0.5] rounded-xl border border-red p-1 text-white text-sm text-center my-1" role="alert">
                 {{ $value }}
             </div>
             @endsession
-            <button onclick="window.location=`{{ url('owner-scan-one') }}`" class="w-full bg-secondary text-lg text-white py-8 rounded-xl mt-4 font-bold">Begin met scannen</button><br> <!-- Reduced from text-xl to text-lg -->
+            <button onclick="window.location=`{{ url('owner-scan-one') }}`" class="w-full bg-secondary text-lg text-white py-12 rounded-xl mt-4 font-bold">Begin met scannen</button><br> <!-- Reduced from text-xl to text-lg -->
             <hr style="margin-top: 50px;">
         </div>
     </form>
