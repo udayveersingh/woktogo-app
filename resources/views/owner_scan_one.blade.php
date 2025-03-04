@@ -31,7 +31,7 @@
         </div>
         <!-- <input type="text" class="z-50 border border-gray-300 rounded-xl p-3 w-3/4 max-w-sm text-center focus:outline-none focus:border-transparent uppercase caret-red" id="user-code" name="user_code" onfocus="addOverlay()" onblur="removeOverlay()" />
         <button class="py-2 px-4 mt-4 text-lg text-white bg-secondary rounded-md">Next</button> -->
-        <input type="text" class="z-50 border border-gray-300 rounded-xl p-3 w-3/4 max-w-sm text-center focus:outline-none focus:border-transparent uppercase caret-red" placeholder="Enter deals code" id="user-code" name="user_code" onfocus="addOverlay()" onblur="removeOverlay()" />
+        <input type="text" class="z-50 border border-gray-300 rounded-xl p-3 w-3/4 max-w-sm text-center focus:outline-none focus:border-transparent uppercase caret-red" placeholder="Enter user code" id="user-code" name="user_code" onfocus="addOverlay()" onblur="removeOverlay()" />
         <button class="py-12 px-4 mt-4 text-lg text-white bg-secondary rounded-md w-3/4 max-w-sm" id="next-button"> Volgende</button>
         <hr class="custom-hr">
         <a href="{{route('owner_page')}}" class="deal-scan-btn bg-red rounded-md px-4 py-12 text-lg font-bold text-white w-3/4 max-w-sm text-center block mt-4 mx-auto">Stop met scannen</a> <!-- Reduced from text-xl to text-lg -->

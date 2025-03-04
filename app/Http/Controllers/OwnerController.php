@@ -37,14 +37,9 @@ class OwnerController extends Controller
 
     public function postOwnerPage(Request $request)
     {
-    //    if($request->input('total_points'))
-    //    {
-           // Store data in the session
-           $request->session()->put('user_points.total_points', $request->input('total_points'));
-           return redirect()->route('owner_scan_one_view');
-    //    }else{
-    //        return back()->with('error', 'Vul het bedrag in!');
-    //    }
+        // Store data in the session
+        $request->session()->put('user_points.total_points', $request->input('total_points'));
+        return redirect()->route('owner_scan_one_view');
     }
 
     public function owner_scan_one(Request $request)
@@ -83,7 +78,23 @@ class OwnerController extends Controller
         $request->session()->put('user_points.user_code', $request->input('user_code'));
         $data = $request->session()->all();
         $user_assign_points = $data['user_points'];
-        $total_points =  ceil($user_assign_points['total_points'] * 1);
+
+        // Replace commas with dots
+        $user_assign_points['total_points'] = str_replace(',','', $user_assign_points['total_points']);
+
+        // Check if there are more than one dot
+        if (substr_count($user_assign_points['total_points'], '.') > 1) {
+            // Split by dot and take the first part (before any additional dots)
+            $user_assign_points['total_points'] = explode('.', $user_assign_points['total_points'])[0];
+
+            // Calculate based on this first part, rounding up and multiplying by 1 (as per your request)
+            $total_points = ceil(floatval($user_assign_points['total_points']) * 1);
+        } else {
+            // If there's only one dot, use the full value
+            $total_points = ceil(floatval($user_assign_points['total_points']) * 1);
+        }
+
+        // Output the result for debugging
         $user_code = $user_assign_points['user_code'];
         $user = User::where('code_number', '=', $user_code)->first();
         if (!empty($user)) {
@@ -97,7 +108,6 @@ class OwnerController extends Controller
             return redirect()->route('owner_scan_one_view')->withError('Oppes! You have entered invalid user code');
         }
     }
-
 
     public function owner_scan_two($id)
     {
