@@ -133,11 +133,10 @@ class OwnerController extends Controller
             $deal = Deal::where('code_number', $request->input('deal_code'))->first();
 
             if (!empty($user) && !empty($deal)) {
-                $user_deal = UserDeal::where('user_id', '=', $user->id)
-                    ->where('deal_id', '=', $deal->id)
-                    ->first();
-
-                if (empty($user_deal)) {
+                // $user_deal = UserDeal::where('user_id', '=', $user->id)
+                //     ->where('deal_id', '=', $deal->id)
+                //     ->first();
+                // if (empty($user_deal)) {
                     $user_deals = new UserDeal();
                     $user_deals->user_id = $user->id;
                     $user_deals->deal_id = $deal->id;
@@ -146,7 +145,7 @@ class OwnerController extends Controller
 
                     // Redirect to a 'thank-you' page
                     return redirect()->route('owner_scan_deal_view')->with('message', 'Deal has been registered successfully!');
-                }
+                // }
             } else {
                 return back()->with('error', 'User code and Deal code not found!');
             }
