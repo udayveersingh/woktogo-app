@@ -38,6 +38,7 @@ class DealsController extends Controller
             if (!empty(Auth::user()->code_number)) {
                 $data['user_qr'] = QrCode::format('png')->size(400)->generate(Auth::user()->code_number);
             }
+            $data['currentDate'] = date("Y-m-d");
             // Generate QR codes for each deal if applicable
             foreach ($data['all_deals'] as $item) {
                 if (!empty($item->code_number)) {

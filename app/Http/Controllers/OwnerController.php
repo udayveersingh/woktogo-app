@@ -79,20 +79,22 @@ class OwnerController extends Controller
         $data = $request->session()->all();
         $user_assign_points = $data['user_points'];
 
-        // Replace commas with dots
-        $user_assign_points['total_points'] = str_replace(',','', $user_assign_points['total_points']);
+        // // Replace commas with dots
+        // $user_assign_points['total_points'] = str_replace(',','.', $user_assign_points['total_points']);
 
-        // Check if there are more than one dot
-        if (substr_count($user_assign_points['total_points'], '.') > 1) {
-            // Split by dot and take the first part (before any additional dots)
-            $user_assign_points['total_points'] = explode('.', $user_assign_points['total_points'])[0];
+        // // Check if there are more than one dot
+        // if (substr_count($user_assign_points['total_points'], '.') > 1) {
+        //     // Split by dot and take the first part (before any additional dots)
+        //     $user_assign_points['total_points'] = explode('.', $user_assign_points['total_points'])[0];
 
-            // Calculate based on this first part, rounding up and multiplying by 1 (as per your request)
-            $total_points = ceil(floatval($user_assign_points['total_points']) * 1);
-        } else {
-            // If there's only one dot, use the full value
-            $total_points = ceil(floatval($user_assign_points['total_points']) * 1);
-        }
+        //     // Calculate based on this first part, rounding up and multiplying by 1 (as per your request)
+        //     $total_points = ceil(floatval($user_assign_points['total_points']) * 1);
+        // } else {
+        //     // If there's only one dot, use the full value
+        //     $total_points = ceil(floatval($user_assign_points['total_points']) * 1);
+        // }
+
+        $total_points = $this->convertToPoints($user_assign_points['total_points']);
 
         // Output the result for debugging
         $user_code = $user_assign_points['user_code'];
@@ -102,12 +104,42 @@ class OwnerController extends Controller
             $user_points->user_id =  $user->id;
             $user_points->points = $total_points;
             $user_points->save();
+            $user_total_points = UserPoint::where('user_id', '=', $user->id)->sum('points');
+            $user->total_points =  $user_total_points;
+            $user->save();
             // Clear the session after successful registration
             return redirect()->route('owner_scan_two_view', $user_points->id)->withSuccess('You have user points has been assigned successfully.');
         } else {
             return redirect()->route('owner_scan_one_view')->withError('Oppes! You have entered invalid user code');
         }
     }
+
+    function convertToPoints($amount)
+    {
+        // Remove currency symbols and extra spaces
+        $amount = trim(str_replace(['€', 'euros'], '', $amount));
+
+        // Remove thousands separator (dot) and replace decimal separator (comma) with a dot
+        $amount = str_replace('.', '', $amount); // Remove thousands separator
+        $amount = str_replace(',', '.', $amount); // Convert decimal separator to dot
+
+        // Convert to float
+        $amount = floatval($amount);
+
+        // Apply custom rounding rules
+        $decimalPart = $amount - floor($amount); // Get the decimal part
+
+        if ($decimalPart >= 0.5) {
+            // Round up if decimal part is 0.5 or more
+            $amount = ceil($amount);
+        } else {
+            // Round down if decimal part is less than 0.5
+            $amount = floor($amount);
+        }
+
+        return (int) $amount; // Return as integer (points)
+    }
+
 
     public function owner_scan_two($id)
     {
@@ -137,14 +169,14 @@ class OwnerController extends Controller
                 //     ->where('deal_id', '=', $deal->id)
                 //     ->first();
                 // if (empty($user_deal)) {
-                    $user_deals = new UserDeal();
-                    $user_deals->user_id = $user->id;
-                    $user_deals->deal_id = $deal->id;
-                    $user_deals->status = 'in-active';
-                    $user_deals->save();
+                $user_deals = new UserDeal();
+                $user_deals->user_id = $user->id;
+                $user_deals->deal_id = $deal->id;
+                $user_deals->status = 'in-active';
+                $user_deals->save();
 
-                    // Redirect to a 'thank-you' page
-                    return redirect()->route('owner_scan_deal_view')->with('message', 'Deal has been registered successfully!');
+                // Redirect to a 'thank-you' page
+                return redirect()->route('owner_scan_deal_view')->with('message', 'Deal has been registered successfully!');
                 // }
             } else {
                 return back()->with('error', 'User code and Deal code not found!');

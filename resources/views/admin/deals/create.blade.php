@@ -21,7 +21,7 @@
         </div>
         <div class="mb-4">
             <label for="points" class="block text-sm font-medium text-gray-700">Points</label>
-            <input type="number" name="points" id="points" class="mt-1 block w-full p-2 border rounded" required>
+            <input type="number" name="points" id="points" class="mt-1 block w-full p-2 border rounded">
         </div>
         <div class="mb-4">
             <label for="deadline" class="block text-sm font-medium text-gray-700">Deadline</label>

@@ -47,12 +47,18 @@
                     Punten sparen
                 </div>
                 <div class="bg-white p-6 text-left">
-                    <h2 class="font-normal text-xl mb-1">Hoe werken punten</h2>
+                    <!-- <h2 class="font-normal text-xl mb-1">Hoe werken punten</h2>
                     <p class="text-[12px] text-gray-600">
                         Je krijgt 1 punt bij elk bestelde drankje <br />
                         Je krijgt 2 punten bij elke bestelde snack <br />
                         Je krijgt 5 punten bij elk menu plus een drankje <br /><br />
-                        Bij 200 punten kan je een gratis maaltijd naar keuze bestellen.</p>
+                        Bij 200 punten kan je een gratis maaltijd naar keuze bestellen.</p> -->
+                        <p class="text-[12px] text-gray-600">Hé daar! 😊</p>
+                        <p class="text-[12px] text-gray-600">
+                        Jij verdient punten voor elke euro die je uitgeeft.  <br />
+                        Spaar ze voor toffe deals! Of geniet van een aanbieding, zonder punten in te leveren. <br />
+                         <br />
+                         Veel plezier! 🎉</p>
                 </div>
             </div>
 
