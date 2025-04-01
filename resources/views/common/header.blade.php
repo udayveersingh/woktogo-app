@@ -8,6 +8,11 @@
     <title>Woktogo</title>
     @vite('resources/css/app.css')
     <style>
+        input::placeholder {
+            color:#000;
+            /* Light gray color for the placeholder text */
+        }
+
         .invalid-feedback {
             color: red;
             font-weight: bold;

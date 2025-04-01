@@ -85,7 +85,7 @@
                 <!-- Reduced from text-xl to text-lg -->
                 <span class="text-lg font-bold">€</span>
                 <!-- <span id="total-points" class="font-semibold">0</span> -->
-                <input type="text" value="" class="z-50 border-gray-300 rounded-xl p-3 w-3/4 max-w-sm text-center focus:outline-none focus:border-transparent uppercase caret-red" name="total_points" id="totalPoints">
+                <input type="text" value="" placeholder=" Voer hier het bedrag in" class="z-50 border-gray-300 rounded-xl w-3/4 max-w-sm text-center focus:outline-none focus:border-transparent caret-red" name="total_points" id="totalPoints">
             </div>
             @session('error')
             <div class="bg-[#b91f25]/[0.5] rounded-xl border border-red p-1 text-white text-sm text-center my-1" role="alert">

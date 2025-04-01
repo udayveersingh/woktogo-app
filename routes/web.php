@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DealsController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\MoreInfoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\UserPointsController;
@@ -35,7 +36,7 @@ Route::post('/register/step3', [AuthController::class, 'postStep2'])->name('regi
 Route::get('/register/step3', [AuthController::class, 'showStep3'])->name('register.step3.show');
 Route::post('/register/step4', [AuthController::class, 'postStep3'])->name('register.step4');
 Route::get('/register/step4', [AuthController::class, 'showStep4'])->name('register.step4.show');
-Route::post('/register/step5',[AuthController::class, 'postFinalStep'])->name('register.step5');
+Route::post('/register/step5', [AuthController::class, 'postFinalStep'])->name('register.step5');
 Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
 Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
 
@@ -47,7 +48,10 @@ Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('
 //support email
 // Route to show the support form
 Route::get('/support', [ResetPasswordController::class, 'showSupportForm'])->name('support');
-Route::Post('send-support-email',[ResetPasswordController::class, 'sendSupportEmail'])->name('send-support-email');
+Route::Post('send-support-email', [ResetPasswordController::class, 'sendSupportEmail'])->name('send-support-email');
+
+Route::get('privacy', [MoreInfoController::class, 'privacyView'])->name('privacy');
+Route::get('voorwaarden', [MoreInfoController::class, 'voorwaardenView'])->name('voorwaarden');
 
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
@@ -73,11 +77,11 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 Route::middleware(['auth', 'role:sub_admin'])->group(function () {
     Route::get('/owner-page', [OwnerController::class, 'owner_page'])->name('owner_page');
     Route::get('/owner-scan-one', [OwnerController::class, 'owner_scan_one'])->name('owner_scan_one');
-    Route::get('/deal-scan-one',[OwnerController::class,'deal_scan_one'])->name('deal_scan_one');
+    Route::get('/deal-scan-one', [OwnerController::class, 'deal_scan_one'])->name('deal_scan_one');
     Route::get('/owner-scan-two', [OwnerController::class, 'owner_scan_two'])->name('owner_scan_two');
     Route::get('/view-otp', [OwnerController::class, 'viewOtp'])->name('view-otp');
     Route::post('/scan-qr', [OwnerController::class, 'scan'])->name('scan-qr');
-    Route::post('/deal-scan-qr',[OwnerController::class,'scanDeal'])->name('deal-scan-qr');
+    Route::post('/deal-scan-qr', [OwnerController::class, 'scanDeal'])->name('deal-scan-qr');
     Route::post('/owner-scan-one', [OwnerController::class, 'postOwnerPage'])->name('owner-scan-one');
     Route::get('/owner-scan-one', [OwnerController::class, 'owner_scan_one'])->name('owner_scan_one_view');
 

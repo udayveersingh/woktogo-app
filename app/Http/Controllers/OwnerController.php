@@ -104,8 +104,15 @@ class OwnerController extends Controller
             $user_points->user_id =  $user->id;
             $user_points->points = $total_points;
             $user_points->save();
-            $user_total_points = UserPoint::where('user_id', '=', $user->id)->sum('points');
-            $user->total_points =  $user_total_points;
+            $user_total_points = UserPoint::where('user_id', '=', $user->id)->latest()->first();
+            $old_points = !empty($user->total_points) ? $user->total_points : 0;
+            // $user_deals_points = DB::table('user_deals')
+            //     ->join('deals', 'user_deals.deal_id', '=', 'deals.id') // Join user_deals and deals table
+            //     ->where('user_id', '=',  $user->id)
+            //     ->select('user_deals.*', 'deals.points') // Select columns you need
+            //     ->latest('user_deals.created_at') // Or you can specify the order column for latest
+            //     ->sum('deals.points');
+            $user->total_points =  $user_total_points->points + $old_points;
             $user->save();
             // Clear the session after successful registration
             return redirect()->route('owner_scan_two_view', $user_points->id)->withSuccess('You have user points has been assigned successfully.');
@@ -174,6 +181,16 @@ class OwnerController extends Controller
                 $user_deals->deal_id = $deal->id;
                 $user_deals->status = 'in-active';
                 $user_deals->save();
+                // $user_total_points = UserPoint::where('user_id', '=', $user->id)->sum('points');
+                $user_total_points = $user->total_points;
+                $user_deals_points = DB::table('user_deals')
+                    ->join('deals', 'user_deals.deal_id', '=', 'deals.id') // Join user_deals and deals table
+                    ->where('user_id', '=',  $user->id)
+                    ->select('deals.points') // Select columns you need
+                    ->latest('user_deals.created_at')->first(); // Or you can specify the order column for latest
+                $user->total_points =  $user_total_points - $user_deals_points->points;
+                $user->save();
+
 
                 // Redirect to a 'thank-you' page
                 return redirect()->route('owner_scan_deal_view')->with('message', 'Deal has been registered successfully!');

@@ -99,9 +99,9 @@ class AuthController extends Controller
                 'min:8', // Minimum length of 8 characters
                 'regex:/[A-Z]/', // At least one uppercase letter
                 'regex:/[@$!%*?&]/', // At least one special character
+                // 'regex:/^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/',
                 'max:255',
             ],
-
         ]);
 
         $request->session()->put('registration.password', $request->input('password'));
@@ -132,8 +132,6 @@ class AuthController extends Controller
             ];
         });
 
-        // dd($formattedQuestions);
-
         return view('auth.register-step3', compact('formattedQuestions'));
     }
 
@@ -141,9 +139,9 @@ class AuthController extends Controller
     {
 
         $request->validate([
-            'name' => 'required|string|max:255',
-            'date_of_birth' => 'required',
-            'phone' => 'required|max:15',
+            // 'name' => 'required|string|max:255',
+            // 'date_of_birth' => 'required',
+            // 'phone' => 'required|max:15',
         ]);
 
         $request->session()->put('registration.name', $request->input('name'));
@@ -208,6 +206,7 @@ class AuthController extends Controller
         $user->code_number = $formattedId;
         $user->qr_code_path = $fileName;
         $user->gender = !empty($regisData['gender']) ? $regisData['gender']:''; 
+        $user->total_points = 10;
         // $user->receive_news_and_deals = $regisData['receive_news_and_deals'] ?? false;
         // $user->agree_terms = $regisData['agree_terms'] ?? false;
         $user->save();
@@ -221,12 +220,15 @@ class AuthController extends Controller
         if (!empty($regisData['responses']) && count($regisData['responses']) > 0) {
             // Save responses in the responses table
             foreach ($regisData['responses'] as $questionId => $answer) {
-                DB::table('responses')->insert([
-                    'user_id' => $user->id,
-                    'question_id' => $questionId,
-                    'option_id' => $answer,
-                    'created_at' => now(),
-                ]);
+                foreach($answer as $value)
+                {
+                    DB::table('responses')->insert([
+                        'user_id' => $user->id,
+                        'question_id' => $questionId,
+                        'option_id' => $value,
+                        'created_at' => now(),
+                    ]);
+                }
             }
         }
 

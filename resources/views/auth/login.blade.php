@@ -89,7 +89,7 @@
     </div>
 
     <div class="text-center mt-7">
-        <div class="mt-8"><p>Problemen met inloggen? </p><a class="underline text-white" href="">Stuur een e-mail</a></div>
+        <div class="mt-8"><p>Problemen met inloggen? </p><a class="underline text-white" href="{{route('support')}}">Stuur een e-mail</a></div>
     </div>
     
 

@@ -84,106 +84,90 @@
             {{$user->code_number}}
         </div>
         <div class="text-base mb-12 dark:text-white">Scan om punten te sparen
-            <button class="bg-red dark:bg-white text-white dark:text-black text-lg font-bold p-2 w-full inline-block rounded-md mt-4 max-w-[200px]">Aantal punten: {{$userPoints}}</button>
+            <!-- <button class="bg-red dark:bg-white text-white dark:text-black text-lg font-bold p-2 w-full inline-block rounded-md mt-4 max-w-[200px]">Aantal punten: {{$userPoints}}</button> -->
+            <button class="bg-red dark:bg-white text-white dark:text-black text-lg font-bold p-2 w-full inline-block rounded-md mt-4 max-w-[200px]">Aantal punten: {{!empty($user->total_points) ? $user->total_points:0 }}</button>
         </div>
         <div class="text-sm pb-4">
         </div>
     </div><!--/ Information Card -->
+    @php
+    $sortedDeals = $all_deals->sortByDesc(function ($deal) use ($user, $user_deals) {
+    $userDeal = $user_deals->firstWhere('deal_id', $deal->id);
+    return (int)($deal->points <= $user->total_points && empty($userDeal));
+        });
+        @endphp
 
-    <div class="deal_list flex flex-col gap-7">
-        @foreach ($all_deals as $index => $item)
-        @if($item->deadline > $currentDate)
-        <div class="flex flex-col rounded-xl text-center overflow-hidden group relative dealCardWrapper">
-            @php
-            $userDeal = $user_deals->firstWhere('deal_id', $item->id);
-            @endphp
-            @if(empty($userDeal) && (int)$item->points > $userPoints)
-            <div class="card-front bg-grey">
-                <div class="p-4">
-                    <img src="{{ asset($item->image) }}" alt="deal" class="max-w-[100%] h-[180px] object-contain mx-auto deal-image" />
-                </div>
-                <div class="bg-white p-4">
-                    <div class="bg-grey-500 claim-title">
-                        <h2 class="font-bold text-2xl mb-1">{{ $item->title }}</h2>
-                        <!-- @if(!empty($item->description))
+        <div class="deal_list flex flex-col gap-7">
+            @foreach ($sortedDeals as $index => $item)
+            @if($item->deadline > $currentDate)
+            <div class="flex flex-col rounded-xl text-center overflow-hidden group relative dealCardWrapper">
+                @php
+                $userDeal = $user_deals->firstWhere('deal_id', $item->id);
+                @endphp
+                @if(empty($userDeal) && (int)$item->points > $user->total_points)
+                <div class="card-front bg-grey">
+                    <div class="p-4">
+                        <img src="{{ asset($item->image) }}" alt="deal" class="max-w-[100%] h-[180px] object-contain mx-auto deal-image" />
+                    </div>
+                    <div class="bg-white p-4">
+                        <div class="bg-grey-500 claim-title">
+                            <h2 class="font-bold text-2xl mb-1">{{ $item->title }}</h2>
+                            <!-- @if(!empty($item->description))
                         <p class="text-sm custom-text max-w-[200px] mx-auto px-3">{{ $item->description }}</p>
                         @endif -->
-                        <button class="bg-grey text-white text-lg font-bold p-2 w-full inline-block rounded-md mt-4 max-w-[200px]">nog te claimen</button>
+                            <button class="bg-grey text-white text-lg font-bold p-2 w-full inline-block rounded-md mt-4 max-w-[200px]">nog te claimen</button>
+                        </div>
+                        <div class="bg-grey-overlay">
+                        </div>
                     </div>
-                    <div class="bg-grey-overlay">
+                </div>
+                @elseif(!empty($userDeal) && $userDeal->deal_id == $item->id)
+                <div class="card-front bg-grey">
+                    <div class="p-4">
+                        <img src="{{ asset($item->image) }}" alt="deal" class="max-w-[100%] h-[180px] object-contain mx-auto deal-image" />
+                    </div>
+                    <div class="bg-white p-4">
+                        <div class="bg-grey-500 claim-title">
+                            <h2 class="font-bold text-2xl mb-1">{{ $item->title }}</h2>
+                            @if(!empty($item->description))
+                            <p class="text-sm custom-text max-w-[200px] mx-auto px-3">{{ $item->description }}</p>
+                            @endif
+                            <button class="bg-grey text-white text-lg font-bold p-2 w-full inline-block rounded-md mt-4 max-w-[200px]">Geclaimd</button>
+                        </div>
+                        <div class="bg-grey-overlay">
+                        </div>
                     </div>
                 </div>
-            </div>
-            @elseif((int)$item->points == 100 && (int)$userPoints > 100)
-            <div class="card-front bg-secondary">
-                <div class="p-4">
-                    <img src="{{ asset($item->image) }}" alt="deal" class="max-w-[100%] h-[180px] object-contain mx-auto" />
-                </div>
-                <div class="bg-white p-4">
-                    <h2 class="font-bold text-2xl mb-1" style="color:red">{{ $item->title }}</h2>
-                    <!-- @if(!empty($item->description))
-                <p class="text-sm custom-text max-w-[200px] mx-auto px-3">{{ $item->description }}</p>
-                @endif -->
-                    <button class="bg-secondary text-white text-lg font-bold p-2 w-full inline-block rounded-md mt-4 max-w-[200px] showDealScanner">Claim deal</button>
-                </div>
-            </div>
 
-            <div class="card-back hidden absolute top-0 left-0 right-0 bottom-0 bg-white items-center justify-center flex-col">
-                @if (!empty($item->qr_code))
-                <img src="data:image/png;base64,{{ base64_encode($item->qr_code) }}" alt="deal" class="max-w-40 max-width-100 mx-auto mt-2 max-width" />
-                @endif
-                {{!empty($item->code_number) ? $item->code_number:''}}
-                <button class="bg-secondary text-white text-xl font-bold p-2 w-full inline-block rounded-md mt-4 max-w-[200px] hideDealScanner">Annuleer</button>
-            </div>
-
-            @elseif(!empty($userDeal) && $userDeal->deal_id == $item->id)
-            <div class="card-front bg-grey">
-                <div class="p-4">
-                    <img src="{{ asset($item->image) }}" alt="deal" class="max-w-[100%] h-[180px] object-contain mx-auto deal-image" />
-                </div>
-                <div class="bg-white p-4">
-                    <div class="bg-grey-500 claim-title">
+                @else
+                <div class="card-front bg-secondary">
+                    <div class="p-4">
+                        <img src="{{ asset($item->image) }}" alt="deal" class="max-w-[100%] h-[180px] object-contain mx-auto" />
+                    </div>
+                    <div class="bg-white p-4 dark:bg-black dark:text-white">
                         <h2 class="font-bold text-2xl mb-1">{{ $item->title }}</h2>
                         @if(!empty($item->description))
                         <p class="text-sm custom-text max-w-[200px] mx-auto px-3">{{ $item->description }}</p>
                         @endif
-                        <button class="bg-grey text-white text-lg font-bold p-2 w-full inline-block rounded-md mt-4 max-w-[200px]">Geclaimd</button>
-                    </div>
-                    <div class="bg-grey-overlay">
+                        <button class="bg-secondary text-white text-lg font-bold p-2 w-full inline-block rounded-md mt-4 max-w-[200px] showDealScanner">nog te claimen</button>
                     </div>
                 </div>
-            </div>
-
-            @else
-            <div class="card-front bg-secondary">
-                <div class="p-4">
-                    <img src="{{ asset($item->image) }}" alt="deal" class="max-w-[100%] h-[180px] object-contain mx-auto" />
-                </div>
-                <div class="bg-white p-4 dark:bg-black dark:text-white">
-                    <h2 class="font-bold text-2xl mb-1">{{ $item->title }}</h2>
-                    @if(!empty($item->description))
-                    <p class="text-sm custom-text max-w-[200px] mx-auto px-3">{{ $item->description }}</p>
+                <div class="card-back hidden absolute top-0 left-0 right-0 bottom-0 bg-white items-center justify-center flex-col">
+                    @if (!empty($item->qr_code))
+                    <img src="data:image/png;base64,{{ base64_encode($item->qr_code) }}" alt="deal" class="max-w-40 mx-auto mt-2 deal-image" />
                     @endif
-                    <button class="bg-secondary text-white text-lg font-bold p-2 w-full inline-block rounded-md mt-4 max-w-[200px] showDealScanner">nog te claimen</button>
+                    {{!empty($item->code_number) ? $item->code_number:''}}
+                    <button class="bg-secondary text-white text-xl font-bold p-2 w-full inline-block rounded-md mt-4 max-w-[200px] hideDealScanner">Annuleer</button>
                 </div>
-            </div>
-            <div class="card-back hidden absolute top-0 left-0 right-0 bottom-0 bg-white items-center justify-center flex-col">
-                @if (!empty($item->qr_code))
-                <img src="data:image/png;base64,{{ base64_encode($item->qr_code) }}" alt="deal" class="max-w-40 mx-auto mt-2 deal-image" />
+
+
                 @endif
-                {{!empty($item->code_number) ? $item->code_number:''}}
-                <button class="bg-secondary text-white text-xl font-bold p-2 w-full inline-block rounded-md mt-4 max-w-[200px] hideDealScanner">Annuleer</button>
-            </div>
 
-
+            </div><!--/Deal card -->
             @endif
+            @endforeach
 
-            
-        </div><!--/Deal card -->
-        @endif
-        @endforeach
-
-    </div>
+        </div>
 
 </div>
 

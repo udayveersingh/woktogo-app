@@ -34,7 +34,7 @@ class DealsController extends Controller
             $data['user_points'] = UserPoint::where('user_id', '=', Auth::user()->id)->sum('points');
             // $data['all_deals'] =  Deal::latest()->get();
 
-            $data['all_deals'] = Deal::latest()->get();
+            $data['all_deals'] = Deal::get();
             if (!empty(Auth::user()->code_number)) {
                 $data['user_qr'] = QrCode::format('png')->size(400)->generate(Auth::user()->code_number);
             }
@@ -120,6 +120,7 @@ class DealsController extends Controller
 
         $data['code_number'] =  $formattedId;
         $data['qr_code_path'] = $fileName;
+        $data['points'] = !empty($request->points) ? $request->points : 0;
 
         // Handle image upload
         if ($request->hasFile('image')) {
@@ -133,7 +134,6 @@ class DealsController extends Controller
             $data['image'] = 'deals_img/' . $imageName; // Save the new image path
         }
 
-        $data['points'] = !empty($request->points) ? $request->points : 0;
 
         // Create the deal with the updated data
         Deal::create($data);
