@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Password;
 use Illuminate\Validation\ValidationException;
 use App\Models\User;
 use App\Mail\SupportRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 class ResetPasswordController extends Controller
@@ -83,6 +84,10 @@ class ResetPasswordController extends Controller
             $validated['message']
         ));
 
+        if (Auth::check()) {
         return back()->with('success', 'Your message has been sent!');
+        }else{
+            return redirect('login')->with('success', 'Your message has been sent!');
+        }
     }
 }
