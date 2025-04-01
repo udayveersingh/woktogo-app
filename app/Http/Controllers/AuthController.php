@@ -50,9 +50,10 @@ class AuthController extends Controller
             'email' => 'required',
             'password' => 'required',
         ]);
-
+         // Extract the 'remember' value from the request (if it's checked, it's true)
+       $remember = $request->has('remember');
         $credentials = $request->only('email', 'password');
-        if (Auth::attempt($credentials)) {
+        if (Auth::attempt($credentials,$remember)) {
             return match (Auth::user()->role) {
                 'admin' => redirect()->route('dashboard'),
                 'sub_admin' => redirect()->route('owner_page'),
@@ -141,7 +142,7 @@ class AuthController extends Controller
         $request->validate([
             // 'name' => 'required|string|max:255',
             // 'date_of_birth' => 'required',
-            // 'phone' => 'required|max:15',
+            'phone' => 'max:10',
         ]);
 
         $request->session()->put('registration.name', $request->input('name'));

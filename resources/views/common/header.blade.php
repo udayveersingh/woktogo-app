@@ -76,8 +76,8 @@
         }
     </style>
 </head>
-
-<body class="font-sans antialiased dark:bg-black dark:text-white/50 flex flex-col h-full">
+<!-- dark:text-white/50  remove class for dark mode screen 01-04-2025 -->
+<body class="font-sans antialiased dark:bg-black flex flex-col h-full">
     <div class="bg-secondary py-4 h-[63px] px-5 flex justify-between z-50">
         <a class="relative" href="/public"><img class="h-[55px]" src="{{ asset('images/logo.webp') }}" alt="" /></a>
 

@@ -71,7 +71,7 @@
         @enderror
 
         <div class="flex flex-col gap-2 mb-4">
-            <label class="flex gap-2"><input type="checkbox" /> Onthoud mij</label>
+            <label class="flex gap-2"><input type="checkbox" name="remember" id="remember" /> Onthoud mij</label>
         </div>
 
         <button type="submit" class="bg-red rounded-xl px-5 py-4 text-xl font-bold w-full text-white">Login</button>
