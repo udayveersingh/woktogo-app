@@ -41,7 +41,7 @@
         <div class="flex flex-col gap-2 mb-4">
             <label class="text-sm text-[#3C3C3C]">Geboortedatum</label>
             <div class="flex gap-2">
-                <input type="date" name="date_of_birth" placeholder="21" class="w-full bg-white rounded-xl px-5 py-4 text-sm" value="{{ old('date_of_birth') }}" />
+                <input type="date" name="date_of_birth" placeholder="21" class="w-full bg-white rounded-xl px-5 py-4 text-sm" min="1900-01-01" max="2025-12-31" value="{{ old('date_of_birth') }}" />
                 <!-- <input type="text" placeholder="21" class="w-full bg-white rounded-xl px-5 py-4 text-sm"  />
                 <input type="text" placeholder="Juni" class="w-full bg-white rounded-xl px-5 py-4 text-sm"  />
                 <input type="text" placeholder="1999" class="w-full bg-white rounded-xl px-5 py-4 text-sm"  /> -->

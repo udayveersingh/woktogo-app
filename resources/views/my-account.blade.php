@@ -22,7 +22,9 @@
 
     <div class="bg-white rounded-xl shadow-[2px_0_46px_0] shadow-[#00000029] px-8 pt-10 pb-6 flex flex-col">
         <div class="w-20 h-20 rounded-full bg-gray-200 overflow-hidden">
-            <img class="w-full object-cover h-full" src="{{ Storage::url(auth()->user()->thumbnail) }}" alt="user" />
+            @if(Auth::user()->thumbnail)
+            <img class="w-full object-cover h-full" src="{{asset(Auth::user()->thumbnail)}}" alt="user" />
+            @endif
         </div>
         <div class="flex justify-between mt-5">
             <a href="{{ route('profile.edit') }}" class="text-black text-lg font-semibold">Bewerk profiel</a>

@@ -26,23 +26,27 @@ class ProfileController extends Controller
 
         // Update the user's name
         $user->name = $request->name;
+        
+        // Example of saving the image
+        $file = $request->file('thumbnail'); // Assuming you have the file object from the request
 
-        // Handle thumbnail upload
-        if ($request->hasFile('thumbnail')) {
-            // Delete old thumbnail if exists
-            if ($user->thumbnail) {
-                // Delete from the public directory
-                Storage::delete('public/' . $user->thumbnail);
-            }
+        // Define the filename (you can customize this as needed)
+        $filename = time() . '_' . $file->getClientOriginalName(); // Or use any other naming logic
 
-            // Store new thumbnail in the public directory
-            $path = $request->file('thumbnail')->store('thumbnails', 'public');
+        // Define the full path to the thumbnails directory (based on your server path)
+        $path = public_path('thumbnails');  // public_path() maps to the public directory, and 'thumbnails' is where you want to store the file
 
-            // Update the user's thumbnail path (store only the relative path)
-            $user->thumbnail = $path; // This will store something like 'thumbnails/57kdmu6FNgnjfAg9sr1Qcihxr5dq8o319EA2OTMV.jpg'
+        // Make sure the thumbnails directory exists
+        if (!file_exists($path)) {
+            mkdir($path, 0755, true); // Create the directory if it doesn't exist
         }
 
-        // Save the user record
+        // Move the uploaded file to the desired location
+        $file->move($path, $filename);  // This will move the file to the thumbnails folder
+
+        // Now, $filename contains the name of the file in the directory
+        $storedFilePath = 'thumbnails/' . $filename;  // This is the relative path for storage
+        $user->thumbnail = $storedFilePath;  // Save the relative path to the database (e.g., for user profile thumbnail)
         $user->save();
 
         return redirect()->route('profile.edit')->with('success', 'Profile updated successfully.');

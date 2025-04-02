@@ -45,10 +45,12 @@
             <span class="text-red-500 text-sm">{{ $message }}</span>
             @enderror
 
-            @if($user->thumbnail)
+            <p>You can upload only JPG, JPEG, or PNG image.The image size should not exceed 2MB.</p>
+
+            @if(!empty($user->thumbnail))
             <div class="mt-4">
-                <p>Current Thumbnail:</p>
-                <img src="{{ Storage::url($user->thumbnail) }}" alt="User Thumbnail" class="w-20 h-20 rounded-full">
+                <p>Profile Pic:</p>
+                <img src="{{asset($user->thumbnail)}}" alt="User Thumbnail" class="w-20 h-20">
             </div>
             @endif
         </div>
