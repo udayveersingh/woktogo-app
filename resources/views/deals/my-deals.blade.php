@@ -43,11 +43,11 @@
 </div>
 
 <div class="px-5 py-6 max-w-[370px] mx-auto">
-    @session('success')
+    <!-- @session('success')
     <div class="bg-[#196450]/[0.5] rounded-xl border border-secondary p-1 text-white text-sm text-center my-1" role="alert">
         {{ $value }}
     </div>
-    @endsession
+    @endsession -->
 
     <!-- <a href="{{ url()->previous() }}" class="rounded-full bg-red w-8 h-8 border-none inline-flex justify-center items-center mb-10">
         <svg width="24" height="24" fill="#fff" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">

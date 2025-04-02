@@ -64,7 +64,16 @@ class ResetPasswordController extends Controller
 
     public function showSupportForm()
     {
-        return view('support');
+
+        $previousUrl = url()->previous();
+        $lastSegment = basename(parse_url($previousUrl, PHP_URL_PATH));
+        if ($lastSegment != 'support') {
+            $data['previous'] = url()->previous();
+            $previousUrl =  url()->previous();
+        } else {
+            $data['previous'] = $previousUrl;
+        }
+        return view('support', $data);
     }
 
 
@@ -83,10 +92,11 @@ class ResetPasswordController extends Controller
             $validated['email'],
             $validated['message']
         ));
-
+        session()->flash('success', 'Your message has been sent!');
         if (Auth::check()) {
-        return back()->with('success', 'Your message has been sent!');
-        }else{
+            $data['previous'] = $request->input('previous');
+            return view('support', $data);
+        } else {
             return redirect('login')->with('success', 'Your message has been sent!');
         }
     }

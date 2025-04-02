@@ -2,6 +2,17 @@
 
 @section('content')
 <div class="max-w-sm mt-24 mx-4 md:mx-auto p-4 md:p-6 bg-white shadow-lg rounded-md">
+
+<a href="{{route('my-account')}}" class="rounded-full bg-red w-8 h-8 border-none inline-flex justify-center items-center mb-6">
+        <svg width="24" height="24" fill="#fff" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <g data-name="Layer 2">
+                <g data-name="arrow-ios-back">
+                    <rect width="24" height="24" transform="rotate(90 12 12)" opacity="0"></rect>
+                    <path d="M13.83 19a1 1 0 0 1-.78-.37l-4.83-6a1 1 0 0 1 0-1.27l5-6a1 1 0 0 1 1.54 1.28L10.29 12l4.32 5.36a1 1 0 0 1-.78 1.64z"></path>
+                </g>
+            </g>
+        </svg>
+    </a>
     <h1 class="text-2xl font-semibold pb-6">Change Password</h1>
 
     @if(session('success'))

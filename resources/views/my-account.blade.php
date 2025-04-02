@@ -26,18 +26,18 @@
         </div>
         <div class="flex justify-between mt-5">
             <a href="{{ route('profile.edit') }}" class="text-black text-lg font-semibold">Bewerk profiel</a>
-            <button class="font-bold text-xl"> > </button>
+            <button onclick="window.location=`{{ url('profile/edit') }}`" class="font-bold text-xl"> > </button>
         </div>
 
         <div class="flex justify-between">
             <a href="{{ route('password.change') }}" class="text-black text-lg font-semibold">Verander wachtwoord</a>
-            <button class="font-bold text-xl"> > </button>
+            <button onclick="window.location=`{{ url('change-password') }}`" class="font-bold text-xl"> > </button>
         </div>
 
-        <div class="flex justify-between">
+        <!-- <div class="flex justify-between">
             <a href="#" class="text-black text-lg font-semibold">Help</a>
             <button class="font-bold text-xl"> > </button>
-        </div>
+        </div> -->
 
         <a href="{{ route('logout') }}" class="text-white text-lg text-center w-full bg-red py-2 px-4 mt-36 rounded-md" onclick="event.preventDefault();
                                  document.getElementById('logout-form').submit();">Log uit</a>

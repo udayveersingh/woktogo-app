@@ -3,7 +3,18 @@
 @extends('common.index')
 
 @section('content')
-<div class="max-w-2xl mx-auto p-6 bg-white shadow-lg rounded-md">
+<div class="max-w-2xl mx-auto p-6 bg-white shadow-lg rounded-md mt-5">
+    <a href="{{route('my-account')}}" class="rounded-full bg-red w-8 h-8 border-none inline-flex justify-center items-center mb-6">
+        <svg width="24" height="24" fill="#fff" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <g data-name="Layer 2">
+                <g data-name="arrow-ios-back">
+                    <rect width="24" height="24" transform="rotate(90 12 12)" opacity="0"></rect>
+                    <path d="M13.83 19a1 1 0 0 1-.78-.37l-4.83-6a1 1 0 0 1 0-1.27l5-6a1 1 0 0 1 1.54 1.28L10.29 12l4.32 5.36a1 1 0 0 1-.78 1.64z"></path>
+                </g>
+            </g>
+        </svg>
+    </a>
+
     @if(session('success'))
     <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
         {{ session('success') }}
