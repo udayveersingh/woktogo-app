@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\AccountConfirmation;
 use App\Models\Response;
 use App\Models\User;
 use App\Models\UserPoint;
@@ -10,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
@@ -50,10 +52,10 @@ class AuthController extends Controller
             'email' => 'required',
             'password' => 'required',
         ]);
-         // Extract the 'remember' value from the request (if it's checked, it's true)
-       $remember = $request->has('remember');
+        // Extract the 'remember' value from the request (if it's checked, it's true)
+        $remember = $request->has('remember');
         $credentials = $request->only('email', 'password');
-        if (Auth::attempt($credentials,$remember)) {
+        if (Auth::attempt($credentials, $remember)) {
             return match (Auth::user()->role) {
                 'admin' => redirect()->route('dashboard'),
                 'sub_admin' => redirect()->route('owner_page'),
@@ -161,9 +163,8 @@ class AuthController extends Controller
 
     public function showStep4(Request $request)
     {
-    
+
         return view('auth.register-step4');
-    
     }
 
     public function postFinalStep(Request $request)
@@ -173,7 +174,7 @@ class AuthController extends Controller
         ]);
         // $request->session()->put('registration.receive_news_and_deals', $request->input('receive_news_and_deals'));
         // $request->session()->put('registration.agree_terms', $request->input('agree_terms'));
-         // Optionally retrieve all data for display
+        // Optionally retrieve all data for display
         $data = $request->session()->all();
         $regisData = $data['registration'];
 
@@ -206,7 +207,7 @@ class AuthController extends Controller
         $user->phone = $regisData['phone'];
         $user->code_number = $formattedId;
         $user->qr_code_path = $fileName;
-        $user->gender = !empty($regisData['gender']) ? $regisData['gender']:''; 
+        $user->gender = !empty($regisData['gender']) ? $regisData['gender'] : '';
         $user->total_points = 10;
         // $user->receive_news_and_deals = $regisData['receive_news_and_deals'] ?? false;
         // $user->agree_terms = $regisData['agree_terms'] ?? false;
@@ -221,8 +222,7 @@ class AuthController extends Controller
         if (!empty($regisData['responses']) && count($regisData['responses']) > 0) {
             // Save responses in the responses table
             foreach ($regisData['responses'] as $questionId => $answer) {
-                foreach($answer as $value)
-                {
+                foreach ($answer as $value) {
                     DB::table('responses')->insert([
                         'user_id' => $user->id,
                         'question_id' => $questionId,
@@ -232,6 +232,9 @@ class AuthController extends Controller
                 }
             }
         }
+
+        // Send confirmation email to user
+        Mail::to($user->email)->send(new AccountConfirmation($user));
 
         // Clear the session after successful registration
         $request->session()->flush();
@@ -244,5 +247,25 @@ class AuthController extends Controller
         Session::flush();
         Auth::logout();
         return Redirect('login');
+    }
+
+
+
+    public function confirmEmail($userId)
+    {
+        // Find the user by the given user ID
+        $user = User::find($userId);
+
+        // If user doesn't exist, show an error page
+        if (!$user) {
+            return redirect()->route('login')->withErrors('User not found.');
+        }
+
+        // Update the user to mark the email as confirmed
+        $user->email_verified_at = now(); // or any other field to confirm the email
+        $user->save();
+
+        // Redirect to a success page or login page
+        return redirect()->route('login')->withSuccess('Your email has been confirmed. You can now log in.');
     }
 }

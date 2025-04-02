@@ -39,6 +39,7 @@ Route::get('/register/step4', [AuthController::class, 'showStep4'])->name('regis
 Route::post('/register/step5', [AuthController::class, 'postFinalStep'])->name('register.step5');
 Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
 Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+Route::get('confirm-email/{user}', [AuthController::class, 'confirmEmail'])->name('confirmEmail');
 
 // Route to show the reset password form
 Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
