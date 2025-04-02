@@ -106,16 +106,16 @@ class OwnerController extends Controller
             $user_points->save();
             $user_total_points = UserPoint::where('user_id', '=', $user->id)->latest()->first();
             $old_points = !empty($user->total_points) ? $user->total_points : 0;
-            // $user_deals_points = DB::table('user_deals')
-            //     ->join('deals', 'user_deals.deal_id', '=', 'deals.id') // Join user_deals and deals table
-            //     ->where('user_id', '=',  $user->id)
-            //     ->select('user_deals.*', 'deals.points') // Select columns you need
-            //     ->latest('user_deals.created_at') // Or you can specify the order column for latest
-            //     ->sum('deals.points');
-            $user->total_points =  $user_total_points->points + $old_points;
-            $user->save();
-            // Clear the session after successful registration
-            return redirect()->route('owner_scan_two_view', $user_points->id)->withSuccess('You have user points has been assigned successfully.');
+            $checkPoints = $user_total_points->points + $old_points;
+
+            if ($checkPoints > 1000) {
+                return redirect()->route('owner_scan_one_view')->withError('You can only assign a maximum of 1000 points to a user.');
+            } else {
+                $user->total_points =  $user_total_points->points + $old_points;
+                $user->save();
+                // Clear the session after successful registration
+                return redirect()->route('owner_scan_two_view', $user_points->id)->withSuccess('You have user points has been assigned successfully.');
+            }
         } else {
             return redirect()->route('owner_scan_one_view')->withError('Oppes! You have entered invalid user code');
         }
