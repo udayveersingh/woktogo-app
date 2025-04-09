@@ -89,3 +89,18 @@ function exitNav() {
 }
 
 
+
+
+document.getElementById('totalPoints').addEventListener('focus', function () {
+    console.log('click on test and tested');
+    // Set the input mode for numeric input
+    this.setAttribute('inputmode', 'decimal'); // Tells mobile devices to use the numeric keypad with decimals
+
+    // Also, add a custom key listener for handling the comma if needed (on iOS)
+    this.addEventListener('input', function (event) {
+        // Optionally, format the value with commas for better user experience
+        this.value = this.value.replace(/[^0-9,\.]/g, ''); // Keep only numbers and commas/periods
+    });
+});
+
+
