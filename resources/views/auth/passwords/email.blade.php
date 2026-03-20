@@ -8,28 +8,34 @@
         width: auto;
         margin: 0 auto;
         margin-top: 10px;
-
     }
 </style>
-<div class="container mt-24 mx-auto p-4 md:p-8">
-    <h1 class="text-3xl font-bold mb-6 text-center text-gray-800">Forgot Your Password?</h1>
 
-    <form method="POST" action="{{ route('password.email') }}" class="max-w-md mx-auto">
+<div class="bg-black text-white flex flex-col items-center relative min-h-dvh py-4">
+    <img class="w-full object-cover h-full absolute top-0 left-0 opacity-30" src="{{ asset('images/signup_screen_bg.jpg') }}" alt="banner" />
+    <a class="relative mb-4 md:mb-8" href="/public"><img class="h-[55px]" src="{{ asset('images/logo.webp') }}" alt="" /></a>
+  
+
+<div class="px-5 py-4 max-w-[500px] w-full relative flex-auto flex flex-col justify-center">
+
+<div class="my-auto">
+   
+    <h1 class="text-2xl md:text-4xl relative font-bold uppercase text-center mb-8">Forgot Your Password?</h1>
+
+    <form method="POST" action="{{ route('password.email') }}">
         @csrf
 
         <div class="mb-6">
-            <label for="email" class="block text-md font-medium text-gray-700">Email</label>
-            <input id="email" type="email" name="email" placeholder="Enter your Email Address" required autofocus class="mt-2 block w-full focus:border-none rounded-md shadow-sm outline-none focus:ring focus:ring-blue-400 py-2 px-4 text-center">
+            <label for="email" class="text-md font-medium text-gray-700 hidden">Email</label>
+            <input id="email" type="email" name="email" placeholder="Enter your Email Address" required autofocus class="w-full rounded-full autofill:bg-transparent border-2 placeholder:text-white border-white px-5 py-4 text-sm text-white text-center" style="background:transparent !important">
         </div>
 
         <div>
-            <button type="submit" class="w-full bg-blue-600 text-white font-semibold py-4 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <button type="submit" class="bg-[#ff0511] rounded-full px-5 py-4 text-xl font-bold w-full text-white">
                 Stuur wachtwoord reset link
             </button>
         </div>
     </form>
-
-    <a href="{{route('login')}}" class="text-white bg-red px-7 py-4 rounded-xl d-block rounded-xl login-btn">Login</a>
 
     @if(session('status'))
     <div class="mt-4 text-green-500 text-center">
@@ -47,6 +53,19 @@
     </div>
     @endif
 
+    <div class="text-center mt-7">
+        <div class="mt-8"><a class="underline text-sm text-white" href="{{route('login')}}">Log hier in.</a></div>
+    </div>
+
+
+</div>
+
+
+    <div class="mt-auto text-center text-xs pt-4">
+        <a class="px-2" href="{{route('voorwaarden')}}"><u>Algemene Voorwaarden</u></a> | <a class="px-2" href="{{route('privacy')}}"><u>Privacy</u></a> 
+    </div> 
+
+</div>
 </div>
 
 @endsection
