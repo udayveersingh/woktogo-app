@@ -4,8 +4,12 @@
 
 <div class="bg-black text-white flex flex-col items-center relative min-h-dvh py-4">
     <img class="w-full object-cover h-full absolute top-0 left-0 opacity-30" src="{{ asset('images/signup_screen_bg.jpg') }}" alt="banner" />
+    
+    @auth
+    <div></div>
+    @else
     <a class="relative mb-4 md:mb-8" href="/public"><img class="h-[55px]" src="{{ asset('images/logo.webp') }}" alt="" /></a>
-  
+    @endauth
 
 
 <div class="px-5 py-4 max-w-[500px] w-full relative flex-auto flex flex-col justify-center">
@@ -54,9 +58,13 @@
 </div>
 
 
+    @auth
+   
+    @else
     <div class="mt-auto text-center text-xs pt-4">
         <a class="px-2" href="{{route('voorwaarden')}}"><u>Algemene Voorwaarden</u></a> | <a class="px-2" href="{{route('privacy')}}"><u>Privacy</u></a> 
     </div> 
+    @endauth
 
 </div>
 </div>

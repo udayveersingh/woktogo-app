@@ -37,9 +37,14 @@
         max-width: 8rem;
     }
 </style>
-<div class="bg-black text-white h-[135px] flex flex-col justify-center items-center relative">
-    <img class="w-full object-cover h-full absolute opacity-30" src="{{ asset('images/banner.webp') }}" alt="banner" />
-    <h1 class="text-2xl relative">Mijn deals</h1>
+<div class="bg-[#1e181c] text-white flex w-full items-center relative max-w-[370px] mx-auto my-5 px-5 ">
+    <!-- <img class="w-full object-cover h-full absolute opacity-30" src="{{ asset('images/banner.webp') }}" alt="banner" /> -->
+    <h1 class="text-2xl md:text-3xl uppercase font-bold text-white mx-auto flex-auto text-center">Mijn deals</h1>
+    <a href="{{route('deal-info')}}" class="z-10 flex-grow-0 bg-[#ef1e21] text-white rounded-full border border-white w-7 h-7 inline-flex justify-center items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-question-lg" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M4.475 5.458c-.284 0-.514-.237-.47-.517C4.28 3.24 5.576 2 7.825 2c2.25 0 3.767 1.36 3.767 3.215 0 1.344-.665 2.288-1.79 2.973-1.1.659-1.414 1.118-1.414 2.01v.03a.5.5 0 0 1-.5.5h-.77a.5.5 0 0 1-.5-.495l-.003-.2c-.043-1.221.477-2.001 1.645-2.712 1.03-.632 1.397-1.135 1.397-2.028 0-.979-.758-1.698-1.926-1.698-1.009 0-1.71.529-1.938 1.402-.066.254-.278.461-.54.461h-.777ZM7.496 14c.622 0 1.095-.474 1.095-1.09 0-.618-.473-1.092-1.095-1.092-.606 0-1.087.474-1.087 1.091S6.89 14 7.496 14"/>
+            </svg>
+        </a>
 </div>
 
 <div class="px-5 py-6 max-w-[370px] mx-auto">
@@ -68,13 +73,7 @@
     }
     @endphp
     <div class="flex flex-col rounded-xl overflow-hidden text-center relative bg-white dark:bg-black mb-8 px-3">
-        <a href="{{route('deal-info')}}" class="absolute right-4 top-4 z-10">
-            <svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="2 2 20 20">
-                <g id="Warning / Info">
-                    <path id="Vector" d="M12 11V16M12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21ZM12.0498 8V8.1L11.9502 8.1002V8H12.0498Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="stroke-black dark:stroke-[#666]"></path>
-                </g>
-            </svg>
-        </a>
+        
 
         <!-- <img src="{{ url('storage/app/private/qrcodes/'.$user->qr_code_path) }}" alt="deal" class="max-w-20 mx-auto" /> -->
         <!-- <div class="text-lg font-bold dark:text-white">

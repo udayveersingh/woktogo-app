@@ -77,12 +77,12 @@
     </style>
 </head>
 <!-- dark:text-white/50  remove class for dark mode screen 01-04-2025 -->
-<body class="font-sans antialiased dark:bg-black flex flex-col h-full">
-    <div class="bg-secondary px-5 flex justify-between z-50">
+<body class="font-sans antialiased bg-[#1e181c] flex flex-col h-full">
+    <div class="bg-[#1e181c] px-5 flex z-50 my-4">
         
 
         @auth
-        <a class="relative" href="/public"><img class="h-[55px]" src="{{ asset('images/logo.webp') }}" alt="" /></a>
+        <a class="relative mx-auto" href="/public"><img class="h-[55px]" src="{{ asset('images/logo.webp') }}" alt="" /></a>
         <!-- Logout Button -->
         <!-- <form action="{{ route('logout') }}" method="POST" style="display: inline;">
             @csrf
@@ -111,9 +111,9 @@
                 <!--background overlay element, it will close navbar when clicked-->
                 <div onclick="exitNav()" id="sideBar" class="fixed top-0 right-0 bg-transparent w-0 h-full overflow-x-hidden duration-500 z-10">
                     <!--navigation menu box-->
-                    <div id="sideNav" onclick="event.stopPropagation()" class="fixed top-0 right-0 bg-greenheader overflow-x-hidden duration-500 font-bold flex justify-center items-start h-full w-0 pt-24">
+                    <div id="sideNav" onclick="event.stopPropagation()" class="fixed top-0 right-0 bg-[#1e1816] overflow-x-hidden duration-500 font-bold flex justify-center items-start h-full w-0 pt-24">
                         <!--exit icon, it will close navbar when clicked-->
-                        <a href="javascript:void(0)" onclick="exitNav()" class="text-3xl absolute top-0 right-0 mr-3 mt-2">&times;</a>
+                        <a href="javascript:void(0)" onclick="exitNav()" class="text-3xl absolute top-0 right-0 mr-4 mt-4">&times;</a>
                         @if(Auth::check() && Auth::user()->role == 'user')
                         <ul class="text-md sm:text-xl text-center text-nowrap space-y-5 btn-group">
                             <li><a href="/my-account" class="text-black text-lg font-semibold bg-primary px-5 py-4  rounded-xl d-block">Account aanpassen</a></li>
