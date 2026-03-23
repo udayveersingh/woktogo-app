@@ -100,9 +100,12 @@ class AuthController extends Controller
                 'required',
                 'string',
                 'min:8', // Minimum length of 8 characters
-                'regex:/[A-Z]/', // At least one uppercase letter
-                'regex:/[@$!%*?&]/', // At least one special character
-                // 'regex:/^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/',
+                // 'regex:/[A-Z]/', // At least one uppercase letter
+                // 'regex:/[@$!%*?&]/', // At least one special character
+                // 'regex:/^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,255}$/',
+                // 'regex:/[A-Z]/', // At least one uppercase letter
+                // 'regex:/[a-z]/', // At least one lowercase letter
+                // 'regex:/[!#%€]/', // At least one special character from !#%
                 'max:255',
             ],
         ]);

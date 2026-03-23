@@ -77,9 +77,19 @@
         </a>
 
         <!-- <img src="{{ url('storage/app/private/qrcodes/'.$user->qr_code_path) }}" alt="deal" class="max-w-20 mx-auto" /> -->
-        <div class="text-lg font-bold dark:text-white">
+        <!-- <div class="text-lg font-bold dark:text-white">
             @if(!empty($user_qr))
             <img src="data:image/png;base64,{!! base64_encode($user_qr)!!}" alt="deal" class="max-w-50 mx-auto dark:invert-[70%] my-3" />
+            @endif
+            {{$user->code_number}}
+        </div> -->
+        <div class="text-lg font-bold dark:text-white">
+            @if(!empty($user_qr))
+            <div class="bg-white p-4 inline-block rounded-lg my-3">
+                <img src="data:image/png;base64,{!! base64_encode($user_qr) !!}"
+                    alt="QR Code"
+                    class="max-w-50 mx-auto my-3" />
+            </div>
             @endif
             {{$user->code_number}}
         </div>
