@@ -237,7 +237,11 @@ class AuthController extends Controller
         }
 
         // Send confirmation email to user
-        Mail::to($user->email)->send(new AccountConfirmation($user));
+        try {
+            Mail::to($user->email)->send(new AccountConfirmation($user));
+        } catch (\Exception $e) {
+            \Log::error('Mail failed: ' . $e->getMessage());
+        }
 
         // Clear the session after successful registration
         $request->session()->flush();
