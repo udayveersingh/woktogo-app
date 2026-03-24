@@ -3,8 +3,8 @@
 @extends('common.index')
 
 @section('content')
-<div class="max-w-2xl mx-auto p-6 bg-white shadow-lg rounded-md mt-5">
-    <a href="{{route('my-account')}}" class="rounded-full bg-red w-8 h-8 border-none inline-flex justify-center items-center mb-6">
+<div class="max-w-[370px] mx-auto p-5 mt-5">
+    <a href="{{route('my-account')}}" class="mx-auto rounded-full bg-[#ff0511] w-8 h-8 border-none flex justify-center items-center mb-6">
         <svg width="24" height="24" fill="#fff" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <g data-name="Layer 2">
                 <g data-name="arrow-ios-back">
@@ -21,31 +21,31 @@
     </div>
     @endif
 
-    <h2 class="text-2xl font-bold mb-4">Edit Profile</h2>
+    <h2 class="text-3xl mb-8 uppercase font-bold text-white text-center">Edit Profile</h2>
 
     <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
         <!-- Name field -->
-        <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="name">Name</label>
+        <div class="mb-4 text-center">
+            <label class="block text-white text-sm font-bold mb-2" for="name">Name</label>
             <input type="text" id="name" name="name" value="{{ old('name', $user->name) }}"
-                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                class="rounded-full autofill:bg-transparent border-2 placeholder:text-white border-white px-5 py-4 text-sm text-white text-center w-full" style="background:transparent" required>
             @error('name')
             <span class="text-red-500 text-sm">{{ $message }}</span>
             @enderror
         </div>
 
         <!-- Thumbnail field -->
-        <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="thumbnail">Profile Picture</label>
+        <div class="mb-4 text-center">
+            <label class="block text-white text-sm font-bold mb-2" for="thumbnail">Profile Picture</label>
             <input type="file" id="thumbnail" name="thumbnail"
-                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                class="rounded-full autofill:bg-transparent border-2 placeholder:text-white border-white px-5 py-4 text-sm text-white text-center w-full">
             @error('thumbnail')
             <span class="text-red-500 text-sm">{{ $message }}</span>
             @enderror
 
-            <p>You can upload only JPG, JPEG, or PNG image.The image size should not exceed 2MB.</p>
+            <p class="text-white text-xs py-2">You can upload only JPG, JPEG, or PNG image.The image size should not exceed 2MB.</p>
 
             @if(!empty($user->thumbnail))
             <div class="mt-4">
@@ -56,7 +56,7 @@
         </div>
 
         <div class="flex items-center justify-between">
-            <button type="submit" class="bg-red rounded-xl px-5 py-4 text-xl font-bold w-full text-white">
+            <button type="submit" class="bg-[#ff0511] rounded-full px-5 py-4 text-xl font-bold w-full text-white">
                 Save Changes
             </button>
         </div>

@@ -47,7 +47,7 @@
         </a>
 </div>
 
-<div class="px-5 py-6 max-w-[370px] mx-auto">
+<div class="px-2 py-6 max-w-[370px] mx-auto">
     <!-- @session('success')
     <div class="bg-[#196450]/[0.5] rounded-xl border border-secondary p-1 text-white text-sm text-center my-1" role="alert">
         {{ $value }}
@@ -72,7 +72,7 @@
     $userPoints = !empty($user_points) ? $user_points:0;
     }
     @endphp
-    <div class="flex flex-col rounded-xl overflow-hidden text-center relative bg-white dark:bg-black mb-8 px-3">
+    <div class="grid grid-cols-3 rounded-xl overflow-hidden text-center relative bg-[#1e181c] mb-8 border border-white">
         
 
         <!-- <img src="{{ url('storage/app/private/qrcodes/'.$user->qr_code_path) }}" alt="deal" class="max-w-20 mx-auto" /> -->
@@ -82,23 +82,29 @@
             @endif
             {{$user->code_number}}
         </div> -->
-        <div class="text-lg font-bold dark:text-white">
+
+        <div class="text-base dark:text-white col-span-2 flex flex-col justify-center">
+            <div class="text-white text-xl font-semibold mb-3">WOK <span class="text-[#ff0511] italic">Points</span></div>
+            <!-- <button class="bg-red dark:bg-white text-white dark:text-black text-lg font-bold p-2 w-full inline-block rounded-md mt-4 max-w-[200px]">Aantal punten: {{$userPoints}}</button> -->
+            <button class="text-white text-base font-bold uppercase w-full inline-block">Aantal punten: {{!empty($user->total_points) ? $user->total_points:0 }}</button>
+            <div class="text-sm mt-2">Scan om punten te sparen</div>
+        </div>
+
+        <div class=" bg-white">
             @if(!empty($user_qr))
-            <div class="bg-white p-4 inline-block rounded-lg my-3">
+            <div class="bg-white inline-block rounded-lg">
                 <img src="data:image/png;base64,{!! base64_encode($user_qr) !!}"
                     alt="QR Code"
-                    class="max-w-50 mx-auto my-3" />
+                    class="max-w-50 mx-auto" />
             </div>
             @endif
-            {{$user->code_number}}
+            <div class="text-base uppercase text-center font-bold -mt-2 pb-2">{{$user->code_number}}</div>
         </div>
-        <div class="text-base mb-12 dark:text-white">Scan om punten te sparen
-            <!-- <button class="bg-red dark:bg-white text-white dark:text-black text-lg font-bold p-2 w-full inline-block rounded-md mt-4 max-w-[200px]">Aantal punten: {{$userPoints}}</button> -->
-            <button class="bg-red dark:bg-white text-white dark:text-black text-lg font-bold p-2 w-full inline-block rounded-md mt-4 max-w-[200px]">Aantal punten: {{!empty($user->total_points) ? $user->total_points:0 }}</button>
-        </div>
-        <div class="text-sm pb-4">
-        </div>
+        
+        
     </div><!--/ Information Card -->
+
+    <div class="text-white mb-3 font-bold text-base">Verzilver direct je punten:</div>
     @php
     $sortedDeals = $all_deals->sortByDesc(function ($deal) use ($user, $user_deals) {
     $userDeal = $user_deals->firstWhere('deal_id', $deal->id);
@@ -106,42 +112,40 @@
         });
         @endphp
 
-        <div class="deal_list flex flex-col gap-7">
+        <div class="deal_list grid grid-cols-3 gap-2">
             @foreach ($sortedDeals as $index => $item)
             @if($item->deadline > $currentDate)
-            <div class="flex flex-col rounded-xl text-center overflow-hidden group relative dealCardWrapper">
+            <div class="flex flex-col bg-white rounded-xl text-center overflow-hidden group relative dealCardWrapper">
                 @php
                 $userDeal = $user_deals->firstWhere('deal_id', $item->id);
                 @endphp
                 @if(empty($userDeal) && (int)$item->points > $user->total_points)
                 <div class="card-front bg-grey">
-                    <div class="p-4">
-                        <img src="{{ asset($item->image) }}" alt="deal" class="max-w-[100%] h-[180px] object-contain mx-auto deal-image" />
+                    <div class="bg-[#ff0511] p-2 rounded-t-lg h-20 flex justify-center items-center">
+                        <img src="{{ asset($item->image) }}" alt="deal" class="max-h-[90px] w-full mx-auto object-contain" />   
                     </div>
                     <div class="bg-white p-4">
                         <div class="bg-grey-500 claim-title">
-                            <h2 class="font-bold text-2xl mb-1">{{ $item->title }}</h2>
-                            <!-- @if(!empty($item->description))
-                        <p class="text-sm custom-text max-w-[200px] mx-auto px-3">{{ $item->description }}</p>
-                        @endif -->
-                            <button class="bg-grey text-white text-lg font-bold p-2 w-full inline-block rounded-md mt-4 max-w-[200px]">nog te claimen</button>
+                            <h2 class="font-bold text-base mb-1">{{ $item->title }}</h2>
+                            
+                            <button class="text-black text-sm font-bold w-full inline-block rounded-md mt-4 showDealScanner uppercase">nog te claimen</button>
                         </div>
                         <div class="bg-grey-overlay">
                         </div>
                     </div>
                 </div>
                 @elseif(!empty($userDeal) && $userDeal->deal_id == $item->id)
-                <div class="card-front bg-grey">
-                    <div class="p-4">
-                        <img src="{{ asset($item->image) }}" alt="deal" class="max-w-[100%] h-[180px] object-contain mx-auto deal-image" />
+                <div class="card-front bg-grey">                    
+                    <div class="bg-[#ff0511] p-2 rounded-t-lg h-20 flex justify-center items-center">
+                        <img src="{{ asset($item->image) }}" alt="deal" class="max-h-[90px] w-full mx-auto object-contain" />   
                     </div>
-                    <div class="bg-white p-4">
+                    <div class="bg-white p-2">
                         <div class="bg-grey-500 claim-title">
-                            <h2 class="font-bold text-2xl mb-1">{{ $item->title }}</h2>
+                            <h2 class="font-bold text-sm mb-1 leading-tight">{{ $item->title }}</h2>
                             @if(!empty($item->description))
-                            <p class="text-sm custom-text max-w-[200px] mx-auto px-3">{{ $item->description }}</p>
+                            <p class="text-xs custom-text">{{ $item->description }}</p>
                             @endif
-                            <button class="bg-grey text-white text-lg font-bold p-2 w-full inline-block rounded-md mt-4 max-w-[200px]">Geclaimd</button>
+                            <button class="text-black text-sm font-bold w-full inline-block rounded-md mt-4 showDealScanner uppercase">Geclaimd</button>
                         </div>
                         <div class="bg-grey-overlay">
                         </div>
@@ -149,24 +153,24 @@
                 </div>
 
                 @else
-                <div class="card-front bg-secondary">
-                    <div class="p-4">
-                        <img src="{{ asset($item->image) }}" alt="deal" class="max-w-[100%] h-[180px] object-contain mx-auto" />
+                <div class="card-front bg-white">                    
+                    <div class="bg-[#ff0511] p-2 rounded-t-lg h-20 flex justify-center items-center">
+                        <img src="{{ asset($item->image) }}" alt="deal" class="max-h-full w-full mx-auto object-contain" />   
                     </div>
-                    <div class="bg-white p-4 dark:bg-black dark:text-white">
-                        <h2 class="font-bold text-2xl mb-1">{{ $item->title }}</h2>
+                    <div class="bg-white p-2">
+                        <h2 class="font-bold text-sm mb-1 leading-tight">{{ $item->title }}</h2>
                         @if(!empty($item->description))
-                        <p class="text-sm custom-text max-w-[200px] mx-auto px-3">{{ $item->description }}</p>
+                        <p class="text-xs custom-text ">{{ $item->description }}</p>
                         @endif
-                        <button class="bg-secondary text-white text-lg font-bold p-2 w-full inline-block rounded-md mt-4 max-w-[200px] showDealScanner">nog te claimen</button>
+                        <button class=" text-black text-sm font-bold w-full inline-block rounded-md mt-4 showDealScanner uppercase">nog te claimen</button>
                     </div>
                 </div>
                 <div class="card-back hidden absolute top-0 left-0 right-0 bottom-0 bg-white items-center justify-center flex-col">
                     @if (!empty($item->qr_code))
-                    <img src="data:image/png;base64,{{ base64_encode($item->qr_code) }}" alt="deal" class="max-w-40 mx-auto mt-2 deal-image" />
+                    <img src="data:image/png;base64,{{ base64_encode($item->qr_code) }}" alt="deal" class="max-w-40 mx-auto mt-2 w-full" />
                     @endif
-                    {{!empty($item->code_number) ? $item->code_number:''}}
-                    <button class="bg-secondary text-white text-xl font-bold p-2 w-full inline-block rounded-md mt-4 max-w-[200px] hideDealScanner">Annuleer</button>
+                    <div class="text-sm font-semibold">{{!empty($item->code_number) ? $item->code_number:''}}</div>
+                    <button class="text-black uppercase text-sm font-bold w-full inline-block rounded-md mt-4 hideDealScanner">Annuleer</button>
                 </div>
 
 

@@ -115,7 +115,7 @@
                         <!--exit icon, it will close navbar when clicked-->
                         <a href="javascript:void(0)" onclick="exitNav()" class="text-3xl absolute top-0 right-0 mr-4 mt-4">&times;</a>
                         @if(Auth::check() && Auth::user()->role == 'user')
-                        <ul class="text-md sm:text-xl text-center text-nowrap space-y-5 btn-group">
+                        <ul class="text-md sm:text-xl text-center text-nowrap space-y-5 btn-group sm:min-w-[300px]">
                             <li><a href="/my-account" class="text-black text-lg font-semibold bg-primary px-5 py-4  rounded-xl d-block">Account aanpassen</a></li>
                             
                             
@@ -130,7 +130,7 @@
                                 <!-- Logout Button -->
                                 <form action="{{ route('logout') }}" method="POST" style="display: inline;">
                                     @csrf
-                                    <button type="submit" class="bg-red px-7 py-4  rounded-xl d-block rounded-xl">
+                                    <button type="submit" class="bg-[#ff0511] px-7 py-4 inline-block rounded-full w-full" style="width:100%;">
                                         Logout
                                     </button>
                                 </form>
@@ -140,7 +140,7 @@
                             @endauth
                         </ul>
                         @else
-                        <ul class="text-md sm:text-xl text-center text-nowrap space-y-5 btn-group">
+                        <ul class="text-md sm:text-xl text-center text-nowrap space-y-5 btn-group min-w-[300px]">
                             <li><a href="/my-account" class="text-black text-lg font-semibold bg-primary px-5 py-4  rounded-xl d-block">Account aanpassen</a></li>
                             
                             
@@ -148,14 +148,14 @@
                             <li><a href="/deal-info" class="text-black text-lg font-semibold bg-primary px-5 py-4  rounded-xl d-block">Meer informatie</a></li>
                             <!-- <li class="px-2 py-4"><a href="#">Shop</a></li> -->
                             <li class="px-5 py-4 rounded-xl text-black text-lg font-semibold bg-primary">Problemen? <a href="
-                            {{route('support')}}" class="text-white text-lg font-semibold text-black text-lg font-semibold "><u>Stuur een e-mail</u></a></li>
+                            {{route('support')}}" class="text-white text-lg font-semibold "><u>Stuur een e-mail</u></a></li>
 
                             @auth
                             <li>
                                 <!-- Logout Button -->
                                 <form action="{{ route('logout') }}" method="POST" style="display: inline;">
                                     @csrf
-                                    <button type="submit" class="bg-red px-7 py-4  rounded-xl d-block rounded-xl text-white">
+                                    <button type="submit" class="bg-[#ff0511] px-7 py-4 inline-block rounded-full text-white w-full" style="width:100%;">
                                         Logout
                                     </button>
                                 </form>
