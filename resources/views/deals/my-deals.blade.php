@@ -87,7 +87,7 @@
             <div class="text-white text-xl font-semibold mb-3">WOK <span class="text-[#ff0511] italic">Points</span></div>
             <!-- <button class="bg-red dark:bg-white text-white dark:text-black text-lg font-bold p-2 w-full inline-block rounded-md mt-4 max-w-[200px]">Aantal punten: {{$userPoints}}</button> -->
             <button class="text-white text-base font-bold uppercase w-full inline-block">Aantal punten: {{!empty($user->total_points) ? $user->total_points:0 }}</button>
-            <div class="text-sm mt-2">Scan om punten te sparen</div>
+            <div class="text-sm text-white mt-2">Scan om punten te sparen</div>
         </div>
 
         <div class=" bg-white">
@@ -128,7 +128,7 @@
                         <div class="bg-grey-500 claim-title">
                             <h2 class="font-bold text-base mb-1">{{ $item->title }}</h2>
                             
-                            <button class="text-black text-sm font-bold w-full inline-block rounded-md mt-4 showDealScanner uppercase">nog te claimen</button>
+                            <button class="text-black text-sm font-bold w-full inline-block rounded-md mt-4 showDealScanner underline uppercase">nog te claimen</button>
                         </div>
                         <div class="bg-grey-overlay">
                         </div>
@@ -162,7 +162,7 @@
                         @if(!empty($item->description))
                         <p class="text-xs custom-text ">{{ $item->description }}</p>
                         @endif
-                        <button class=" text-black text-sm font-bold w-full inline-block rounded-md mt-4 showDealScanner uppercase">nog te claimen</button>
+                        <button class=" text-black text-sm font-bold w-full inline-block rounded-md mt-4 showDealScanner underline uppercase">nog te claimen</button>
                     </div>
                 </div>
                 <div class="card-back hidden absolute top-0 left-0 right-0 bottom-0 bg-white items-center justify-center flex-col">
@@ -170,7 +170,7 @@
                     <img src="data:image/png;base64,{{ base64_encode($item->qr_code) }}" alt="deal" class="max-w-40 mx-auto mt-2 w-full" />
                     @endif
                     <div class="text-sm font-semibold">{{!empty($item->code_number) ? $item->code_number:''}}</div>
-                    <button class="text-black uppercase text-sm font-bold w-full inline-block rounded-md mt-4 hideDealScanner">Annuleer</button>
+                    <button class="text-black uppercase text-sm font-bold w-full inline-block rounded-md mt-4 hideDealScanner underline">Annuleer</button>
                 </div>
 
 

@@ -20,7 +20,7 @@
             </g>
         </svg>
     </a>
-    <h1 class="text-2xl md:text-4xl relative font-bold uppercase text-center mb-8">Maak een wachtwoord</h1>
+    <h1 class="text-2xl md:text-4xl relative font-bold uppercase text-center mb-8">IETS MEER INFO</h1>
 
 
     <div class="flex flex-col gap-1 mb-4">
