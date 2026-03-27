@@ -40,8 +40,8 @@
 <div class="bg-[#1e181c] text-white flex w-full items-center relative max-w-[370px] mx-auto my-5 px-5 ">
     <!-- <img class="w-full object-cover h-full absolute opacity-30" src="{{ asset('images/banner.webp') }}" alt="banner" /> -->
     <h1 class="text-2xl md:text-3xl uppercase font-bold text-white mx-auto flex-auto text-center">Mijn deals</h1>
-    <a href="{{route('deal-info')}}" class="z-10 flex-grow-0 bg-[#ef1e21] text-white rounded-full border border-white w-7 h-7 inline-flex justify-center items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-question-lg" viewBox="0 0 16 16">
+    <a href="{{route('deal-info')}}" class="z-10 flex-grow-0 bg-[#ef1e21] text-white rounded-full border-2 border-white w-7 h-7 inline-flex justify-center items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-question-lg" viewBox="0 0 16 16">
             <path fill-rule="evenodd" d="M4.475 5.458c-.284 0-.514-.237-.47-.517C4.28 3.24 5.576 2 7.825 2c2.25 0 3.767 1.36 3.767 3.215 0 1.344-.665 2.288-1.79 2.973-1.1.659-1.414 1.118-1.414 2.01v.03a.5.5 0 0 1-.5.5h-.77a.5.5 0 0 1-.5-.495l-.003-.2c-.043-1.221.477-2.001 1.645-2.712 1.03-.632 1.397-1.135 1.397-2.028 0-.979-.758-1.698-1.926-1.698-1.009 0-1.71.529-1.938 1.402-.066.254-.278.461-.54.461h-.777ZM7.496 14c.622 0 1.095-.474 1.095-1.09 0-.618-.473-1.092-1.095-1.092-.606 0-1.087.474-1.087 1.091S6.89 14 7.496 14"/>
             </svg>
         </a>
@@ -112,7 +112,7 @@
         });
         @endphp
 
-        <div class="deal_list grid grid-cols-3 gap-2">
+        <div class="deal_list grid grid-cols-2 gap-2">
             @foreach ($sortedDeals as $index => $item)
             @if($item->deadline > $currentDate)
             <div class="flex flex-col bg-white rounded-xl text-center overflow-hidden group relative dealCardWrapper">
@@ -167,7 +167,7 @@
                 </div>
                 <div class="card-back hidden absolute top-0 left-0 right-0 bottom-0 bg-white items-center justify-center flex-col">
                     @if (!empty($item->qr_code))
-                    <img src="data:image/png;base64,{{ base64_encode($item->qr_code) }}" alt="deal" class="max-w-40 mx-auto mt-2 w-full" />
+                    <img src="data:image/png;base64,{{ base64_encode($item->qr_code) }}" alt="deal" class="max-w-24 mx-auto w-full" />
                     @endif
                     <div class="text-sm font-semibold">{{!empty($item->code_number) ? $item->code_number:''}}</div>
                     <button class="text-black uppercase text-sm font-bold w-full inline-block rounded-md mt-4 hideDealScanner">Annuleer</button>
