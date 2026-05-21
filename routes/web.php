@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\MoreInfoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\OwnerController;
+use App\Http\Controllers\StaffController;
 use App\Http\Controllers\UserPointsController;
 use App\Models\UserPoint;
 use Illuminate\Support\Facades\File;
@@ -92,6 +93,18 @@ Route::middleware(['auth', 'role:sub_admin'])->group(function () {
     //deals scan post
     Route::post('/owner-scan-deal', [OwnerController::class, 'dealScanPost'])->name('owner_scan_deal');
     Route::get('/owner-scan-deal', [OwnerController::class, 'DealScanned'])->name('owner_scan_deal_view');
+});
+
+Route::middleware(['auth', 'role:staff'])->group(function () {
+
+    Route::get('/scan', [StaffController::class, 'scanPage'])
+        ->name('scan.page');
+
+    Route::post('/scan-qr', [StaffController::class, 'scanQr'])
+        ->name('scan.qr');
+
+    Route::post('/award-points', [StaffController::class, 'awardPoints'])
+        ->name('award.points');
 });
 
 Route::middleware(['auth', 'role:user'])->group(function () {
