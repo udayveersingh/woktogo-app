@@ -8,230 +8,218 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <style>
-
-        body{
-            background:#111;
-            color:white;
-            font-family:Arial;
-            text-align:center;
-            padding-top:50px;
+        body {
+            background: #111;
+            color: white;
+            font-family: Arial;
+            text-align: center;
+            padding-top: 50px;
         }
 
-        input{
+        input {
 
-            width:80%;
-            height:100px;
-            font-size:40px;
-            text-align:center;
+            width: 80%;
+            height: 100px;
+            font-size: 40px;
+            text-align: center;
         }
 
-        button{
+        button {
 
-            font-size:30px;
-            padding:20px 40px;
-            margin-top:20px;
-            cursor:pointer;
+            font-size: 30px;
+            padding: 20px 40px;
+            margin-top: 20px;
+            cursor: pointer;
         }
 
-        #result{
+        #result {
 
-            margin-top:40px;
-            font-size:35px;
+            margin-top: 40px;
+            font-size: 35px;
         }
 
-        .success{
+        .success {
 
-            color:lightgreen;
+            color: lightgreen;
         }
 
-        .error{
+        .error {
 
-            color:red;
+            color: red;
         }
-
     </style>
 
 </head>
 
 <body>
 
-<h1>QR Scanner</h1>
+    <h1>QR Scanner</h1>
 
-<input
-    type="text"
-    id="scanner-input"
-    autofocus
-    placeholder="Scan QR"
-/>
+    <input
+        type="text"
+        id="scanner-input"
+        autofocus
+        placeholder="Scan QR" />
 
-<div id="result"></div>
+    <div id="result"></div>
 
-<div id="actions"></div>
+    <div id="actions"></div>
 
-<script>
+    <script>
+        const input = document.getElementById('scanner-input');
+        const result = document.getElementById('result');
+        const actions = document.getElementById('actions');
 
-const input = document.getElementById('scanner-input');
+        let lastCode = '';
+        let lastTime = 0;
 
-const result = document.getElementById('result');
-
-const actions = document.getElementById('actions');
-
-let lastCode = '';
-
-let lastTime = 0;
-
-input.focus();
-
-setInterval(() => {
-
-    if(document.activeElement !== input){
-
-        input.focus();
-    }
-
-},1000);
-
-input.addEventListener('keydown', async function(e){
-
-    if(e.key === 'Enter'){
-
-        e.preventDefault();
-
-        const code = input.value.trim();
-
-        if(!code){
-            return;
+        // Safe focus function (IMPORTANT for iPad Safari)
+        function safeFocus() {
+            setTimeout(() => {
+                input.focus();
+            }, 200);
         }
 
-        // Duplicate check
-        const now = Date.now();
-
-        if(code === lastCode && now - lastTime < 3000){
-
-            alert('Duplicate Scan');
-
-            input.value='';
-
-            return;
-        }
-
-        lastCode = code;
-
-        lastTime = now;
-
-        scanQr(code);
-    }
-});
-
-async function scanQr(code){
-
-    result.innerHTML = 'Checking...';
-
-    actions.innerHTML = '';
-
-    try{
-
-        const response = await fetch('/scan-qr',{
-
-            method:'POST',
-
-            headers:{
-                'Content-Type':'application/json',
-                'X-CSRF-TOKEN':document.querySelector('meta[name="csrf-token"]').content
-            },
-
-            body:JSON.stringify({
-                code:code
-            })
+        // Initial focus
+        window.addEventListener('load', () => {
+            safeFocus();
         });
 
-        const data = await response.json();
+        // Keep focus only when needed (NO INTERVAL - IMPORTANT FIX)
+        document.addEventListener('click', () => {
+            safeFocus();
+        });
 
-        if(!data.success){
+        // Scan handler
+        input.addEventListener('keydown', function(e) {
 
-            result.innerHTML = `
-                <div class="error">
-                    Customer Not Found
-                </div>
-            `;
+            if (e.key === 'Enter') {
 
-            input.value='';
+                e.preventDefault();
 
-            return;
-        }
+                const code = input.value.trim();
 
-        const customer = data.customer;
+                if (!code) return;
 
-        result.innerHTML = `
+                // Duplicate scan prevention (3 sec window)
+                const now = Date.now();
+
+                if (code === lastCode && now - lastTime < 3000) {
+                    showError('Duplicate Scan');
+                    input.value = '';
+                    safeFocus();
+                    return;
+                }
+
+                lastCode = code;
+                lastTime = now;
+
+                input.value = '';
+
+                scanQr(code);
+            }
+        });
+
+        // Scan API call
+        async function scanQr(code) {
+
+            result.innerHTML = '<div>Checking...</div>';
+            actions.innerHTML = '';
+
+            try {
+
+                const response = await fetch('/scan-qr', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                    },
+                    body: JSON.stringify({
+                        code
+                    })
+                });
+
+                const data = await response.json();
+
+                if (!data.success) {
+                    showError('Customer Not Found');
+                    safeFocus();
+                    return;
+                }
+
+                const customer = data.customer;
+
+                result.innerHTML = `
             <div class="success">
-                ${customer.name}<br>
+                <strong>${customer.name}</strong><br>
                 Current Points: ${customer.points}
             </div>
         `;
 
-        actions.innerHTML = `
-            <button onclick="awardPoints(${customer.id},10)">
+                actions.innerHTML = `
+            <button onclick="awardPoints(${customer.id}, 10)">
                 +10 Points
             </button>
         `;
 
-        input.value='';
+                safeFocus();
 
-    }catch(error){
+            } catch (error) {
+                showError('Connection Error');
+                safeFocus();
+            }
+        }
 
-        result.innerHTML = `
-            <div class="error">
-                Connection Error
-            </div>
-        `;
-    }
-}
+        // Award points
+        async function awardPoints(userId, points) {
 
-async function awardPoints(userId, points){
+            try {
 
-    try{
+                const response = await fetch('/award-points', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                    },
+                    body: JSON.stringify({
+                        user_id: userId,
+                        points: points
+                    })
+                });
 
-        const response = await fetch('/award-points',{
+                const data = await response.json();
 
-            method:'POST',
+                if (data.success) {
 
-            headers:{
-                'Content-Type':'application/json',
-                'X-CSRF-TOKEN':document.querySelector('meta[name="csrf-token"]').content
-            },
-
-            body:JSON.stringify({
-                user_id:userId,
-                points:points
-            })
-        });
-
-        const data = await response.json();
-
-        if(data.success){
-
-            result.innerHTML = `
+                    result.innerHTML = `
                 <div class="success">
                     +${points} Points Added<br>
-                    New Balance: ${data.new_balance}
+                    New Balance: <strong>${data.new_balance}</strong>
                 </div>
             `;
 
-            actions.innerHTML = '';
+                    actions.innerHTML = '';
+                } else {
+                    showError('Failed To Add Points');
+                }
+
+                safeFocus();
+
+            } catch (error) {
+                showError('Server Error');
+                safeFocus();
+            }
         }
 
-    }catch(error){
-
-        result.innerHTML = `
-            <div class="error">
-                Failed To Add Points
-            </div>
-        `;
-    }
-
-    input.focus();
-}
-</script>
+        // Error helper
+        function showError(msg) {
+            result.innerHTML = `
+        <div class="error">
+            ${msg}
+        </div>`;
+        }
+    </script>
 
 </body>
+
 </html>
