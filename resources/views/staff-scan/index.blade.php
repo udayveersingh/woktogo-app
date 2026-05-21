@@ -54,7 +54,7 @@
 <body>
 
     <h1>QR Scanner</h1>
-    <div id="reader" style="width:300px; margin:auto;"></div>
+
     <input
         type="text"
         id="scanner-input"
@@ -64,7 +64,7 @@
     <div id="result"></div>
 
     <div id="actions"></div>
-    <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+
     <script>
         const input = document.getElementById('scanner-input');
         const result = document.getElementById('result');
@@ -218,25 +218,6 @@
             ${msg}
         </div>`;
         }
-    </script>
-    <script>
-        function onScanSuccess(decodedText, decodedResult) {
-
-            console.log(decodedText);
-
-            document.getElementById('scanner-input').value = decodedText;
-
-            scanQr(decodedText);
-        }
-
-        const html5QrcodeScanner = new Html5QrcodeScanner(
-            "reader", {
-                fps: 10,
-                qrbox: 250
-            }
-        );
-
-        html5QrcodeScanner.render(onScanSuccess);
     </script>
 
 </body>
