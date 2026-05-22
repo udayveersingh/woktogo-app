@@ -31,6 +31,7 @@
             <select name="role" id="role" class="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
                 <option value="user" {{ $user->role == 'user' ? 'selected' : '' }}>User</option>
                 <option value="sub_admin" {{ $user->role == 'sub_admin' ? 'selected' : '' }}>Sub Admin</option>
+                  <option value="staff" {{ $user->role == 'staff' ? 'selected' : '' }}>Staff</option>
                 <!-- <option value="admin" {{ $user->role == 'admin' ? 'selected' : '' }}>Admin</option> -->
             </select>
         </div>
