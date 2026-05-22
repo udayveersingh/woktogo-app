@@ -24,32 +24,32 @@ class ProfileController extends Controller
 
         $user = Auth::user();
 
-        // Update the user's name
         $user->name = $request->name;
-        
-        // Example of saving the image
-        $file = $request->file('thumbnail'); // Assuming you have the file object from the request
 
-        // Define the filename (you can customize this as needed)
-        $filename = time() . '_' . $file->getClientOriginalName(); // Or use any other naming logic
+        // Check if file uploaded
+        if ($request->hasFile('thumbnail')) {
 
-        // Define the full path to the thumbnails directory (based on your server path)
-        $path = public_path('thumbnails');  // public_path() maps to the public directory, and 'thumbnails' is where you want to store the file
+            $file = $request->file('thumbnail');
 
-        // Make sure the thumbnails directory exists
-        if (!file_exists($path)) {
-            mkdir($path, 0755, true); // Create the directory if it doesn't exist
+            $filename = time() . '_' . $file->getClientOriginalName();
+
+            $path = public_path('thumbnails');
+
+            if (!file_exists($path)) {
+                mkdir($path, 0755, true);
+            }
+
+            $file->move($path, $filename);
+
+            $storedFilePath = 'thumbnails/' . $filename;
+
+            $user->thumbnail = $storedFilePath;
         }
 
-        // Move the uploaded file to the desired location
-        $file->move($path, $filename);  // This will move the file to the thumbnails folder
-
-        // Now, $filename contains the name of the file in the directory
-        $storedFilePath = 'thumbnails/' . $filename;  // This is the relative path for storage
-        $user->thumbnail = $storedFilePath;  // Save the relative path to the database (e.g., for user profile thumbnail)
         $user->save();
 
-        return redirect()->route('profile.edit')->with('success', 'Profile updated successfully.');
+        return redirect()->route('profile.edit')
+            ->with('success', 'Profile updated successfully.');
     }
 
     public function showChangePasswordForm()

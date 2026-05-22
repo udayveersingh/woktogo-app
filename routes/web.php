@@ -110,12 +110,10 @@ Route::middleware(['auth', 'role:staff'])->group(function () {
 Route::middleware(['auth', 'role:user'])->group(function () {
     Route::get('/my-deals', [DealsController::class, 'dealView'])->name('my-deals');
     Route::get('/deal-info', [DealsController::class, 'dealInfo'])->name('deal-info');
-    Route::get('/my-account', [DealsController::class, 'myAccount'])->name('my-account');
+    // Route::get('/my-account', [DealsController::class, 'myAccount'])->name('my-account');
 
-    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
-    Route::get('/change-password', [ProfileController::class, 'showChangePasswordForm'])->name('password.change');
-    Route::post('/change-password', [ProfileController::class, 'changePassword'])->name('password.update');
+    // Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    // Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
     // Route::get('/image/{filename}', function ($filename) {
     //     $path = storage_path('app/private/' . $filename);
     //     if (!File::exists($path)) {
@@ -124,3 +122,12 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     //     return response()->file($path);
     // });
 });
+
+Route::get('/my-account', [DealsController::class, 'myAccount'])
+    ->middleware('auth')
+    ->name('my-account');
+
+Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+Route::get('/change-password', [ProfileController::class, 'showChangePasswordForm'])->name('password.change');
+Route::post('/change-password', [ProfileController::class, 'changePassword'])->name('password.update');

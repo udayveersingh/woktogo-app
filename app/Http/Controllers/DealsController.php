@@ -67,11 +67,11 @@ class DealsController extends Controller
 
     public function myAccount()
     {
-        if (Auth::check()) {
+        // if (Auth::check()) {
             return view('my-account');
-        } else {
-            return redirect("login");
-        }
+        // } else {
+        //     return redirect("login");
+        // }
     }
 
     public function index()
