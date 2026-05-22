@@ -60,6 +60,7 @@ class AuthController extends Controller
             return match (Auth::user()->role) {
                 'admin' => redirect()->route('dashboard'),
                 'sub_admin' => redirect()->route('owner_page'),
+                'staff' => redirect()->route('scan.page'),
                 default => redirect('/my-deals'), // Default for other roles
             };
             // return redirect()->intended('/my-deals')

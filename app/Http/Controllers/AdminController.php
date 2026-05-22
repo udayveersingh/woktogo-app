@@ -43,7 +43,7 @@ class AdminController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:users,email,' . $id, // Ignore the current user's email
-            'role' => 'required|in:user,admin,sub_admin',
+            'role' => 'required|in:user,admin,sub_admin,staff',
         ]);
 
         // Find the user by ID

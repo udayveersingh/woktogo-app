@@ -33,7 +33,9 @@
 
     .success {
 
-        color: lightgreen;
+        color: #ff0511;
+		font-size: 24px;
+		margin-bottom: 15px;
     }
 
     .error {
@@ -145,14 +147,17 @@
 
             result.innerHTML = `
             <div class="success">
-                <strong>${customer.name}</strong><br>
+                <strong class="text-white">${customer.name}</strong><br>
                 Current Points: ${customer.points}
             </div>
         `;
 
-            actions.innerHTML = `
-            <button onclick="awardPoints(${customer.id}, 10)">
-                +10 Points
+           actions.innerHTML = `
+            <button 
+                onclick="awardPoints(${customer.id}, 10)"
+                class="bg-[#ff0511] rounded-full px-4 py-3 text-lg md:text-xl font-bold w-full text-white transition"
+            >
+                Add 10 Points
             </button>
         `;
 
