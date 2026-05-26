@@ -105,6 +105,11 @@ Route::middleware(['auth', 'role:staff'])->group(function () {
 
     Route::post('/award-points', [StaffController::class, 'awardPoints'])
         ->name('award.points');
+    Route::get('/deal-scan', [StaffController::class, 'dealScanView'])
+        ->name('deal.scan.view');
+
+    Route::post('/deal-scan-post', [StaffController::class, 'dealScanPost'])
+        ->name('deal.scan.post');
 });
 
 Route::middleware(['auth', 'role:user'])->group(function () {

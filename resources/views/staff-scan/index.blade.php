@@ -34,8 +34,8 @@
     .success {
 
         color: #ff0511;
-		font-size: 24px;
-		margin-bottom: 15px;
+        font-size: 24px;
+        margin-bottom: 15px;
     }
 
     .error {
@@ -47,15 +47,26 @@
 @section('content')
 
 <h1>QR Scanner</h1>
+@if(session('message'))
+<div class="bg-green-500 text-white px-4 py-3 rounded-xl mb-4 text-center font-bold">
+    {{ session('message') }}
+</div>
+@endif
 <div class="max-w-[365px] mx-auto py-4 px-6">
-    <div class="text-gray-800 bg-white text-lg py-12 px-7 rounded-xl mb-4">
+    <div id="scanner-section"
+        class="text-gray-800 bg-white text-lg py-12 px-7 rounded-xl mb-4">
+
         <input
             type="text"
             id="scanner-input"
             autofocus
-            placeholder="Scan QR" class="z-50 border border-gray-300 rounded-xl w-3/4 max-w-sm text-center text-black bg-white p-2 focus:outline-none focus:border-blue-500 caret-red-500" />
-    </div>
+            placeholder="Scan QR"
+            class="z-50 border border-gray-300 rounded-xl w-3/4 max-w-sm text-center text-black bg-white p-2 focus:outline-none focus:border-blue-500 caret-red-500" />
 
+    </div>
+    <div class="flex flex-col space-y-2 px-4 my-4 text-center">
+        <a href="{{route('deal.scan.view') }}" class="deal-scan-btn bg-red rounded-xl px-5 text-xl font-bold text-white">Deal verzilveren</a>
+    </div>
     <div id="result"></div>
 
     <div id="actions"></div>
@@ -152,14 +163,30 @@
             </div>
         `;
 
-           actions.innerHTML = `
-            <button 
-                onclick="awardPoints(${customer.id}, 10)"
-                class="bg-[#ff0511] rounded-full px-4 py-3 text-lg md:text-xl font-bold w-full text-white transition"
-            >
-                Add 10 Points
-            </button>
-        `;
+            document.getElementById('scanner-section').style.display = 'none';
+
+            actions.innerHTML = `
+                        <div class="mt-4">
+
+                            <input
+                                type="number"
+                                id="manual-points"
+                                value="10"
+                                min="1"
+                                class="border border-gray-300 rounded-lg p-3 text-black text-center w-full mb-3"
+                                oninput="updateButtonText()"
+                            >
+
+                            <button
+                                id="add-points-btn"
+                                onclick="awardManualPoints(${customer.id})"
+                                class="bg-[#ff0511] rounded-full px-4 py-3 text-lg md:text-xl font-bold w-full text-white transition"
+                            >
+                                Add 10 Points
+                            </button>
+
+                        </div>
+                    `;
 
             safeFocus();
 
@@ -167,6 +194,39 @@
             showError('Connection Error');
             safeFocus();
         }
+    }
+
+    // Update button text dynamically
+    function updateButtonText() {
+
+        const pointsInput = document.getElementById('manual-points');
+
+        const button = document.getElementById('add-points-btn');
+
+        let points = parseInt(pointsInput.value);
+
+        if (isNaN(points) || points < 1) {
+            points = 1;
+        }
+
+        button.innerText = `Add ${points} Points`;
+    }
+
+    // Manual award function
+    function awardManualPoints(userId) {
+
+        const pointsInput = document.getElementById('manual-points');
+
+        let points = parseInt(pointsInput.value);
+
+        if (isNaN(points) || points < 1) {
+
+            showError('Enter valid points');
+
+            return;
+        }
+
+        awardPoints(userId, points);
     }
 
     // Award points
@@ -189,16 +249,31 @@
             const data = await response.json();
 
             if (data.success) {
-
                 result.innerHTML = `
                 <div class="success">
                     +${points} Points Added<br>
-                    New Balance: <strong>${data.new_balance}</strong>
+                    New Balance: <strong>${data.new_balance}</strong><br><br>
+                    Ready For Next Scan
                 </div>
             `;
 
                 actions.innerHTML = '';
+
+                setTimeout(() => {
+
+                    // Reset UI
+                    result.innerHTML = '';
+
+                    document.getElementById('scanner-section').style.display = 'block';
+
+                    input.value = '';
+
+                    safeFocus();
+
+                }, 10000);
+
             } else {
+
                 showError('Failed To Add Points');
             }
 
