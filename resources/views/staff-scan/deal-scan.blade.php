@@ -1,7 +1,4 @@
 @extends('common.index')
-
-@section('content')
-
 <style>
     body {
         background: #f3c623;
@@ -32,11 +29,16 @@
         font-size: 30px;
         font-weight: bold;
     }
+
+    .deal-scan-btn {
+        width: 330px;
+        height: 109px;
+        padding: 38px;
+    }
 </style>
 
-<div class="container py-5">
-
-    <img src="{{ asset('logo.png') }}" width="140">
+@section('content')
+<div class="py-5 md:min-h-full bg-yellow-500 flex flex-col items-center justify-between">
 
     <form method="POST" action="{{ route('deal.scan.post') }}" id="deal-form">
         @csrf
@@ -45,23 +47,25 @@
             type="text"
             name="user_code"
             id="user_code"
-            class="scan-input"
+            inputmode="none"
+            class="scan-input z-50 border border-gray-300 rounded-xl p-3  max-w-sm text-center focus:outline-none focus:border-transparent uppercase caret-red"
             placeholder="ENTER USER CODE.."
             autocomplete="off">
 
-        <h2>Lukt scannen niet?<br>Voer de cijfercode in.</h2>
+        <h2 class="text-2xl font-bold">Lukt scannen niet?<br>Voer de cijfercode in.</h2>
 
         <input
             type="text"
             name="deal_code"
             id="deal_code"
-            class="scan-input"
+            inputmode="none"
+            class="scan-input z-50 border border-gray-300 rounded-xl p-3 max-w-sm text-center focus:outline-none focus:border-transparent uppercase caret-red"
             placeholder="ENTER DEALS CODE.."
             autocomplete="off">
 
         <br>
 
-        <button type="submit" class="btn-submit">
+        <button type="submit" class="btn-submit deal-scan-btn bg-red rounded-md px-4 py-12 text-lg font-bold text-white max-w-sm text-center block mt-4 mx-auto">
             Volgende
         </button>
 
@@ -73,21 +77,27 @@
     const userInput = document.getElementById('user_code');
     const dealInput = document.getElementById('deal_code');
 
-    // Hidden scanner buffer
     let scanBuffer = '';
+    let scanTimeout;
 
     // First focus
     userInput.focus();
 
-    // Scanner input capture
     document.addEventListener('keydown', function(e) {
 
-        // Ignore Shift/Ctrl etc
+        // Ignore control keys
         if (e.key.length > 1 && e.key !== 'Enter') {
             return;
         }
 
-        // QR Scanner completed
+        // Reset timeout on every key
+        clearTimeout(scanTimeout);
+
+        scanTimeout = setTimeout(() => {
+            scanBuffer = '';
+        }, 200);
+
+        // Scanner completed
         if (e.key === 'Enter') {
 
             e.preventDefault();
@@ -96,11 +106,9 @@
 
             scanBuffer = '';
 
-            if (!scannedValue) {
-                return;
-            }
+            if (!scannedValue) return;
 
-            // Split USERCODE|DEALCODE
+            // QR format: USER|DEAL
             if (scannedValue.includes('|')) {
 
                 const parts = scannedValue.split('|');
@@ -110,7 +118,7 @@
                     userInput.value = parts[0].trim();
                     dealInput.value = parts[1].trim();
 
-                    // Optional success effect
+                    // Success UI
                     userInput.style.border = '3px solid green';
                     dealInput.style.border = '3px solid green';
                 }
@@ -118,10 +126,9 @@
             } else {
 
                 // Manual fallback
-                if (userInput.value === '') {
+                if (document.activeElement === userInput) {
 
                     userInput.value = scannedValue;
-
                     dealInput.focus();
 
                 } else {

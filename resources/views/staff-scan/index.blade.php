@@ -42,6 +42,12 @@
 
         color: red;
     }
+
+    .deal-scan-btn {
+        width: 320px;
+        height: 109px;
+        padding: 38px;
+    }
 </style>
 
 @section('content')
@@ -64,7 +70,7 @@
             class="z-50 border border-gray-300 rounded-xl w-3/4 max-w-sm text-center text-black bg-white p-2 focus:outline-none focus:border-blue-500 caret-red-500" />
 
     </div>
-    <div class="flex flex-col space-y-2 px-4 my-4 text-center">
+    <div class="flex flex-col space-y-2 my-4 text-center">
         <a href="{{route('deal.scan.view') }}" class="deal-scan-btn bg-red rounded-xl px-5 text-xl font-bold text-white">Deal verzilveren</a>
     </div>
     <div id="result"></div>
@@ -167,21 +173,23 @@
 
             actions.innerHTML = `
                         <div class="mt-4">
-
-                            <input
-                                type="number"
-                                id="manual-points"
-                                value="10"
-                                min="1"
-                                class="border border-gray-300 rounded-lg p-3 text-black text-center w-full mb-3"
-                                oninput="updateButtonText()"
-                            >
+                           <div class="flex items-center border border-gray-300 rounded-lg overflow-hidden mb-3 bg-white">
+                                <span class="px-4 text-black text-xl font-bold bg-gray-100 h-full flex items-center">
+                                    €
+                                </span>
+                                <input
+                                    type="number"
+                                    id="manual-points"
+                                    value="10"
+                                    min="1"
+                                    class="p-3 text-black text-center w-full focus:outline-none"
+                                    oninput="updateButtonText()"/>
+                            </div>
 
                             <button
                                 id="add-points-btn"
                                 onclick="awardManualPoints(${customer.id})"
-                                class="bg-[#ff0511] rounded-full px-4 py-3 text-lg md:text-xl font-bold w-full text-white transition"
-                            >
+                                class="bg-[#ff0511] rounded-full px-4 py-3 text-lg md:text-xl font-bold w-full text-white transition">
                                 Add 10 Points
                             </button>
 
