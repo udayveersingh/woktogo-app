@@ -2,7 +2,7 @@
 
 <style>
     body {
-        background: #111;
+        background: #f3c623;
         color: white;
         font-family: Arial;
         text-align: center;
@@ -52,13 +52,13 @@
 
 @section('content')
 
-<h1>QR Scanner</h1>
 @if(session('message'))
 <div class="bg-green-500 text-white px-4 py-3 rounded-xl mb-4 text-center font-bold">
     {{ session('message') }}
 </div>
 @endif
-<div class="max-w-[365px] mx-auto py-4 px-6">
+<h1>QR Scanner</h1>
+<div class="py-5 md:min-h-full bg-yellow-500 flex flex-col items-center justify-between">
     <div id="scanner-section"
         class="text-gray-800 bg-white text-lg py-12 px-7 rounded-xl mb-4">
 
@@ -70,7 +70,7 @@
             class="z-50 border border-gray-300 rounded-xl w-3/4 max-w-sm text-center text-black bg-white p-2 focus:outline-none focus:border-blue-500 caret-red-500" />
 
     </div>
-    <div class="flex flex-col space-y-2 my-4 text-center">
+    <div class="flex flex-col space-y-2 text-center">
         <a href="{{route('deal.scan.view') }}" class="deal-scan-btn bg-red rounded-xl px-5 text-xl font-bold text-white">Deal verzilveren</a>
     </div>
     <div id="result"></div>

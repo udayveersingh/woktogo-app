@@ -65,9 +65,11 @@
 
         <br>
 
-        <button type="submit" class="btn-submit deal-scan-btn bg-red rounded-md px-4 py-12 text-lg font-bold text-white max-w-sm text-center block mt-4 mx-auto">
+        <button type="submit" class="btn-submit deal-scan-btn bg-success rounded-md px-4 py-12 w-3/4 text-lg font-bold text-white max-w-sm text-center block mt-4 mx-auto">
             Volgende
         </button>
+        <hr class="custom-hr">
+        <a href="{{route('scan.page')}}" class="deal-scan-btn bg-red rounded-md px-4 py-12 text-lg font-bold text-white w-3/4 max-w-sm text-center block mt-4 mx-auto">Stop met scannen</a>
 
     </form>
 
