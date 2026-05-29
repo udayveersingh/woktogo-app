@@ -8,6 +8,12 @@ class UserDeal extends Model
 {
     protected $table = 'user_deals';
 
+    protected $fillable = [
+        'user_id',
+        'deal_id',
+        'status'
+    ];
+
     // Define the relationship with Deal model
     public function deal()
     {

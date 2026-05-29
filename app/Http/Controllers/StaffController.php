@@ -100,6 +100,111 @@ class StaffController extends Controller
         }
     }
 
+    public function scanDealQr(Request $request)
+    {
+        $request->validate([
+            'code' => 'required|string'
+        ]);
+
+        $code = trim($request->code);
+
+        // QR format:
+        // USERCODE|DEALCODE
+
+        if (!str_contains($code, '|')) {
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Invalid QR'
+            ]);
+        }
+
+        [$userCode, $dealCode] = explode('|', $code);
+
+        $user = User::where('code_number', trim($userCode))->first();
+
+        $deal = Deal::where('code_number', trim($dealCode))->first();
+
+        if (!$user || !$deal) {
+
+            return response()->json([
+                'success' => false,
+                'message' => 'User or Deal not found'
+            ]);
+        }
+
+        return response()->json([
+            'success' => true,
+
+            'customer' => [
+                'id' => $user->id,
+                'name' => $user->name,
+                'points' => $user->total_points
+            ],
+
+            'deal' => [
+                'id' => $deal->id,
+                'title' => $deal->title,
+                'code' => $deal->code_number,
+                'points' => $deal->points,
+                'valid_until' => $deal->deadline,
+                'description' => $deal->description
+            ]
+        ]);
+    }
+
+
+    public function redeemDeal(Request $request)
+    {
+        $request->validate([
+            'user_id' => 'required',
+            'deal_id' => 'required'
+        ]);
+
+        DB::beginTransaction();
+
+        try {
+
+            $user = User::findOrFail($request->user_id);
+
+            $deal = Deal::findOrFail($request->deal_id);
+
+            if ($user->total_points < $deal->points) {
+
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Not enough points'
+                ]);
+            }
+
+            // Save redeemed deal
+            UserDeal::create([
+                'user_id' => $user->id,
+                'deal_id' => $deal->id,
+                'status' => 'in-active'
+            ]);
+
+            // deduct points
+            $user->total_points -= $deal->points;
+
+            $user->save();
+
+            DB::commit();
+
+            return response()->json([
+                'success' => true,
+                'balance' => $user->total_points
+            ]);
+        } catch (\Exception $e) {
+
+            DB::rollBack();
+
+            return response()->json([
+                'success' => false
+            ]);
+        }
+    }
+
     public function dealScanView()
     {
         return view('staff-scan.deal-scan');
