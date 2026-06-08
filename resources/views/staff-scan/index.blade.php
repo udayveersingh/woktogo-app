@@ -126,7 +126,7 @@
 
                 </p>
 
-                <div class="flex bg-[#252422] p-4 rounded-2xl mt-2 gap-2">
+                <div class="flex bg-[#252422] p-4 rounded-2xl mt-2 gap-2 justify-center">
                     <div class="flex items-center gap-2 text-sm flex-col md:flex-row">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="7" y="2.5" width="10" height="19" rx="2.5" stroke="#E8B305" stroke-width="2"></rect><rect x="10.5" y="18" width="3" height="1.4" rx="0.7" fill="#E8B305"></rect></svg>
                         <span class="text-xs md:text-sm"> Klant toont QR</span>
