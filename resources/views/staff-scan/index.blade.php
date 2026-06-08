@@ -41,7 +41,10 @@
         <button
             id="points-tab"
             class="mode-btn active-mode  flex items-center gap-2 justify-center text-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" ><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2.2"></circle><path d="M12 7v10M9 9.5h4.5a1.5 1.5 0 010 3H9.5a1.5 1.5 0 000 3H14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" ></path></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2.2"></circle>
+                <path d="M12 7v10M9 9.5h4.5a1.5 1.5 0 010 3H9.5a1.5 1.5 0 000 3H14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path>
+            </svg>
             Punten toevoegen
 
         </button>
@@ -49,7 +52,10 @@
         <button
             id="deals-tab"
             class="mode-btn flex items-center gap-2 justify-center text-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 8a2 2 0 012-2h14a2 2 0 012 2v2a2 2 0 100 4v2a2 2 0 01-2 2H5a2 2 0 01-2-2v-2a2 2 0 100-4V8z" stroke="currentColor" stroke-width="2"></path><path d="M14 7v10" stroke="currentColor" stroke-width="2" stroke-dasharray="2 2.5"></path></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none">
+                <path d="M3 8a2 2 0 012-2h14a2 2 0 012 2v2a2 2 0 100 4v2a2 2 0 01-2 2H5a2 2 0 01-2-2v-2a2 2 0 100-4V8z" stroke="currentColor" stroke-width="2"></path>
+                <path d="M14 7v10" stroke="currentColor" stroke-width="2" stroke-dasharray="2 2.5"></path>
+            </svg>
             Deal verzilveren
 
         </button>
@@ -74,14 +80,14 @@
 
         {{-- HIDDEN SCANNER INPUT --}}
         <!-- <div class="opacity-0 absolute pointer-events-none"> -->
-        <div class="hidden">
+        <!-- <div class="hidden"> -->
 
-            <input
-                type="text"
-                id="scanner-input"
-                class="hidden"
-                autofocus>
-        </div>
+        <input
+            type="text"
+            id="scanner-input"
+            class="opacity-0 absolute"
+            autofocus>
+        <!-- </div> -->
 
         {{-- DYNAMIC CONTENT --}}
         <div id="dynamic-content">
@@ -128,18 +134,28 @@
 
                 <div class="flex bg-[#252422] p-4 rounded-2xl mt-2 gap-2">
                     <div class="flex items-center gap-2 text-sm">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="7" y="2.5" width="10" height="19" rx="2.5" stroke="#E8B305" stroke-width="2"></rect><rect x="10.5" y="18" width="3" height="1.4" rx="0.7" fill="#E8B305"></rect></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none">
+                            <rect x="7" y="2.5" width="10" height="19" rx="2.5" stroke="#E8B305" stroke-width="2"></rect>
+                            <rect x="10.5" y="18" width="3" height="1.4" rx="0.7" fill="#E8B305"></rect>
+                        </svg>
                         <span> Klant toont QR</span>
                     </div>
                     <span>→</span>
                     <div class="flex items-center gap-2 text-sm">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="9" height="8" rx="1.5" stroke="#E8B305" stroke-width="2"></rect><rect x="12" y="8" width="6" height="4" stroke="#E8B305" stroke-width="2"></rect><rect x="6" y="14" width="3" height="6" rx="1" stroke="#E8B305" stroke-width="2"></rect><path d="M19 7l3-1M19 10h3M19 13l3 1" stroke="#E8B305" stroke-width="2" stroke-linecap="round"></path></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none">
+                            <rect x="3" y="6" width="9" height="8" rx="1.5" stroke="#E8B305" stroke-width="2"></rect>
+                            <rect x="12" y="8" width="6" height="4" stroke="#E8B305" stroke-width="2"></rect>
+                            <rect x="6" y="14" width="3" height="6" rx="1" stroke="#E8B305" stroke-width="2"></rect>
+                            <path d="M19 7l3-1M19 10h3M19 13l3 1" stroke="#E8B305" stroke-width="2" stroke-linecap="round"></path>
+                        </svg>
                         <span> Handscanner</span>
                     </div>
                     <span>→</span>
                     <div class="flex items-center gap-2 text-sm">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l5 5L20 7" stroke="#147A5F" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-                        <span>Klaar</span>   
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none">
+                            <path d="M5 12.5l5 5L20 7" stroke="#147A5F" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </svg>
+                        <span>Klaar</span>
                     </div>
                 </div>
 
@@ -185,63 +201,51 @@
 
     let lastCode = '';
     let lastTime = 0;
+    let isManualMode = false;
 
     // =========================
     // AUTO FOCUS
     // =========================
 
-    function safeFocus() {
-
-        setTimeout(() => {
-
+    // only scan one time
+    setInterval(() => {
+        if (!isManualMode && document.activeElement !== input) {
             input.focus();
-
-        }, 150);
-    }
-
-    window.addEventListener('load', safeFocus);
-    document.addEventListener('click', safeFocus);
+        }
+    }, 500);
 
     // =========================
     // SCANNER
     // =========================
 
-    input.addEventListener('keydown', function(e) {
+    // ✅ handle scan logic
+    function handleScan(code) {
 
-        if (e.key === 'Enter') {
+        const now = Date.now();
 
-            e.preventDefault();
-
-            const code = input.value.trim();
-
-            if (!code) return;
-
-            const now = Date.now();
-
-            if (code === lastCode && now - lastTime < 3000) {
-
-                showError('Duplicate Scan');
-
-                input.value = '';
-
-                safeFocus();
-
-                return;
-            }
-
-            lastCode = code;
-            lastTime = now;
-
+        if (code === lastCode && now - lastTime < 3000) {
+            showError('Duplicate Scan');
             input.value = '';
+            return;
+        }
 
-            if (currentMode === 'points') {
+        lastCode = code;
+        lastTime = now;
 
-                scanQr(code);
+        input.value = '';
 
-            } else {
+        if (currentMode === 'points') {
+            scanQr(code);
+        } else {
+            scanDealQr(code);
+        }
+    }
 
-                scanDealQr(code);
-            }
+    // ENTER based scan (primary)
+    input.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            handleScan(input.value.trim());
         }
     });
 
@@ -301,7 +305,7 @@
     function showAmountScreen(customer) {
         document.getElementById('manual-entry-card').style.display = 'none';
 
-        document.getElementById('scanner-input').style.display = 'none';
+        // document.getElementById('scanner-input').style.display = 'none';
         document.getElementById('op-scan').style.display = 'none';
         enteredAmount = '';
 
@@ -670,13 +674,13 @@
     }
 
     function showManualEntry() {
+         isManualMode = true; // STOP scanner focus
 
         if (currentMode === 'points') {
 
             showManualPointsEntry();
 
         } else {
-
             showManualDealEntry();
         }
     }
@@ -709,16 +713,14 @@
 
     async function submitManualCustomerCode() {
 
-        const code = document.getElementById('manual-customer-code').value;
+        const code = document.getElementById('manual-customer-code').value.trim();
 
         if (!code) {
-
             showError('Voer klantcode in');
-
             return;
         }
 
-        scanQr(code);
+        handleScan(code); // ✅ SAME FLOW as scanner
     }
 
 
@@ -771,7 +773,8 @@
         // SAME QR FORMAT
         const combinedCode = `${userCode}|${dealCode}`;
 
-        scanDealQr(combinedCode);
+        // scanDealQr(combinedCode);
+        handleScan(combinedCode);
     }
 
 
@@ -912,6 +915,7 @@
 
     function resetScanner() {
 
+        isManualMode = false;
         document.getElementById('manual-entry-card').style.display = 'flex';
 
         dynamicContent.innerHTML = document.getElementById('idle-screen').outerHTML;
@@ -922,8 +926,6 @@
         currentCustomer = null;
 
         input.value = '';
-
-        safeFocus();
     }
 
     // =========================
