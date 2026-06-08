@@ -4,7 +4,7 @@
     .mode-btn {
         flex: 1;
         padding: 14px;
-        border-radius: 999px;
+        border-radius: 1rem;
         color: #aaa;
         font-weight: 700;
         transition: .2s;
@@ -33,23 +33,23 @@
 
 @section('content')
 
-<div class="min-h-screen bg-black text-white flex flex-col items-center px-4 py-6">
+<div class="min-h-screen bg-[#0e0c0a] text-white flex flex-col items-center px-4 py-6">
 
     {{-- TOP TOGGLE --}}
-    <div class="w-full max-w-md bg-[#151515] border border-[#2a2a2a] rounded-full p-1 flex mb-6">
+    <div class="w-full max-w-md bg-[#171614] border border-[#262626] rounded-2xl p-1 flex mb-6">
 
         <button
             id="points-tab"
-            class="mode-btn active-mode">
-
+            class="mode-btn active-mode  flex items-center gap-2 justify-center text-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" ><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2.2"></circle><path d="M12 7v10M9 9.5h4.5a1.5 1.5 0 010 3H9.5a1.5 1.5 0 000 3H14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" ></path></svg>
             Punten toevoegen
 
         </button>
 
         <button
             id="deals-tab"
-            class="mode-btn">
-
+            class="mode-btn flex items-center gap-2 justify-center text-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 8a2 2 0 012-2h14a2 2 0 012 2v2a2 2 0 100 4v2a2 2 0 01-2 2H5a2 2 0 01-2-2v-2a2 2 0 100-4V8z" stroke="currentColor" stroke-width="2"></path><path d="M14 7v10" stroke="currentColor" stroke-width="2" stroke-dasharray="2 2.5"></path></svg>
             Deal verzilveren
 
         </button>
@@ -57,7 +57,7 @@
     </div>
 
     {{-- MAIN CARD --}}
-    <div class="w-full max-w-md bg-[#111111] border border-[#262626] rounded-3xl p-6">
+    <div class="w-full max-w-md bg-[#171614] border border-[#262626] rounded-3xl p-6">
 
         {{-- STATUS --}}
         <div class="flex justify-center mb-6" id="op-scan">
@@ -95,9 +95,9 @@
 
                         <div class="grid grid-cols-2 gap-2">
 
-                            <div class="w-6 h-6 border border-gray-500 rounded"></div>
-                            <div class="w-6 h-6 border border-gray-500 rounded"></div>
-                            <div class="w-6 h-6 border border-gray-500 rounded"></div>
+                            <div class="w-6 h-6 border-2 border-gray-500 rounded"></div>
+                            <div class="w-6 h-6 border-2 border-gray-500 rounded"></div>
+                            <div class="w-6 h-6 border-2 border-gray-500 rounded"></div>
 
                             <div class="grid grid-cols-2 gap-1">
 
@@ -126,6 +126,23 @@
 
                 </p>
 
+                <div class="flex bg-[#252422] p-4 rounded-2xl mt-2 gap-2">
+                    <div class="flex items-center gap-2 text-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="7" y="2.5" width="10" height="19" rx="2.5" stroke="#E8B305" stroke-width="2"></rect><rect x="10.5" y="18" width="3" height="1.4" rx="0.7" fill="#E8B305"></rect></svg>
+                        <span> Klant toont QR</span>
+                    </div>
+                    <span>→</span>
+                    <div class="flex items-center gap-2 text-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="9" height="8" rx="1.5" stroke="#E8B305" stroke-width="2"></rect><rect x="12" y="8" width="6" height="4" stroke="#E8B305" stroke-width="2"></rect><rect x="6" y="14" width="3" height="6" rx="1" stroke="#E8B305" stroke-width="2"></rect><path d="M19 7l3-1M19 10h3M19 13l3 1" stroke="#E8B305" stroke-width="2" stroke-linecap="round"></path></svg>
+                        <span> Handscanner</span>
+                    </div>
+                    <span>→</span>
+                    <div class="flex items-center gap-2 text-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l5 5L20 7" stroke="#147A5F" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                        <span>Klaar</span>   
+                    </div>
+                </div>
+
             </div>
 
         </div>
@@ -133,9 +150,9 @@
     </div>
 
     {{-- MANUAL ENTRY CARD --}}
-    <div id="manual-entry-card" class="w-full max-w-md bg-[#111111] border border-[#262626] rounded-3xl p-5 mt-6 flex items-center justify-between">
+    <div id="manual-entry-card" class="w-full max-w-md bg-[#171614] border border-[#262626] rounded-3xl p-5 mt-6 flex items-center justify-between">
 
-        <div>
+        <div class="flex-auto">
 
             <h3 class="font-bold text-lg">
                 Lukt scannen niet?
@@ -147,10 +164,9 @@
 
         </div>
 
-        <button id="manual-btn" onclick="showManualEntry()" class="hover:bg-[#3a3a3a] transition px-6 py-4 rounded-xl text-white font-bold leading-tight">
+        <button id="manual-btn" onclick="showManualEntry()" class="bg-[#343331] transition px-4 py-4 rounded-xl text-white font-semibold leading-tight border border-[#4e4d4b]">
 
-            Code<br>
-            invoeren
+            Code invoeren
 
         </button>
 
@@ -677,7 +693,7 @@
                 type="text"
                 id="manual-customer-code"
                 placeholder="Klantcode"
-                class="w-full bg-[#1a1a1a] border border-[#333] rounded-2xl p-5 text-black text-center text-xl mb-6 focus:outline-none">
+                class="w-full bg-[#1a1a1a] border border-[#333] rounded-2xl p-5 text-white text-center text-xl mb-6 focus:outline-none placeholder:text-white">
 
             <button
                 onclick="submitManualCustomerCode()"
@@ -720,13 +736,13 @@
                 type="text"
                 id="manual-user-code"
                 placeholder="User code"
-                class="w-full bg-[#1a1a1a] border border-[#333] rounded-2xl p-5 text-black text-center text-xl mb-4 focus:outline-none">
+                class="w-full bg-[#1a1a1a] border border-[#333] rounded-2xl p-5 text-white text-center text-xl mb-4 focus:outline-none placeholder:text-white">
 
             <input
                 type="text"
                 id="manual-deal-code"
                 placeholder="Deal code"
-                class="w-full bg-[#1a1a1a] border border-[#333] rounded-2xl p-5 text-black text-center text-xl mb-6 focus:outline-none">
+                class="w-full bg-[#1a1a1a] border border-[#333] rounded-2xl p-5 text-white text-center text-xl mb-6 focus:outline-none placeholder:text-white">
 
             <button
                 onclick="submitManualDealCode()"
@@ -867,10 +883,10 @@
 
             <div class="text-center py-10">
 
-                <div class="text-red-500 text-2xl mb-3">
-
-                    ✕
-
+                <div class="text-red-500 text-2xl mb-6 flex justify-center">
+                    <div class="w-[100px] h-[100px] bg-[#b72330] rounded-full flex justify-center items-center relative before:absolute before:w-[120px] before:h-[120px] before:bg-[#b72330]/50 before:rounded-full before:left-[-10px] before:top-[-10px] after:absolute after:w-[140px] after:h-[140px] after:bg-[#b72330]/20 after:rounded-full after:left-[-20px] after:top-[-20px] after:-z-20 before:-z-10 z-10">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="68" height="68" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"></path></svg>
+                    </div>
                 </div>
 
                 <div class="text-red-500 font-bold text-lg">
