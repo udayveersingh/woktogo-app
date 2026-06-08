@@ -41,7 +41,10 @@
         <button
             id="points-tab"
             class="mode-btn active-mode  flex items-center md:gap-2 justify-center text-center flex-col md:flex-row">
-            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" ><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2.2"></circle><path d="M12 7v10M9 9.5h4.5a1.5 1.5 0 010 3H9.5a1.5 1.5 0 000 3H14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" ></path></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2.2"></circle>
+                <path d="M12 7v10M9 9.5h4.5a1.5 1.5 0 010 3H9.5a1.5 1.5 0 000 3H14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path>
+            </svg>
             Punten toevoegen
 
         </button>
@@ -49,7 +52,10 @@
         <button
             id="deals-tab"
             class="mode-btn flex items-center md:gap-2 justify-center text-center flex-col md:flex-row">
-            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 8a2 2 0 012-2h14a2 2 0 012 2v2a2 2 0 100 4v2a2 2 0 01-2 2H5a2 2 0 01-2-2v-2a2 2 0 100-4V8z" stroke="currentColor" stroke-width="2"></path><path d="M14 7v10" stroke="currentColor" stroke-width="2" stroke-dasharray="2 2.5"></path></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none">
+                <path d="M3 8a2 2 0 012-2h14a2 2 0 012 2v2a2 2 0 100 4v2a2 2 0 01-2 2H5a2 2 0 01-2-2v-2a2 2 0 100-4V8z" stroke="currentColor" stroke-width="2"></path>
+                <path d="M14 7v10" stroke="currentColor" stroke-width="2" stroke-dasharray="2 2.5"></path>
+            </svg>
             Deal verzilveren
 
         </button>
@@ -128,18 +134,28 @@
 
                 <div class="flex bg-[#252422] p-4 rounded-2xl mt-2 gap-2 justify-center">
                     <div class="flex items-center gap-2 text-sm flex-col md:flex-row">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="7" y="2.5" width="10" height="19" rx="2.5" stroke="#E8B305" stroke-width="2"></rect><rect x="10.5" y="18" width="3" height="1.4" rx="0.7" fill="#E8B305"></rect></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none">
+                            <rect x="7" y="2.5" width="10" height="19" rx="2.5" stroke="#E8B305" stroke-width="2"></rect>
+                            <rect x="10.5" y="18" width="3" height="1.4" rx="0.7" fill="#E8B305"></rect>
+                        </svg>
                         <span class="text-xs md:text-sm"> Klant toont QR</span>
                     </div>
                     <span>→</span>
                     <div class="flex items-center gap-2 text-sm flex-col md:flex-row">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="9" height="8" rx="1.5" stroke="#E8B305" stroke-width="2"></rect><rect x="12" y="8" width="6" height="4" stroke="#E8B305" stroke-width="2"></rect><rect x="6" y="14" width="3" height="6" rx="1" stroke="#E8B305" stroke-width="2"></rect><path d="M19 7l3-1M19 10h3M19 13l3 1" stroke="#E8B305" stroke-width="2" stroke-linecap="round"></path></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none">
+                            <rect x="3" y="6" width="9" height="8" rx="1.5" stroke="#E8B305" stroke-width="2"></rect>
+                            <rect x="12" y="8" width="6" height="4" stroke="#E8B305" stroke-width="2"></rect>
+                            <rect x="6" y="14" width="3" height="6" rx="1" stroke="#E8B305" stroke-width="2"></rect>
+                            <path d="M19 7l3-1M19 10h3M19 13l3 1" stroke="#E8B305" stroke-width="2" stroke-linecap="round"></path>
+                        </svg>
                         <span class="text-xs md:text-sm"> Handscanner</span>
                     </div>
                     <span>→</span>
                     <div class="flex items-center gap-2 text-sm flex-col md:flex-row">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l5 5L20 7" stroke="#147A5F" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-                        <span class="text-xs md:text-sm">Klaar</span>   
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none">
+                            <path d="M5 12.5l5 5L20 7" stroke="#147A5F" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </svg>
+                        <span class="text-xs md:text-sm">Klaar</span>
                     </div>
                 </div>
 
@@ -524,6 +540,7 @@
     </div>
 
 </div>`;
+        setTimeout(resetScanner, 8000);
     }
 
     async function scanDealQr(code) {
@@ -658,8 +675,8 @@
     }
 
     function showManualEntry() {
-         isManualMode = true; // STOP scanner focus
-
+        isManualMode = true; // STOP scanner focus
+        document.getElementById('scanner-input').blur(); // stop focus
         if (currentMode === 'points') {
 
             showManualPointsEntry();
@@ -896,18 +913,22 @@
     // =========================
     // RESET
     // =========================
+    let idleTemplate = document.getElementById('idle-screen').outerHTML;
 
     function resetScanner() {
 
         isManualMode = false;
+
         document.getElementById('manual-entry-card').style.display = 'flex';
 
-        dynamicContent.innerHTML = document.getElementById('idle-screen').outerHTML;
+        dynamicContent.innerHTML = idleTemplate; // FIXED
+
         document.getElementById('scanner-input').style.display = 'block';
         document.getElementById('op-scan').style.display = 'flex';
 
         enteredAmount = '';
         currentCustomer = null;
+        currentDeal = null;
 
         input.value = '';
     }
@@ -922,6 +943,8 @@
 
         setActiveTab();
 
+        isManualMode = false;
+
         resetScanner();
     };
 
@@ -931,7 +954,9 @@
 
         setActiveTab();
 
-        resetScanner();
+        isManualMode = false; // IMPORTANT (agar manual me the)
+
+        resetScanner(); // always go back to scan screen
     };
 
     function setActiveTab() {
