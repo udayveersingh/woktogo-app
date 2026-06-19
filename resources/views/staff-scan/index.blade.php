@@ -209,10 +209,27 @@
 
     // only scan one time
     setInterval(() => {
-        if (!isManualMode && document.activeElement !== input) {
+
+        const amountInput = document.getElementById('manual-points');
+        const manualCustomerCode = document.getElementById('manual-customer-code');
+        const manualUserCode = document.getElementById('manual-user-code');
+        const manualDealCode = document.getElementById('manual-deal-code');
+
+        const isTyping =
+            document.activeElement === amountInput ||
+            document.activeElement === manualCustomerCode ||
+            document.activeElement === manualUserCode ||
+            document.activeElement === manualDealCode;
+
+        if (
+            !isManualMode &&
+            !isTyping &&
+            document.getElementById('idle-screen')
+        ) {
             input.focus();
         }
-    }, 500);
+
+    }, 1000);
 
     // =========================
     // SCANNER
@@ -303,6 +320,8 @@
     // =========================
 
     function showAmountScreen(customer) {
+        isManualMode = true;
+        input.blur();
         document.getElementById('manual-entry-card').style.display = 'none';
 
         // document.getElementById('scanner-input').style.display = 'none';
@@ -377,6 +396,14 @@
     </button>
 
    </div> `;
+        setTimeout(() => {
+            const amountInput = document.getElementById('manual-points');
+
+            if (amountInput) {
+                amountInput.focus();
+                amountInput.select();
+            }
+        }, 100);
     }
 
     // =========================
