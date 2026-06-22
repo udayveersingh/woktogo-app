@@ -57,6 +57,12 @@ class AuthController extends Controller
         $remember = $request->has('remember');
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials, $remember)) {
+            DB::table('app_visits')->insert([
+                'user_id' => auth()->id(),
+                'ip' => request()->ip(),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
             return match (Auth::user()->role) {
                 'admin' => redirect()->route('dashboard'),
                 'sub_admin' => redirect()->route('owner_page'),

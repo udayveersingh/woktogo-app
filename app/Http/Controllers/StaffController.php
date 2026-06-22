@@ -31,6 +31,15 @@ class StaffController extends Controller
 
         // Find user by code_number
         $customer = User::where('code_number', $code)->first();
+        if ($customer) {
+            DB::table('qr_scan_logs')->insert([
+                'user_id' => $customer->id,
+                'staff_id' => auth()->id(),
+                'code' => $code,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
 
         // OR if QR contains image path code
         // $customer = User::where('qr_code_path', $code)->first();
