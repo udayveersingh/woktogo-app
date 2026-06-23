@@ -173,7 +173,7 @@
                 <th class="py-3 px-4 border-b text-center">#</th>
                 <th class="py-3 px-4 border-b text-center">User Name</th>
                 <th class="py-3 px-4 border-b text-center">Deal</th>
-                <th class="py-3 px-4 border-b text-center">Deal</th>
+                <th class="py-3 px-4 border-b text-center">Claimed At</th>
             </tr>
         </thead>
         <tbody>
