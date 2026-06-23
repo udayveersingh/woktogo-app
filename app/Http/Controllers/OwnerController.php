@@ -100,6 +100,13 @@ class OwnerController extends Controller
         $user_code = $user_assign_points['user_code'];
         $user = User::where('code_number', '=', $user_code)->first();
         if (!empty($user)) {
+            DB::table('qr_scan_logs')->insert([
+                'user_id' => $user->id,
+                'staff_id' => auth()->id(),
+                'code' => $user_code,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
             $user_points = new UserPoint();
             $user_points->user_id =  $user->id;
             $user_points->points = $total_points;
@@ -176,6 +183,13 @@ class OwnerController extends Controller
                 //     ->where('deal_id', '=', $deal->id)
                 //     ->first();
                 // if (empty($user_deal)) {
+                DB::table('qr_scan_logs')->insert([
+                    'user_id' => $user->id,
+                    'staff_id' => auth()->id(),
+                    'code' => $user->code_number,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
                 $user_deals = new UserDeal();
                 $user_deals->user_id = $user->id;
                 $user_deals->deal_id = $deal->id;

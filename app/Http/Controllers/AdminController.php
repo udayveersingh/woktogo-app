@@ -20,7 +20,7 @@ class AdminController extends Controller
             $data['totalUsers'] = User::where('role', '=', 'user')->count();
             $data['totalDeals'] = Deal::count();
             $data['totalClaims'] = UserDeal::count();
-            $data['totalPointsAwarded'] = DB::table('user_points')->sum('points');
+            // $data['totalPointsAwarded'] = DB::table('user_points')->sum('points');
             $data['totalVisits'] = DB::table('app_visits')
                 ->whereNotNull('user_id')
                 ->distinct()

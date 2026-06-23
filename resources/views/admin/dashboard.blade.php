@@ -4,7 +4,7 @@
 
 @section('content')
 <!-- Dashboard Content -->
-<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-6">
 
     <!-- Stats Card 1 -->
     <div class="bg-white rounded-xl shadow p-6 text-center">
@@ -60,7 +60,7 @@
         </div>
     </div>
     <!-- Stats Card 4 -->
-    <div class="bg-white rounded-xl shadow p-6 text-center">
+    <!-- <div class="bg-white rounded-xl shadow p-6 text-center">
         <h4 class="text-gray-500 font-medium">
             Points Awarded
         </h4>
@@ -68,7 +68,7 @@
         <div class="mt-3 text-4xl font-bold text-purple-500">
             {{ $totalPointsAwarded ?? 0 }}
         </div>
-    </div>
+    </div> -->
 
     <!-- Stats Card 3 -->
     <!-- <div class="bg-white shadow-md rounded-lg p-6">
