@@ -46,6 +46,15 @@ class AdminController extends Controller
                 ->latest('user_deals.created_at')
                 ->limit(10)
                 ->get();
+            $data['qrScansByUser'] = DB::table('qr_scan_logs')
+                ->join('users', 'qr_scan_logs.user_id', '=', 'users.id')
+                ->select(
+                    'users.name',
+                    DB::raw('COUNT(*) as total_scans')
+                )
+                ->groupBy('users.id', 'users.name')
+                ->orderByDesc('total_scans')->limit(5)
+                ->get();
             // Redirect based on role
             return view('admin.dashboard', $data);
         }

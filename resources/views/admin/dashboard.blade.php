@@ -39,22 +39,22 @@
         </div>
     </div>
 
-    
+
     <div class="bg-white rounded-xl shadow p-6 text-center">
         <h4 class="text-gray-500 font-medium">
             Total Visits
         </h4>
-        
+
         <div class="mt-3 text-4xl font-bold text-purple-500">
             {{ $totalVisits ?? 0 }}
         </div>
     </div>
-    
+
     <div class="bg-white rounded-xl shadow p-6 text-center">
         <h4 class="text-gray-500 font-medium">
             Total QrScans
         </h4>
-        
+
         <div class="mt-3 text-4xl font-bold text-purple-500">
             {{ $totalQrScans ?? 0 }}
         </div>
@@ -157,6 +157,43 @@
             <tr>
                 <td colspan="3" class="py-4 text-center">
                     No Deals Found
+                </td>
+            </tr>
+            @endforelse
+        </tbody>
+    </table>
+</div>
+<div class="mt-6 bg-white shadow-md rounded-lg p-6">
+    <h2 class="text-xl font-semibold text-gray-700 mb-4">
+        Top Scanned Users
+    </h2>
+    <table class="min-w-full mt-6 bg-white border border-gray-200">
+        <thead>
+            <tr class="bg-gray-100">
+                <th class="py-3 px-4 border-b text-center">#</th>
+                <th class="py-3 px-4 border-b text-center">User Name</th>
+                <th class="py-3 px-4 border-b text-center">Total Scans</th>
+            </tr>
+        </thead>
+        <tbody>
+            @forelse($qrScansByUser as $key => $user)
+            <tr class="border-b hover:bg-gray-50">
+                <td class="py-3 px-4 text-center">
+                    {{ $key + 1 }}
+                </td>
+
+                <td class="py-3 px-4 text-center">
+                    {{ $user->name }}
+                </td>
+
+                <td class="py-3 px-4 text-center font-semibold text-green-600">
+                    {{ $user->total_scans }}
+                </td>
+            </tr>
+            @empty
+            <tr>
+                <td colspan="3" class="py-4 text-center">
+                    No Scans Found
                 </td>
             </tr>
             @endforelse
