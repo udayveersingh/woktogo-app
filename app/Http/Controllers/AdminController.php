@@ -21,7 +21,10 @@ class AdminController extends Controller
             $data['totalDeals'] = Deal::count();
             $data['totalClaims'] = UserDeal::count();
             $data['totalPointsAwarded'] = DB::table('user_points')->sum('points');
-            $data['totalVisits'] = DB::table('app_visits')->count();
+            $data['totalVisits'] = DB::table('app_visits')
+                ->whereNotNull('user_id')
+                ->distinct()
+                ->count('user_id');
             $data['totalQrScans'] = DB::table('qr_scan_logs')->count();
             $data['topDeals'] = DB::table('user_deals')
                 ->join('deals', 'user_deals.deal_id', '=', 'deals.id')
@@ -30,6 +33,18 @@ class AdminController extends Controller
                     DB::raw('COUNT(*) as total_claims')
                 )->groupBy('deals.id', 'deals.title')
                 ->orderByDesc('total_claims')
+                ->get();
+            $data['recentClaims'] = DB::table('user_deals')
+                ->join('users', 'user_deals.user_id', '=', 'users.id')
+                ->join('deals', 'user_deals.deal_id', '=', 'deals.id')
+                ->select(
+                    'users.name',
+                    'users.email',
+                    'deals.title',
+                    'user_deals.created_at'
+                )
+                ->latest('user_deals.created_at')
+                ->limit(10)
                 ->get();
             // Redirect based on role
             return view('admin.dashboard', $data);

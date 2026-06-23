@@ -7,57 +7,67 @@
 <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
 
     <!-- Stats Card 1 -->
-    <div class="bg-white shadow-md rounded-lg p-6">
-        <div class="flex items-center justify-between">
-            <h3 class="text-lg font-semibold text-gray-700">Total Users</h3>
-            <!-- <div class="text-3xl font-bold text-blue-500">{{!empty($totalUsers) ? $totalUsers:0}} </div> -->
+    <div class="bg-white rounded-xl shadow p-6 text-center">
+        <h4 class="text-gray-500 font-medium">
+            Total Users
+        </h4>
+
+        <div class="mt-3 text-4xl font-bold text-blue-500">
+            {{ $totalUsers ?? 0 }}
         </div>
-        <div class="text-3xl font-bold text-blue-500">{{!empty($totalUsers) ? $totalUsers:0}} </div>
-        <!-- <div class="mt-2 text-sm text-gray-500">Compared to last month</div> -->
     </div>
 
     <!-- Stats Card 2 -->
-    <div class="bg-white shadow-md rounded-lg p-6">
-        <div class="flex items-center justify-between">
-            <h3 class="text-lg font-semibold text-gray-700">Total Deals</h3>
-        </div>
-        <div class="text-3xl font-bold text-green-500">{{!empty($totalDeals) ? $totalDeals:0;}} </div>
+    <div class="bg-white rounded-xl shadow p-6 text-center">
+        <h4 class="text-gray-500 font-medium">
+            Total Deals
+        </h4>
 
+        <div class="mt-3 text-4xl font-bold text-green-500">
+            {{ $totalDeals ?? 0 }}
+        </div>
     </div>
 
     <!-- Stats Card 3 -->
-    <div class="bg-white shadow-md rounded-lg p-6">
-        <div class="flex items-center justify-between">
-            <h3 class="text-lg font-semibold text-gray-700">Total Claims</h3>
+    <div class="bg-white rounded-xl shadow p-6 text-center">
+        <h4 class="text-gray-500 font-medium">
+            Total Claims
+        </h4>
+
+        <div class="mt-3 text-4xl font-bold text-yellow-500">
+            {{ $totalClaims ?? 0 }}
         </div>
-        <div class="text-3xl font-bold text-yellow-500">{{!empty($totalClaims) ? $totalClaims:0;}} </div>
-        <!-- <div class="mt-2 text-sm text-gray-500">In the last 30 days</div> -->
     </div>
 
+    
+    <div class="bg-white rounded-xl shadow p-6 text-center">
+        <h4 class="text-gray-500 font-medium">
+            Total Visits
+        </h4>
+        
+        <div class="mt-3 text-4xl font-bold text-purple-500">
+            {{ $totalVisits ?? 0 }}
+        </div>
+    </div>
+    
+    <div class="bg-white rounded-xl shadow p-6 text-center">
+        <h4 class="text-gray-500 font-medium">
+            Total QrScans
+        </h4>
+        
+        <div class="mt-3 text-4xl font-bold text-purple-500">
+            {{ $totalQrScans ?? 0 }}
+        </div>
+    </div>
     <!-- Stats Card 4 -->
-    <div class="bg-white shadow-md rounded-lg p-6">
-        <div class="flex items-center justify-between">
-            <h3 class="text-lg font-semibold text-gray-700">Points Awarded</h3>
+    <div class="bg-white rounded-xl shadow p-6 text-center">
+        <h4 class="text-gray-500 font-medium">
+            Points Awarded
+        </h4>
+
+        <div class="mt-3 text-4xl font-bold text-purple-500">
+            {{ $totalPointsAwarded ?? 0 }}
         </div>
-        <div class="text-3xl font-bold text-purple-500">{{!empty($totalPointsAwarded) ? $totalPointsAwarded:0 }}</div>
-
-    </div>
-    <div class="bg-white shadow-md rounded-lg p-6">
-        <div class="flex items-center justify-between">
-            <h3 class="text-lg font-semibold text-gray-700">Total Visits</h3>
-
-        </div>
-        <div class="text-3xl font-bold text-blue-500">{{!empty($totalVisits) ? $totalVisits:0}} </div>
-        <!-- <div class="mt-2 text-sm text-gray-500">Compared to last month</div> -->
-    </div>
-
-    <!-- Stats Card 2 -->
-    <div class="bg-white shadow-md rounded-lg p-6">
-        <div class="flex items-center justify-between">
-            <h3 class="text-lg font-semibold text-gray-700">Total QrScans</h3>
-        </div>
-        <div class="text-3xl font-bold text-green-500">{{!empty($totalQrScans) ? $totalQrScans:0;}} </div>
-
     </div>
 
     <!-- Stats Card 3 -->
@@ -121,27 +131,31 @@
         Top Deals
     </h2>
     <table class="min-w-full mt-6 bg-white border border-gray-200">
-        <thead class="thead-light">
+        <thead>
             <tr class="bg-gray-100">
-                <th class="py-2 px-4 border-b">#</th>
-                <th class="py-2 px-4 border-b">Deal Title</th>
-                <th class="py-2 px-4 border-b">Total Claims</th>
+                <th class="py-3 px-4 border-b text-center">#</th>
+                <th class="py-3 px-4 border-b text-center">Deal Title</th>
+                <th class="py-3 px-4 border-b text-center">Total Claims</th>
             </tr>
         </thead>
         <tbody>
             @forelse($topDeals as $key => $deal)
             <tr class="border-b hover:bg-gray-50">
-                <td class="py-2 px-4">{{ $key + 1 }}</td>
-                <td class="py-2 px-4">{{ $deal->title }}</td>
-                <td class="py-2 px-4">
-                    <span class="badge badge-success">
-                        {{ $deal->total_claims }}
-                    </span>
+                <td class="py-3 px-4 text-center">
+                    {{ $key + 1 }}
+                </td>
+
+                <td class="py-3 px-4 text-center">
+                    {{ $deal->title }}
+                </td>
+
+                <td class="py-3 px-4 text-center font-semibold text-green-600">
+                    {{ $deal->total_claims }}
                 </td>
             </tr>
             @empty
             <tr>
-                <td colspan="3" class="text-center">
+                <td colspan="3" class="py-4 text-center">
                     No Deals Found
                 </td>
             </tr>
@@ -149,8 +163,49 @@
         </tbody>
     </table>
 </div>
-<!-- Recent Activity Section -->
 <div class="mt-6 bg-white shadow-md rounded-lg p-6">
+    <h2 class="text-xl font-semibold text-gray-700 mb-4">
+        Recent Claims
+    </h2>
+    <table class="min-w-full mt-6 bg-white border border-gray-200">
+        <thead>
+            <tr class="bg-gray-100">
+                <th class="py-3 px-4 border-b text-center">#</th>
+                <th class="py-3 px-4 border-b text-center">User Name</th>
+                <th class="py-3 px-4 border-b text-center">Deal</th>
+                <th class="py-3 px-4 border-b text-center">Deal</th>
+            </tr>
+        </thead>
+        <tbody>
+            @forelse($recentClaims as $key => $claim)
+            <tr class="border-b hover:bg-gray-50">
+                <td class="py-3 px-4 text-center">
+                    {{ $key + 1 }}
+                </td>
+
+                <td class="py-3 px-4 text-center">
+                    {{ $claim->name }}
+                </td>
+
+                <td class="py-3 px-4 text-center font-semibold text-green-600">
+                    {{ $claim->title }}
+                </td>
+                <td class="py-3 px-4 text-center font-semibold text-green-600">
+                    {{ $claim->created_at }}
+                </td>
+            </tr>
+            @empty
+            <tr>
+                <td colspan="3" class="py-4 text-center">
+                    No Claim Found
+                </td>
+            </tr>
+            @endforelse
+        </tbody>
+    </table>
+</div>
+<!-- Recent Activity Section -->
+<!-- <div class="mt-6 bg-white shadow-md rounded-lg p-6">
     <h2 class="text-xl font-semibold text-gray-700">Recent Activity</h2>
     <ul class="mt-4 space-y-4">
         <li class="flex items-center justify-between">
@@ -166,5 +221,5 @@
             <span class="text-sm text-gray-500">8 hours ago</span>
         </li>
     </ul>
-</div>
+</div> -->
 @endsection
